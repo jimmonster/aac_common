@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<color name="color_primary">#58aff8</color>
+	<color name="activity_bg">#f4f4f4</color>
+	<color name="toolbar_font_color">#153b5f</color>
+	<!--<color name="line_color">@color/color_cccccc</color>-->
+	<color name="item_selected_color">#1a000000</color><!-- 按下叠加90%透明黑 -->
+	<color name="item_disabled_color">#7fffffff</color><!-- 禁用叠加50%透明白 -->
+	<color name="window_dim_color">#7f000000</color>
+
+	<color name="color_000000">#000000</color>
+	<color name="color_333333">#333333</color>
+	<color name="color_666666">#666666</color>
+	<color name="color_999999">#999999</color>
+	<color name="color_cccccc">#cccccc</color>
+	<color name="color_ffffff">#ffffff</color>
+
+	<color name="colorPrimary">#3F51B5</color>
+	<color name="colorPrimaryDark">#303F9F</color>
+	<color name="colorAccent">#FF4081</color>
+	<color name="transparent">#00FFFFFF</color>
+	<color name="line_color">#CCCCCC</color>
+	<color name="white">#FFFFFFFF</color>
+	<color name="titlecolor">#1296db</color>
+	<color name="black">#000000</color>
+    <color name="color_20548a">#205489</color>
+    <color name="color_153b5f">#153b5f</color>
+	<color name="color_yellow">#efdc86</color>
+    <color name="color_d6eaff">#d6eaff</color>
+    <color name="color_eaeaea">#eaeaea</color>
+    <color name="color_42515e">#42515e</color>
+	<color name="color_86a3ba">#86a3ba</color>
+    <color name="color_00548d">#00548d</color>
+
+	<!-- 黑色 -->
+	<color name="common_black">#000000</color>
+	<!-- 白色 -->
+	<color name="common_white">#ffffff</color>
+	<!-- 灰黑  -->
+	<color name="gray_black">#333333</color>
+	<!-- 淡灰  -->
+	<color name="light_gray">#666666</color>
+	<!-- 浅灰 头部左侧点击变色 -->
+	<color name="light_gray2">#C4C4C4</color>
+	<!-- 粉色 -->
+	<color name="common_pink">#ff2079</color>
+	<!-- 浅灰 -->
+	<color name="light_white">#F0F0F0</color>
+	<!-- 工作台切换标签默认背景颜色 -->
+	<color name="work_header_color">#70D6CA</color>
+	<!-- 工作台切换标签选中背景颜色 -->
+	<color name="work_header_select_color">#61c1b6</color>
+	<!-- 工作台姓名时间 -->
+	<color name="work_nametime_color">#999999</color>
+	<!--文件类型颜色  -->
+	<color name="work_type_color">#56B5E2</color>
+	<!--文件缓急颜色  -->
+	<color name="work_huanji_color">#F96668</color>
+	<!-- 工作台是否已读标签 -->
+	<color name="work_read_color">#FD451E</color>
+	<!-- 	我的背景色 -->
+	<color name="mine_bg">#F4F4F4</color>
+	<!-- 红色 -->
+	<color name="common_red">#FF0000</color>
+	<!-- 橙色 -->
+	<color name="common_orange">#F9CC88</color>
+	<!-- 暗橙色 -->
+	<color name="common_orange_dark">#ED7012</color>
+	<!--蓝色  -->
+	<color name="common_blue">#4589CA</color>
+	<!--浅蓝色  -->
+	<color name="common_light_blue">#58AFF8</color>
+	<!-- 浅绿色 -->
+	<color name="common_light_green">#CDE199</color>
+	<!-- 绿色 -->
+	<color name="common_green">#8AB421</color>
+	<!-- 暗蓝色 -->
+	<color name="common_blue_dark">#61bce7</color>
+	<!--分割线颜色  -->
+	<color name="divider_gary">#CCCCCC</color>
+	<!-- 头部按钮背景色 -->
+	<color name="header_btn_background">#4A86BE</color>
+	<!-- 删除全部的背景 -->
+	<color name="delete_bar_background">#DCE1E5</color>
+	<!-- 登录颜色 -->
+	<color name="act_login_dologin_color">#2c4984</color>
+	<!--普通分割线颜色    -->
+	<color name="common_divider_color">#B7BBC0</color>
+
+	<!-- 下载进度条背景色 -->
+	<color name="download_progress_background_color">#DADADA</color>
+	<!-- 下载进度条进度颜色 -->
+	<color name="download_progress_foreground_color">#FF8A31</color>
+	<!-- 下载进度条中间远颜色 -->
+	<color name="download_progress_center_color">#FFFFFF</color>
+	<!-- 下载按钮文字颜色 -->
+	<color name="download_progress_text_color">#7C7C7C</color>
+	<!-- 一般字颜色 -->
+	<color name="common_text_color">#272727</color>
+	<!-- 列表分割线 -->
+	<color name="list_divider">#d4d4d4</color>
+	<!--深蓝色  -->
+	<color name="common_dark_blue">#004EA2</color>
+
+
+	<color name="bg_send_gray">#DDDEE2</color>
+	<color name="bg_send_blue">#12B8F6</color>
+
+	<color name="gray">#AAAA</color>
+
+</resources>

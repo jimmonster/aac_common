@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">JHTV</string>
+    <string name="test_info">前言：剧集类控件，在TV app中非常常见，今天将介绍构建一个TV app中的剧集列表控件,此控件上传到我的Github:github.com/hejunlin201…，点击【阅读原文】，可看对应的github, 喜欢可以star。Agenda如下：</string>
+</resources>
