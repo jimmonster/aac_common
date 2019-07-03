@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 /**
  * @author :  Jim
  * @date :  2019-07-02
- * @description :
+ * @description :选中放大的视图
  */
 public class FocuseImageButton extends ImageButton {
     public FocuseImageButton(Context context) {

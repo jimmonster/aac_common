@@ -15,6 +15,7 @@ import com.jinhong.jhtv.base.BaseActivity;
 import com.jinhong.jhtv.model.MainBean;
 import com.jinhong.jhtv.ui.adapter.MainAdapter;
 import com.jinhong.jhtv.ui.adapter.MainPicAdapter;
+import com.jinhong.jhtv.ui.leanback.RecyclerViewTV;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ public class MainActivity extends BaseActivity {
      */
     private TextView mTvDate;
     private RecyclerView mRecyclerViewTabs;
-    private RecyclerView mVerticalGridView;
+    private RecyclerViewTV mVerticalGridView;
     private LinearLayout mLlContainer;
     private MainAdapter mMainAdapter;
     private MainBean mMainBean;
@@ -81,7 +82,7 @@ public class MainActivity extends BaseActivity {
         mRecyclerViewTabs.setAdapter(mMainAdapter);
         mMainAdapter.bindToRecyclerView(mRecyclerViewTabs);
 
-        mVerticalGridView = (RecyclerView) findViewById(R.id.VerticalGridView);
+        mVerticalGridView = (RecyclerViewTV) findViewById(R.id.recyclerViewTV);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
         mVerticalGridView.setLayoutManager(gridLayoutManager);
         mMainPicAdapter = new MainPicAdapter(R.layout.widget_images, mMainBean.getImages());
@@ -98,13 +99,10 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 //todo 焦点获取
-                if (v != null) {
-                    v.setFocusable(hasFocus);
-                    if (hasFocus) {
-                        v.animate().scaleX(1.2f).scaleY(1.2f).setDuration(300).start();
-                    } else {
-                        v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start();
-                    }
+                if (hasFocus) {
+                    v.animate().scaleX(1.2f).scaleY(1.2f).setDuration(300).start();
+                } else {
+                    v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start();
                 }
 
             }
@@ -112,7 +110,7 @@ public class MainActivity extends BaseActivity {
         mMainAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CategoryActivity2.class);
                 startActivity(intent);
 
             }
@@ -121,9 +119,9 @@ public class MainActivity extends BaseActivity {
         mVerticalGridView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                //todo 焦点获取
                 if (v != null) {
                     v.setFocusable(hasFocus);
+                    //todo 焦点获取
                     if (hasFocus) {
                         v.animate().scaleX(1.2f).scaleY(1.2f).setDuration(300).start();
                     } else {
@@ -136,8 +134,8 @@ public class MainActivity extends BaseActivity {
         mMainPicAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
+                startActivity(intent);
 
             }
         });

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="com.jinhong.jhtv">
+          package="com.jinhong.jhtv"
+          tools:ignore="MissingLeanbackLauncher">
 
     <uses-feature
         android:name="android.hardware.touchscreen"
@@ -14,6 +15,8 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!-- WindowManger 权限(浮动窗口)-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission
         android:name="android.permission.READ_LOGS"
         tools:ignore="ProtectedPermissions"/>
@@ -39,6 +42,7 @@
         <activity android:name=".ui.activity.DetailActivity"/>
         <activity
             android:name=".ui.activity.VideoActivity"></activity>
+        <activity android:name=".ui.activity.CategoryActivity2"/>
 
         <!--适配基准-->
         <meta-data
