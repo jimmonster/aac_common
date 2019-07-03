@@ -1,7 +1,9 @@
 package com.jinhong.jhtv.ui.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,11 +21,16 @@ import com.jinhong.jhtv.ui.leanback.RecyclerViewTV;
 
 import java.util.ArrayList;
 
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.RuntimePermissions;
+
 /**
  * @author :  Jim
  * @date :  2019-07-01
  * @description :主页
  */
+@RuntimePermissions
 public class MainActivity extends BaseActivity {
 
     /**
@@ -45,8 +52,30 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MainActivityPermissionsDispatcher.needsPermissionWithPermissionCheck(this);
+    }
+
+    @NeedsPermission({Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.INTERNET,
+            Manifest.permission.ACCESS_NETWORK_STATE,
+            Manifest.permission.ACCESS_WIFI_STATE,
+            Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS,
+            Manifest.permission.READ_LOGS})
+    void needsPermission() {
+        //权限获取成功
         initData();
         initView();
+    }
+
+    @OnPermissionDenied({Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.INTERNET,
+            Manifest.permission.ACCESS_NETWORK_STATE,
+            Manifest.permission.ACCESS_WIFI_STATE,
+            Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS,
+            Manifest.permission.READ_LOGS})
+    void onPermissionDenied() {
+        //权限获取失败
+        MainActivityPermissionsDispatcher.needsPermissionWithPermissionCheck(this);
     }
 
     private void initData() {
@@ -141,5 +170,13 @@ public class MainActivity extends BaseActivity {
         });
 
     }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
 
 }

@@ -17,8 +17,6 @@ import com.jinhong.jhtv.ui.leanback.RecyclerViewTV;
 import com.jinhong.jhtv.ui.leanback.adapter.GeneralAdapter;
 import com.jinhong.jhtv.ui.leanback.adapter.LeftMenuPresenter;
 import com.jinhong.jhtv.ui.leanback.adapter.RecyclerViewPresenter;
-import com.jinhong.jhtv.ui.leanback.mode.ListRowPresenter;
-import com.jinhong.jhtv.ui.leanback.mode.OpenPresenter;
 import com.jinhong.jhtv.ui.views.MainUpView;
 import com.jinhong.jhtv.ui.widgets.bridge.RecyclerViewBridge;
 
@@ -35,13 +33,11 @@ public class CategoryActivity2 extends BaseActivity implements RecyclerViewTV.On
     private RecyclerViewBridge mRecyclerViewBridge;
     private View oldView;
     private MainUpView mMainUpView1;
-    private int mSavePos = 2;
+    private int mSavePos = 0;//默认显示位置
     Handler mFocusHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (!isListRowPresenter()) {
-                mRecyclerView.setDefaultSelect(mSavePos);
-            }
+            mRecyclerView.setDefaultSelect(mSavePos);
         }
     };
     Handler moreHandler = new Handler() {
@@ -157,38 +153,23 @@ public class CategoryActivity2 extends BaseActivity implements RecyclerViewTV.On
         });
     }
 
-    /**
-     * 排除 Leanback demo的RecyclerView.
-     */
-    private boolean isListRowPresenter() {
-        GeneralAdapter generalAdapter = (GeneralAdapter) mRecyclerView.getAdapter();
-        OpenPresenter openPresenter = generalAdapter.getPresenter();
-        return (openPresenter instanceof ListRowPresenter);
-    }
-
 
     @Override
     public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
-
-        if (!isListRowPresenter()) {
-            mRecyclerViewBridge.setUnFocusView(oldView);
-        }
+        mRecyclerViewBridge.setUnFocusView(oldView);
     }
 
     @Override
     public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
-        if (!isListRowPresenter()) {
-            mRecyclerViewBridge.setFocusView(itemView, 1.2f);
-            oldView = itemView;
-        }
+        mRecyclerViewBridge.setFocusView(itemView, 1.2f);
+        oldView = itemView;
+
     }
 
     @Override
     public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
-        if (!isListRowPresenter()) {
-            mRecyclerViewBridge.setFocusView(itemView, 1.2f);
-            oldView = itemView;
-        }
+        mRecyclerViewBridge.setFocusView(itemView, 1.2f);
+        oldView = itemView;
     }
 
 
