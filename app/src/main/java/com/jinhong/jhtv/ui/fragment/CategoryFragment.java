@@ -47,7 +47,7 @@ public class CategoryFragment extends BaseFragment {
 
         //右边内容
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_right);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mCategoryRightAdapter = new CategoryRightAdapter(R.layout.widget_pic, items);
         mRecyclerView.setAdapter(mCategoryRightAdapter);
@@ -66,19 +66,5 @@ public class CategoryFragment extends BaseFragment {
             }
         });
 
-        mRecyclerView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (v != null) {
-                    v.setFocusable(hasFocus);
-                    if (hasFocus) {
-                        v.animate().scaleX(1.2f).scaleY(1.2f).setDuration(300).start();
-                    } else {
-                        v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start();
-                    }
-                }
-
-            }
-        });
     }
 }

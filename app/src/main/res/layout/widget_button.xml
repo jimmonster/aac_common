@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     android:layout_margin="8dp"
     android:background="@drawable/selector_button"
-    android:clipChildren="false"
-    android:clipToPadding="false"
     android:focusable="true">
 
 </Button>

@@ -1,9 +1,8 @@
 package com.jinhong.jhtv.ui.adapter;
 
 import android.support.annotation.Nullable;
-import android.widget.ImageView;
+import android.view.View;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jinhong.jhtv.R;
@@ -25,8 +24,23 @@ public class CategoryRightAdapter extends BaseQuickAdapter<CategoryItemBean, Bas
     @Override
     protected void convert(BaseViewHolder helper, CategoryItemBean item) {
         helper.setText(R.id.tv_title,item.getTitle());
-        // 加载网络图片
-        Glide.with(mContext).load(item.getPic()).into((ImageView) helper.getView(R.id.iv_pics));
+        helper.itemView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (v != null) {
+                    if (hasFocus) {
+                        v.setBackgroundResource(R.drawable.shape_selector_border_press);
+                        v.animate().scaleX(1.05f).scaleY(1.05f).setDuration(200).start();
+                    } else {
+                        v.setBackgroundResource(R.drawable.shape_selector_border_normal);
+                        v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(200).start();
+                    }
+                }
+            }
+        });
+
+//        // 加载网络图片
+//        Glide.with(mContext).load(item.getPic()).into((ImageView) helper.getView(R.id.iv_pics));
 
 
 

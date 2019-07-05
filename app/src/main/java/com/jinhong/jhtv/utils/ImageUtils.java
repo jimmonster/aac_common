@@ -1,8 +1,9 @@
 package com.jinhong.jhtv.utils;
 
-import android.content.Context;
+import android.app.Activity;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 
 /**
@@ -12,8 +13,9 @@ import com.bumptech.glide.Glide;
  */
 public class ImageUtils {
 
-    public static void load(Context context, String url, ImageView view) {
-        Glide.with(context)
+    public static void load(String url, ImageView view) {
+        Activity topActivity = ActivityUtils.getTopActivity();
+        Glide.with(topActivity)
                 .load(url)
                 .into(view);
 

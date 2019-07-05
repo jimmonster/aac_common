@@ -9,15 +9,9 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView_right"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
     <!-- 最顶层边框 -->
-
-    <com.jinhong.jhtv.ui.views.MainUpView
-        android:id="@+id/mainUpView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
 </LinearLayout>

@@ -33,7 +33,7 @@ import java.util.ArrayList;
  * @date :  2019-07-01
  * @description :详情页面
  */
-public class DetailActivity extends BaseActivity implements RecyclerViewTV.OnItemListener{
+public class DetailActivity extends BaseActivity implements RecyclerViewTV.OnItemListener {
     private ImageView mIvPoster;
     /**
      * 嗨，古德拜
@@ -150,7 +150,7 @@ public class DetailActivity extends BaseActivity implements RecyclerViewTV.OnIte
             }
         });
 
-        ImageUtils.load(this, mDetailFooterBean.getPics().get(0), mIvPoster);
+        ImageUtils.load(mDetailFooterBean.getPics().get(0), mIvPoster);
 
 
         initEvent();
@@ -225,7 +225,6 @@ public class DetailActivity extends BaseActivity implements RecyclerViewTV.OnIte
         mRecyclerViewBridge.setFocusView(itemView, 1.2f);
         oldView = itemView;
     }
-
 
 
 }

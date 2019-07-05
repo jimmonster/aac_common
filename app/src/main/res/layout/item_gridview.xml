@@ -9,7 +9,7 @@
         android:layout_width="200dp"
         android:layout_height="250dp"
         android:scaleType="fitXY"
-        android:src="@mipmap/grid_view_item_test" >
+        android:src="@drawable/grid_view_item_test" >
     </ImageView>
 
     <TextView

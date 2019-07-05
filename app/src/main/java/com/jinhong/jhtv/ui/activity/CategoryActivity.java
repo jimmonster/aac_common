@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
@@ -96,9 +95,9 @@ public class CategoryActivity extends BaseActivity {
                 if (v != null) {
                     v.setFocusable(hasFocus);
                     if (hasFocus) {
-                        v.animate().scaleX(1.2f).scaleY(1.2f).setDuration(300).start();
+                        v.animate().scaleX(1.05f).scaleY(1.05f).setDuration(200).start();
                     } else {
-                        v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start();
+                        v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(200).start();
                     }
                 }
 
