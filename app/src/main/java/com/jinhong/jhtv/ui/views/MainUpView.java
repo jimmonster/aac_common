@@ -35,7 +35,6 @@ import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.ui.widgets.bridge.BaseEffectBridge;
 import com.jinhong.jhtv.ui.widgets.bridge.OpenEffectBridge;
 
-
 /**
  * MainUpView是一个在最上层的移动边框，你可以使用它的API来完成你想要的效果.
  * <p>
@@ -53,7 +52,7 @@ import com.jinhong.jhtv.ui.widgets.bridge.OpenEffectBridge;
  * <li>{@link #setShadowDrawable}
  * <li>{@link #getShadowDrawable}
  * <li>{@link #setDrawShadowPadding(int)} 用于调整阴影图片边距.
- * <li>{@link #setDrawShadowPadding(RectF)} 用于调整阴影图片边距.
+ * <li>{@link #(RectF)} 用于调整阴影图片边距.
  * <p>
  * Effcet相关API:
  * <li>{@link #setEffectBridge} 你可以设置自己的放大，边框移动的动画效果.
@@ -148,16 +147,18 @@ public class MainUpView extends FrameLayout {
 	 * 设置最上层的图片资源ID.
 	 */
 	public void setUpRectResource(int resId) {
-		if (mEffectBridge != null)
-			mEffectBridge.setUpRectResource(resId);
+		if (mEffectBridge != null) {
+            mEffectBridge.setUpRectResource(resId);
+        }
 	}
 
 	/**
 	 * 设置最上层的边框.
 	 */
 	public void setUpRectDrawable(Drawable upRectDrawable) {
-		if (mEffectBridge != null)
-			mEffectBridge.setUpRectDrawable(upRectDrawable);
+		if (mEffectBridge != null) {
+            mEffectBridge.setUpRectDrawable(upRectDrawable);
+        }
 	}
 
 	/**
@@ -330,9 +331,8 @@ public class MainUpView extends FrameLayout {
 	 *            Y放大比例
 	 */
 	public void setFocusView(View view, float scaleX, float scaleY) {
-		if (this.mEffectBridge != null) {
+		if (this.mEffectBridge != null)
 			this.mEffectBridge.onFocusView(view, scaleX, scaleY);
-		}
 	}
 
 	/**
@@ -355,9 +355,8 @@ public class MainUpView extends FrameLayout {
 	 *            Y缩放比例
 	 */
 	public void setUnFocusView(View view, float scaleX, float scaleY) {
-		if (this.mEffectBridge != null) {
+		if (this.mEffectBridge != null)
 			this.mEffectBridge.onOldFocusView(view, scaleX, scaleY);
-		}
 	}
 
 	/**

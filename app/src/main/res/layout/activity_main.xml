@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.jinhong.jhtv.ui.views.LinearLayoutTv
+<com.jinhong.jhtv.ui.views.LinearMainLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_container"
@@ -72,7 +72,7 @@
             android:textSize="18sp"/>
 
 
-        <com.jinhong.jhtv.ui.views.LinearLayoutTv
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_alignParentBottom="true"
@@ -131,26 +131,26 @@
                 android:src="@drawable/selector_titles5"/>
 
 
-        </com.jinhong.jhtv.ui.views.LinearLayoutTv>
+        </LinearLayout>
 
 
     </RelativeLayout>
 
 
-    <com.jinhong.jhtv.ui.views.LinearLayoutTv
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="false"
         android:orientation="vertical">
 
-        <com.jinhong.jhtv.ui.views.LinearLayoutTv
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
             android:focusable="false"
             android:orientation="horizontal">
 
-            <com.jinhong.jhtv.ui.views.LinearLayoutTv
+            <LinearLayout
 
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -195,9 +195,9 @@
                     android:src="@drawable/sy03"/>
 
 
-            </com.jinhong.jhtv.ui.views.LinearLayoutTv>
+            </LinearLayout>
 
-            <com.jinhong.jhtv.ui.views.LinearLayoutTv
+            <LinearLayout
 
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -228,9 +228,9 @@
                     android:src="@drawable/sy06"/>
 
 
-            </com.jinhong.jhtv.ui.views.LinearLayoutTv>
+            </LinearLayout>
 
-            <com.jinhong.jhtv.ui.views.LinearLayoutTv
+            <LinearLayout
 
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -262,10 +262,10 @@
                     android:src="@drawable/sy10"/>
 
 
-            </com.jinhong.jhtv.ui.views.LinearLayoutTv>
+            </LinearLayout>
 
 
-            <com.jinhong.jhtv.ui.views.LinearLayoutTv
+            <LinearLayout
 
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -306,8 +306,8 @@
                     android:focusable="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/sy09"/>
-            </com.jinhong.jhtv.ui.views.LinearLayoutTv>
-        </com.jinhong.jhtv.ui.views.LinearLayoutTv>
-    </com.jinhong.jhtv.ui.views.LinearLayoutTv>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 
-</com.jinhong.jhtv.ui.views.LinearLayoutTv>
+</com.jinhong.jhtv.ui.views.LinearMainLayout>
