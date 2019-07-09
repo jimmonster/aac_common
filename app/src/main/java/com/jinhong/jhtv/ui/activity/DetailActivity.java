@@ -137,7 +137,8 @@ public class DetailActivity extends BaseActivity implements RecyclerViewTV.OnIte
 
     @Override
     public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-        toast(position + "位置");
+        startActivity(VideoActivity.class);
+//        toast(position + "位置");
 
     }
 

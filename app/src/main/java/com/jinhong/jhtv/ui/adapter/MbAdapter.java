@@ -26,7 +26,7 @@ public class MbAdapter extends BaseQuickAdapter<Integer, BaseViewHolder> impleme
     @Override
     protected void convert(BaseViewHolder helper, Integer item) {
         helper.itemView.setOnFocusChangeListener(this);
-        ImageUtils.load(item,(ImageView)helper.getView(R.id.iv_pics));
+        ImageUtils.load(item, (ImageView) helper.getView(R.id.iv_pics));
 
     }
 
@@ -35,7 +35,7 @@ public class MbAdapter extends BaseQuickAdapter<Integer, BaseViewHolder> impleme
         if (v != null) {
             if (hasFocus) {
                 v.setBackgroundResource(R.drawable.iv_focus);
-                v.setPadding(12,12,12,12);
+                v.setPadding(10, 10, 10, 10);
                 v.animate().scaleX(1.05f).scaleY(1.05f).setDuration(200).start();
             } else {
                 v.setBackgroundResource(R.drawable.shape_selector_border_normal);

@@ -6,75 +6,12 @@
     android:clipChildren="false"
     android:background="@drawable/bg"
     android:clipToPadding="false">
+<com.jinhong.jhtv.ui.leanback.RecyclerViewTV
+    android:id="@+id/recyclerView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_center"
-        android:layout_width="@dimen/dp_80"
-        android:layout_height="@dimen/dp_80"
-        android:layout_centerInParent="true"
-        android:layout_margin="20dp"
-        android:background="@drawable/selector_titles0"
-        android:focusable="true"
-        android:gravity="center"
-        android:text="确定"
-        android:textAlignment="center"
-        android:textColor="@color/white"/>
-
-    <TextView
-        android:id="@+id/tv_up"
-        android:layout_width="@dimen/dp_80"
-        android:layout_height="@dimen/dp_80"
-        android:layout_above="@id/tv_center"
-        android:layout_centerInParent="true"
-        android:layout_margin="8dp"
-        android:background="@drawable/selector_titles0"
-        android:focusable="true"
-        android:gravity="center"
-        android:text="上"
-        android:textAlignment="center"
-        android:textColor="@color/white"/>
-
-    <TextView
-        android:id="@+id/tv_down"
-        android:layout_width="@dimen/dp_80"
-        android:layout_height="@dimen/dp_80"
-        android:layout_below="@id/tv_center"
-        android:layout_centerInParent="true"
-        android:layout_margin="8dp"
-        android:background="@drawable/selector_titles0"
-        android:focusable="true"
-        android:gravity="center"
-        android:text="下"
-        android:textAlignment="center"
-        android:textColor="@color/white"/>
-
-    <TextView
-        android:id="@+id/tv_left"
-        android:layout_width="@dimen/dp_80"
-        android:layout_height="@dimen/dp_80"
-        android:layout_centerInParent="true"
-        android:layout_margin="8dp"
-        android:layout_toLeftOf="@id/tv_center"
-        android:background="@drawable/selector_titles0"
-        android:focusable="true"
-        android:gravity="center"
-        android:text="左"
-        android:textAlignment="center"
-        android:textColor="@color/white"/>
-
-    <TextView
-        android:id="@+id/tv_right"
-        android:layout_width="@dimen/dp_80"
-        android:layout_height="@dimen/dp_80"
-        android:layout_centerInParent="true"
-        android:layout_margin="8dp"
-        android:layout_toRightOf="@id/tv_center"
-        android:background="@drawable/selector_titles0"
-        android:focusable="true"
-        android:gravity="center"
-        android:text="右"
-        android:textAlignment="center"
-        android:textColor="@color/white"/>
+</com.jinhong.jhtv.ui.leanback.RecyclerViewTV>
 
 
 </RelativeLayout>

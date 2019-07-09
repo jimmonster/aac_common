@@ -60,21 +60,79 @@ public class VideoActivity extends BaseActivity implements View.OnKeyListener {
         switch (event.getKeyCode()) {
             default:
                 break;
+            case KeyEvent.KEYCODE_DPAD_CENTER://确认
+                toast(" 确认KEYCODE_DPAD_CENTER");
+                break;
             case KeyEvent.KEYCODE_MEDIA_PLAY://播放
+                toast("播放 KEYCODE_MEDIA_PLAY");
                 mJzvdStd.onStatePlaying();
                 break;
             case KeyEvent.KEYCODE_MEDIA_PAUSE://暂停
+                toast("暂停 KEYCODE_MEDIA_PAUSE");
                 mJzvdStd.onStatePause();
                 break;
             case KeyEvent.KEYCODE_DPAD_LEFT://左键/快退
+                toast(" 左键/快退KEYCODE_DPAD_LEFT");
                 mJzvdStd.onStateAutoComplete();
                 break;
             case KeyEvent.KEYCODE_DPAD_RIGHT://右键//快进
+                toast(" 右键//快进KEYCODE_DPAD_RIGHT");
                 break;
-//            case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD://快进
-//                break;
-//            case KeyEvent.KEYCODE_MEDIA_REWIND://快退
-//                break;
+            case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD://快进
+                toast(" KEYCODE_MEDIA_FAST_FORWARD");
+                break;
+            case KeyEvent.KEYCODE_MEDIA_REWIND://上一集
+                toast(" 上一集KEYCODE_MEDIA_REWIND");
+                break;
+            case KeyEvent.KEYCODE_MEDIA_NEXT://下一集
+                toast(" 下一集KEYCODE_MEDIA_NEXT");
+                break;
+
+            case KeyEvent.KEYCODE_MEDIA_AUDIO_TRACK://下一集
+                toast(" KEYCODE_MEDIA_AUDIO_TRACK");
+                break;
+            case KeyEvent.KEYCODE_MEDIA_CLOSE://下一集
+                toast(" KEYCODE_MEDIA_CLOSE");
+                break;
+            case KeyEvent.KEYCODE_MEDIA_EJECT://下一集
+                toast(" KEYCODE_MEDIA_EJECT");
+                break;
+
+            case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE://下一集
+                toast(" KEYCODE_MEDIA_PLAY_PAUSE");
+                break;
+            case KeyEvent.KEYCODE_MEDIA_PREVIOUS://下一集
+                toast(" KEYCODE_MEDIA_PREVIOUS");
+                break;
+            case KeyEvent.KEYCODE_MEDIA_RECORD://下一集
+                toast(" KEYCODE_MEDIA_RECORD");
+                break;
+            case KeyEvent.KEYCODE_MEDIA_SKIP_BACKWARD://下一集
+                toast(" KEYCODE_MEDIA_SKIP_BACKWARD");
+                break;
+
+            case KeyEvent.KEYCODE_MEDIA_SKIP_FORWARD://下一集
+                toast(" KEYCODE_MEDIA_SKIP_FORWARD");
+                break;
+
+            case KeyEvent.KEYCODE_MEDIA_STEP_BACKWARD://下一集
+                toast(" KEYCODE_MEDIA_STEP_BACKWARD");
+                break;
+
+            case KeyEvent.KEYCODE_MEDIA_STEP_FORWARD://下一集
+                toast(" KEYCODE_MEDIA_STEP_FORWARD");
+                break;
+            case KeyEvent.KEYCODE_MEDIA_STOP://下一集
+                toast(" KEYCODE_MEDIA_STOP");
+                break;
+            case KeyEvent.KEYCODE_MEDIA_TOP_MENU://下一集
+                toast(" KEYCODE_MEDIA_TOP_MENU");
+                break;
+
+            case KeyEvent.KEYCODE_TV_MEDIA_CONTEXT_MENU://下一集
+                toast(" KEYCODE_TV_MEDIA_CONTEXT_MENU");
+                break;
+
 
         }
         return true;

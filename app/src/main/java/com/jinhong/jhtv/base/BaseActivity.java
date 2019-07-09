@@ -39,8 +39,8 @@ public abstract class BaseActivity extends Activity {
                 if (v != null) {
                     v.setSelected(hasFocus);
                     if (hasFocus) {
-
-                        v.setBackgroundResource(R.drawable.shape_selector_border_press);
+                        v.setPadding(10,10,10,10);
+                        v.setBackgroundResource(R.drawable.iv_focus);
                         v.animate().scaleX(1.05f).scaleY(1.05f).setDuration(200).start();
                     } else {
 
