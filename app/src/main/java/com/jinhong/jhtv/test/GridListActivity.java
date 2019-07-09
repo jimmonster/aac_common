@@ -10,8 +10,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
-import com.jinhong.jhtv.ui.manager.GridLayoutManagerTv;
-import com.jinhong.jhtv.ui.manager.LinearLayoutManagerTv;
+import com.jinhong.jhtv.ui.leanback.GridLayoutManagerTV;
+import com.jinhong.jhtv.ui.leanback.LinearLayoutManagerTV;
 import com.jinhong.jhtv.utils.ImageUtils;
 
 import java.util.ArrayList;
@@ -47,8 +47,8 @@ public class GridListActivity extends BaseActivity implements BaseQuickAdapter.O
     private void initView() {
         mRecyclerViewLeft = (RecyclerView) findViewById(R.id.recyclerView_left);
         mRecyclerViewRight = (RecyclerView) findViewById(R.id.recyclerView_right);
-        mRecyclerViewLeft.setLayoutManager(new LinearLayoutManagerTv(this));
-        mRecyclerViewRight.setLayoutManager(new GridLayoutManagerTv(this, 4));
+        mRecyclerViewLeft.setLayoutManager(new LinearLayoutManagerTV(this));
+        mRecyclerViewRight.setLayoutManager(new GridLayoutManagerTV(this, 4));
         mGridLeftAdapter = new GridLeftAdapter(R.layout.widget_test_item, mTabs);
         mGridRightAdapter = new GridRightAdapter(R.layout.widget_item_posters, mTabs);
         mRecyclerViewRight.setAdapter(mGridRightAdapter);

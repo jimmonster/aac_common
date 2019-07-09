@@ -3,7 +3,6 @@ package com.jinhong.jhtv.ui.activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -15,6 +14,8 @@ import com.jinhong.jhtv.model.CategoryBean;
 import com.jinhong.jhtv.model.CategoryItemBean;
 import com.jinhong.jhtv.ui.adapter.CategoryLeftAdapter;
 import com.jinhong.jhtv.ui.fragment.CategoryFragment;
+import com.jinhong.jhtv.ui.leanback.LinearLayoutManagerTV;
+import com.jinhong.jhtv.ui.leanback.RecyclerViewTV;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ import java.util.ArrayList;
  * @description :分类页面
  */
 public class CategoryActivity extends BaseActivity {
-    private RecyclerView mRecyclerViewLeft;
+    private RecyclerViewTV mRecyclerViewLeft;
     private LinearLayout mLlContainer;
     private CategoryLeftAdapter mCategoryLeftAdapter;
     private CategoryBean mCategoryBean;
@@ -35,9 +36,9 @@ public class CategoryActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+
         initData();
         initView();
-
     }
 
     private void initData() {
@@ -62,8 +63,8 @@ public class CategoryActivity extends BaseActivity {
 
     private void initView() {
         //左边内容
-        mRecyclerViewLeft = (RecyclerView) findViewById(R.id.recyclerView_left);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerViewLeft = (RecyclerViewTV) findViewById(R.id.recyclerView_left);
+        LinearLayoutManagerTV linearLayoutManager = new LinearLayoutManagerTV(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerViewLeft.setLayoutManager(linearLayoutManager);
         mCategoryLeftAdapter = new CategoryLeftAdapter(R.layout.widget_button_tab, mCategoryBean.getTabsName());
@@ -105,5 +106,10 @@ public class CategoryActivity extends BaseActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 }

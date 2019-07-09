@@ -2,15 +2,17 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginEnd="10dp"
 
-    android:layout_height="wrap_content">
+    android:layout_marginBottom="6dp">
+
     <ImageView
         android:id="@+id/iv_pics"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:layout_width="120dp"
-        android:scaleType="fitCenter"
-        android:layout_height="120dp"/>
+        android:layout_width="270dp"
+        android:layout_height="225dp"
+        android:scaleType="fitXY"/>
 
 </LinearLayout>

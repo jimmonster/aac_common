@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:clipChildren="false"
-              android:clipToPadding="false"
-              android:orientation="vertical">
+<com.jinhong.jhtv.ui.views.LinearMainLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
+    <com.jinhong.jhtv.ui.leanback.RecyclerViewTV
         android:id="@+id/recyclerView_right"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+    </com.jinhong.jhtv.ui.leanback.RecyclerViewTV>
     <!-- 最顶层边框 -->
 
-</LinearLayout>
+</com.jinhong.jhtv.ui.views.LinearMainLayout>

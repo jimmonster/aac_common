@@ -14,7 +14,6 @@ import com.jinhong.jhtv.ui.views.AutoHorizontalScrollTextView;
  * @date :  2019-07-01
  * @description :主页界面
  */
-
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mTvLog;
     private AutoHorizontalScrollTextView mTvNotice;
@@ -118,7 +117,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(CategoryActivity.class);
                 break;
             case R.id.iv_pic0:
-                startActivity(DetailActivity.class);
+
+                startActivity(MbActivity.class);
                 break;
             case R.id.iv_pic1:
                 startActivity(DetailActivity.class);

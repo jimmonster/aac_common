@@ -115,6 +115,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener, 
             if (hasFocus) {
                 v.animate().scaleX(1.5f).scaleY(1.5f).setDuration(300).start();
             } else {
+
                 v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start();
             }
         }

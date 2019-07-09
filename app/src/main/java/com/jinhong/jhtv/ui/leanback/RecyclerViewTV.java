@@ -19,6 +19,7 @@ import com.jinhong.jhtv.ui.leanback.impl.PrvInterface;
 import com.jinhong.jhtv.utils.OPENLOG;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * RecyclerView TV适配版本.
@@ -459,7 +460,7 @@ public class RecyclerViewTV extends RecyclerView implements PrvInterface {
     }
 
     private boolean exeuteKeyEvent() {
-        int totalItemCount = getLayoutManager().getItemCount();
+        int totalItemCount = Objects.requireNonNull(getLayoutManager()).getItemCount();
         int lastVisibleItem = findLastVisibleItemPosition();
         int lastComVisiPos = findLastCompletelyVisibleItemPosition();
         int visibleItemCount = getChildCount();

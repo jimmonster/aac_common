@@ -79,6 +79,7 @@ public class JzVideoPlayer extends JzvdStd {
         Log.i(TAG, "Seek position ");
     }
 
+
     @Override
     public void gotoScreenFullscreen() {
         super.gotoScreenFullscreen();

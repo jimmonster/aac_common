@@ -2,11 +2,16 @@
 <TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tv_count"
-    android:layout_width="40dp"
-    android:layout_height="40dp"
-    android:layout_margin="8dp"
-    android:background="@drawable/selector_button"
-    android:clipChildren="false"
-    android:clipToPadding="false">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="7dp"
+    android:background="@drawable/selector_count"
+    android:focusable="true"
+    android:gravity="center"
+    android:padding="7dp"
+    android:singleLine="true"
+    android:textColor="@color/color_08285f"
+    android:textSize="18sp"
+    android:textStyle="bold">
 
 </TextView>

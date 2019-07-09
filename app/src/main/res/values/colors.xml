@@ -109,8 +109,10 @@
 
 	<color name="gray">#AAAA</color>
 	<color name="color_1d51a0">#1d51a0</color>
-	<color name="color_e0000000">#e0000000</color>
+	<color name="color_e0000000">#80000000</color>
 	<color name="color_text">#e2e5f5</color>
 	<color name="color_00000000">#00000000</color>
+    <color name="color_e8a007">#e8a007</color>
+    <color name="color_08285f">#08285f</color>
 
 </resources>

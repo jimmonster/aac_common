@@ -67,6 +67,7 @@ public class VideoActivity extends BaseActivity implements View.OnKeyListener {
                 mJzvdStd.onStatePause();
                 break;
             case KeyEvent.KEYCODE_DPAD_LEFT://左键/快退
+                mJzvdStd.onStateAutoComplete();
                 break;
             case KeyEvent.KEYCODE_DPAD_RIGHT://右键//快进
                 break;

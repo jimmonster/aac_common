@@ -21,4 +21,13 @@ public class ImageUtils {
 
     }
 
+    public static void load(int drawable, ImageView view) {
+        Activity topActivity = ActivityUtils.getTopActivity();
+        Glide.with(topActivity)
+                .load(drawable)
+                .into(view);
+
+    }
+
+
 }

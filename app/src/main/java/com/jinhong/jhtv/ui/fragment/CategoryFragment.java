@@ -3,8 +3,6 @@ package com.jinhong.jhtv.ui.fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +13,8 @@ import com.jinhong.jhtv.base.BaseFragment;
 import com.jinhong.jhtv.model.CategoryItemBean;
 import com.jinhong.jhtv.ui.activity.DetailActivity;
 import com.jinhong.jhtv.ui.adapter.CategoryRightAdapter;
+import com.jinhong.jhtv.ui.leanback.GridLayoutManagerTV;
+import com.jinhong.jhtv.ui.leanback.RecyclerViewTV;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import java.util.List;
 @SuppressLint("ValidFragment")
 public class CategoryFragment extends BaseFragment {
     List<CategoryItemBean> items;
-    private RecyclerView mRecyclerView;
+    private RecyclerViewTV mRecyclerView;
     private CategoryRightAdapter mCategoryRightAdapter;
 
     public CategoryFragment(List<CategoryItemBean> data) {
@@ -46,8 +46,8 @@ public class CategoryFragment extends BaseFragment {
     private void initView(View view) {
 
         //右边内容
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_right);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
+        mRecyclerView = (RecyclerViewTV) view.findViewById(R.id.recyclerView_right);
+        GridLayoutManagerTV gridLayoutManager = new GridLayoutManagerTV(getActivity(), 3);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mCategoryRightAdapter = new CategoryRightAdapter(R.layout.widget_pic, items);
         mRecyclerView.setAdapter(mCategoryRightAdapter);

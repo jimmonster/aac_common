@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.jinhong.jhtv.ui.views.LinearMainLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/iv_mb_bg"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <com.jinhong.jhtv.ui.leanback.RecyclerViewTV
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginEnd="180dp"
+        android:layout_marginBottom="38dp">
+
+    </com.jinhong.jhtv.ui.leanback.RecyclerViewTV>
+
+
+</com.jinhong.jhtv.ui.views.LinearMainLayout>

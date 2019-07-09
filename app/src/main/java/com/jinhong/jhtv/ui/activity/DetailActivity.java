@@ -1,30 +1,23 @@
 package com.jinhong.jhtv.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
-import com.jinhong.jhtv.model.DetailCountBean;
-import com.jinhong.jhtv.model.DetailFooterBean;
+import com.jinhong.jhtv.model.DetailedCard;
 import com.jinhong.jhtv.ui.adapter.DetailCountAdapter;
 import com.jinhong.jhtv.ui.adapter.DetailFooterAdapter;
+import com.jinhong.jhtv.ui.adapter.DetailTabAdapter;
 import com.jinhong.jhtv.ui.leanback.GridLayoutManagerTV;
+import com.jinhong.jhtv.ui.leanback.LinearLayoutManagerTV;
 import com.jinhong.jhtv.ui.leanback.RecyclerViewTV;
-import com.jinhong.jhtv.ui.leanback.adapter.GeneralAdapter;
-import com.jinhong.jhtv.ui.leanback.adapter.RecyclerViewPresenter;
-import com.jinhong.jhtv.ui.views.MainUpView;
-import com.jinhong.jhtv.ui.widgets.bridge.RecyclerViewBridge;
-import com.jinhong.jhtv.utils.ImageUtils;
+import com.jinhong.jhtv.utils.IoUtils;
 
 import java.util.ArrayList;
 
@@ -33,10 +26,11 @@ import java.util.ArrayList;
  * @date :  2019-07-01
  * @description :详情页面
  */
-public class DetailActivity extends BaseActivity implements RecyclerViewTV.OnItemListener {
+public class DetailActivity extends BaseActivity implements RecyclerViewTV.OnItemClickListener {
+
     private ImageView mIvPoster;
     /**
-     * 嗨，古德拜
+     * 嗨，顾得白之奇妙生活
      */
     private TextView mTvTitle;
     /**
@@ -44,47 +38,35 @@ public class DetailActivity extends BaseActivity implements RecyclerViewTV.OnIte
      */
     private TextView mTvType;
     /**
-     * 上映时间：2017年
+     * 上映时间：2019
      */
     private TextView mTvUpdate;
     /**
-     * 集数：25集
+     * 集数：32
      */
     private TextView mTvCount;
+    private LinearLayout mLlContainer;
     /**
-     * 剧情介绍
+     * 剧情介绍：
      */
-    private TextView mTvIntroduce;
-    private LinearLayout mLinearLayout;
-    private RecyclerView mRecyclerViewCount;
-    private RecyclerViewTV mRecyclerViewFooter;
+    private TextView mTvInfo0;
+    /**
+     * tv_info
+     */
+    private TextView mTvInfo1;
+    private TextView mTvPlay;
+
+    private RecyclerViewTV mRecyclerViewCount;
+    private RecyclerViewTV mRecyclerViewRecommend;
+    //数据
+    private DetailedCard mDetailedCard;
+    private ArrayList<String> mCount;
     private DetailCountAdapter mDetailCountAdapter;
-    private DetailCountBean mDetailCountBean;
-    private DetailFooterBean mDetailFooterBean;
     private DetailFooterAdapter mDetailFooterAdapter;
-
-    private RecyclerViewPresenter mRecyclerViewPresenter;
-    private GeneralAdapter mGeneralAdapter;
-    private RecyclerViewBridge mRecyclerViewBridge;
-    private View oldView;
-    private MainUpView mMainUpView1;
-    private int mSavePos = 0;//默认显示位置
-    Handler mFocusHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            mRecyclerViewFooter.setDefaultSelect(mSavePos);
-        }
-    };
-    Handler moreHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            mRecyclerViewPresenter.addDatas(msg.arg1);
-            mSavePos = mRecyclerViewFooter.getSelectPostion();
-            mRecyclerViewFooter.setOnLoadMoreComplete(); // 加载更多完毕.
-            mFocusHandler.sendEmptyMessageDelayed(10, 10); // 延时请求焦点.
-        }
-    };
-
+    private ArrayList<String> mPosters;
+    private RecyclerViewTV mRecyclerViewTabs;
+    private ArrayList<String> mTabs;
+    private DetailTabAdapter mDetailTabAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,135 +77,68 @@ public class DetailActivity extends BaseActivity implements RecyclerViewTV.OnIte
     }
 
     private void initData() {
-        mDetailCountBean = new DetailCountBean();
-        ArrayList<String> counts = new ArrayList<>();
-        for (int i = 0; i < 48; i++) {
-            counts.add("" + i);
+        String json = IoUtils
+                .inputStreamToString(getResources().openRawResource(R.raw.data_detail));
+        mDetailedCard = new Gson().fromJson(json, DetailedCard.class);
+        mTabs = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            mTabs.add(i * 10 + "-" + (i + 1) * 10);
         }
-        mDetailCountBean.setCount(counts);
-        mDetailFooterBean = new DetailFooterBean();
-        ArrayList<String> pics = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            pics.add("http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg");
+        mCount = new ArrayList<>();
+        for (int i = 0; i < 22; i++) {
+            mCount.add("" + i);
         }
-        mDetailFooterBean.setPics(pics);
 
+        mPosters = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            mPosters.add("http://img.ewebweb.com/uploads/20190403/14/1554273928-MGSPXDUfBJ.jpg");
+        }
     }
 
     private void initView() {
-        mMainUpView1 = (MainUpView) findViewById(R.id.mainUpView1);
-        mMainUpView1.setEffectBridge(new RecyclerViewBridge());
         mIvPoster = (ImageView) findViewById(R.id.iv_poster);
         mTvTitle = (TextView) findViewById(R.id.tv_title);
         mTvType = (TextView) findViewById(R.id.tv_type);
         mTvUpdate = (TextView) findViewById(R.id.tv_update);
         mTvCount = (TextView) findViewById(R.id.tv_count);
-        mTvIntroduce = (TextView) findViewById(R.id.tv_introduce);
-        mLinearLayout = (LinearLayout) findViewById(R.id.linearLayout);
-        mRecyclerViewCount = (RecyclerView) findViewById(R.id.recyclerView_count);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 10);
-        mRecyclerViewCount.setLayoutManager(gridLayoutManager);
-        mDetailCountAdapter = new DetailCountAdapter(R.layout.widget_textview_count, mDetailCountBean.getCount());
-        mRecyclerViewCount.setAdapter(mDetailCountAdapter);
-        mDetailCountAdapter.bindToRecyclerView(mRecyclerViewCount);
+        mLlContainer = (LinearLayout) findViewById(R.id.ll_container);
+        mTvInfo0 = (TextView) findViewById(R.id.tv_info0);
+        mTvInfo1 = (TextView) findViewById(R.id.tv_info1);
+        mTvPlay = (TextView) findViewById(R.id.tv_play);
+        mRecyclerViewCount = (RecyclerViewTV) findViewById(R.id.recyclerView_count);
+        mRecyclerViewRecommend = (RecyclerViewTV) findViewById(R.id.recyclerView_recommend);
 
-      /*  LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        mRecyclerViewFooter.setLayoutManager(linearLayoutManager);
-        mDetailFooterAdapter = new DetailFooterAdapter(R.layout.widget_images, mDetailFooterBean.getPics());
-        mRecyclerViewFooter.setAdapter(mDetailFooterAdapter);
-        mDetailFooterAdapter.bindToRecyclerView(mRecyclerViewFooter);*/
-        //底部显示的推送内容
-        mRecyclerViewFooter = (RecyclerViewTV) findViewById(R.id.recyclerView_footer);
-        testRecyclerViewGridLayout(RecyclerView.VERTICAL);
-
-        // 注意这里，需要使用 RecyclerViewBridge 的移动边框 Bridge.
-        mRecyclerViewBridge = (RecyclerViewBridge) mMainUpView1.getEffectBridge();
-
-        mRecyclerViewFooter.setOnItemListener(this);
-        // item 单击事件处理.
-        mRecyclerViewFooter.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
-            @Override
-            public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        ImageUtils.load(mDetailFooterBean.getPics().get(0), mIvPoster);
-
-
+        mRecyclerViewTabs = (RecyclerViewTV) findViewById(R.id.recyclerView_tabs);
         initEvent();
-
-    }
-
-    /**
-     * 测试GridLayout.
-     */
-    private void testRecyclerViewGridLayout(int orientation) {
-        GridLayoutManagerTV gridlayoutManager = new GridLayoutManagerTV(this, 4); // 解决快速长按焦点丢失问题.
-        gridlayoutManager.setOrientation(orientation);
-        mRecyclerViewFooter.setLayoutManager(gridlayoutManager);
-        mRecyclerViewFooter.setFocusable(false);
-        mRecyclerViewFooter.setSelectedItemAtCentered(true); // 设置item在中间移动.
-        mRecyclerViewPresenter = new RecyclerViewPresenter(25);
-        mGeneralAdapter = new GeneralAdapter(mRecyclerViewPresenter);
-        mRecyclerViewFooter.setAdapter(mGeneralAdapter);
-        mRecyclerViewFooter.setPagingableListener(new RecyclerViewTV.PagingableListener() {
-            @Override
-            public void onLoadMoreItems() {
-                // 加载更多测试.
-//                moreHandler.removeCallbacksAndMessages(null);
-                Message msg = moreHandler.obtainMessage();
-                msg.arg1 = 21;
-                moreHandler.sendMessageDelayed(msg, 3000);
-            }
-        });
     }
 
     private void initEvent() {
-        mDetailCountAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(getApplicationContext(), VideoActivity.class);
-                startActivity(intent);
-            }
-        });
-        mRecyclerViewCount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (v != null) {
-                    v.setFocusable(hasFocus);
-                    if (hasFocus) {
-                        v.animate().scaleX(1.2f).scaleY(1.2f).setDuration(300).start();
-                    } else {
-                        v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start();
-                    }
-                }
-
-            }
-        });
+        //集数
+        mRecyclerViewCount.setLayoutManager(new GridLayoutManagerTV(this, 10));
+        mDetailCountAdapter = new DetailCountAdapter(R.layout.widget_textview_count, mCount);
+        mRecyclerViewCount.setAdapter(mDetailCountAdapter);
+//        mRecyclerViewCount.setDefaultSelect(0);
+        mRecyclerViewCount.setOnItemClickListener(this);
+        //推荐海报
+        mRecyclerViewRecommend.setLayoutManager(new GridLayoutManagerTV(this, 4));
+        mDetailFooterAdapter = new DetailFooterAdapter(R.layout.widget_item_poster0, mPosters);
+        mRecyclerViewRecommend.setAdapter(mDetailFooterAdapter);
+//        mRecyclerViewCount.setDefaultSelect(0);
+        mRecyclerViewRecommend.setOnItemClickListener(this);
+        //tabs
+        mRecyclerViewTabs.setLayoutManager(new LinearLayoutManagerTV(this, LinearLayoutManager.HORIZONTAL, false));
+        mDetailTabAdapter = new DetailTabAdapter(R.layout.widget_textview_tab, mTabs);
+        mRecyclerViewTabs.setAdapter(mDetailTabAdapter);
+//        mRecyclerViewCount.setDefaultSelect(0);
+        mRecyclerViewTabs.setOnItemClickListener(this);
 
 
     }
 
     @Override
-    public void onItemPreSelected(RecyclerViewTV parent, View itemView, int position) {
-        mRecyclerViewBridge.setUnFocusView(oldView);
+    public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
+        toast(position + "位置");
 
-    }
-
-    @Override
-    public void onItemSelected(RecyclerViewTV parent, View itemView, int position) {
-        mRecyclerViewBridge.setFocusView(itemView, 1.2f);
-        oldView = itemView;
-
-    }
-
-    @Override
-    public void onReviseFocusFollow(RecyclerViewTV parent, View itemView, int position) {
-        mRecyclerViewBridge.setFocusView(itemView, 1.2f);
-        oldView = itemView;
     }
 
 
