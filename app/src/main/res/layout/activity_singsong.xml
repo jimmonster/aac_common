@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/iv_singsong"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/rl_container0"
+        android:layout_width="480dp"
+        android:layout_height="400dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="215dp"
+        android:layout_marginBottom="151dp"
+        android:background="@drawable/iv_music_bg"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/iv_pic0"
+            android:layout_width="450dp"
+            android:layout_height="207dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/iv_erge">
+
+        </ImageView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_container1"
+        android:layout_width="480dp"
+        android:layout_height="400dp"
+        android:layout_alignTop="@id/rl_container0"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/rl_container0"
+        android:background="@drawable/iv_music_bg"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/iv_pic1"
+            android:layout_width="450dp"
+            android:layout_height="207dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/iv_gushierge">
+
+        </ImageView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_container2"
+        android:layout_width="480dp"
+        android:layout_height="400dp"
+        android:layout_alignTop="@id/rl_container1"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/rl_container1"
+        android:background="@drawable/iv_music_bg"
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/iv_pic2"
+            android:layout_width="450dp"
+            android:layout_height="207dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/iv_yingyuerge">
+
+        </ImageView>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

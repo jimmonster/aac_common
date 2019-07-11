@@ -1,7 +1,7 @@
 package com.jinhong.jhtv.base;
 
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 
 /**
  * Base Fragment

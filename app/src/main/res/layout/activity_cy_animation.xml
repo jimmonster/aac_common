@@ -10,7 +10,7 @@
     android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="200dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:background="@drawable/iv_category_border">
 
@@ -18,7 +18,7 @@
             android:id="@+id/recyclerView_left"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="90dp">
+            android:layout_marginTop="135dp">
 
         </com.jinhong.jhtv.ui.leanback.RecyclerViewTV>
 
@@ -33,7 +33,7 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="90dp">
+            android:layout_height="135dp">
 
             <TextView
                 android:id="@+id/tv_page"
@@ -41,10 +41,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="50dp"
+                android:layout_marginEnd="75dp"
                 android:text="1/3"
                 android:textColor="@color/white"
-                android:textSize="20sp"/>
+                android:textSize="30dp"/>
 
         </RelativeLayout>
 

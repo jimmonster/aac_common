@@ -62,6 +62,7 @@ public class VideoActivity extends BaseActivity implements View.OnKeyListener {
                 break;
             case KeyEvent.KEYCODE_DPAD_CENTER://确认
                 toast(" 确认KEYCODE_DPAD_CENTER");
+                mJzvdStd.onStatePlaying();
                 break;
             case KeyEvent.KEYCODE_MEDIA_PLAY://播放
                 toast("播放 KEYCODE_MEDIA_PLAY");
@@ -131,6 +132,10 @@ public class VideoActivity extends BaseActivity implements View.OnKeyListener {
 
             case KeyEvent.KEYCODE_TV_MEDIA_CONTEXT_MENU://下一集
                 toast(" KEYCODE_TV_MEDIA_CONTEXT_MENU");
+                break;
+
+            case 0x0107://播放暂停
+                toast(" 播放暂停");
                 break;
 
 

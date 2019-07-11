@@ -8,6 +8,7 @@ import android.widget.TextClock;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
 import com.jinhong.jhtv.ui.views.AutoHorizontalScrollTextView;
+import com.jinhong.jhtv.utils.FocusUtils;
 
 /**
  * @author :  Jim
@@ -34,6 +35,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mIvPic7;
     private ImageView mIvPic8;
     private ImageView mIvPic9;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,16 +65,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mIvPic8 = (ImageView) findViewById(R.id.iv_pic8);
         mIvPic9 = (ImageView) findViewById(R.id.iv_pic9);
 
-        onFocusChange(mIvPic0);
-        onFocusChange(mIvPic1);
-        onFocusChange(mIvPic2);
-        onFocusChange(mIvPic3);
-        onFocusChange(mIvPic4);
-        onFocusChange(mIvPic5);
-        onFocusChange(mIvPic6);
-        onFocusChange(mIvPic7);
-        onFocusChange(mIvPic8);
-        onFocusChange(mIvPic9);
+//        onFocusChange(mIvPic0);
+//        onFocusChange(mIvPic1);
+//        onFocusChange(mIvPic2);
+//        onFocusChange(mIvPic3);
+//        onFocusChange(mIvPic4);
+//        onFocusChange(mIvPic5);
+//        onFocusChange(mIvPic6);
+//        onFocusChange(mIvPic7);
+//        onFocusChange(mIvPic8);
+//        onFocusChange(mIvPic9);
+        FocusUtils.onFocusChange(mIvPic0);
+        FocusUtils.onFocusChange(mIvPic1);
+        FocusUtils.onFocusChange(mIvPic2);
+        FocusUtils.onFocusChange(mIvPic3);
+        FocusUtils.onFocusChange(mIvPic4);
+        FocusUtils.onFocusChange(mIvPic5);
+        FocusUtils.onFocusChange(mIvPic6);
+        FocusUtils.onFocusChange(mIvPic7);
+        FocusUtils.onFocusChange(mIvPic8);
+        FocusUtils.onFocusChange(mIvPic9);
 
 
         mIvTab0.setOnClickListener(this);
@@ -91,6 +103,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mIvPic7.setOnClickListener(this);
         mIvPic8.setOnClickListener(this);
         mIvPic9.setOnClickListener(this);
+
+
     }
 
     @Override
@@ -98,30 +112,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (v.getId()) {
             default:
                 break;
-            case R.id.iv_tab0:
-                startActivity(CategoryActivity.class);
+            case R.id.iv_tab0://亲子玩具0
+                startActivity(ToyCyActivity.class);
                 break;
-            case R.id.iv_tab1:
-                startActivity(CategoryActivity.class);
+            case R.id.iv_tab1://亲子游戏0
+                startActivity(ToyCyActivity.class);
                 break;
-            case R.id.iv_tab2:
-                startActivity(CategoryActivity.class);
+            case R.id.iv_tab2://亲子手工1
+                startActivity(DrawingCyActivity.class);
                 break;
-            case R.id.iv_tab3:
-                startActivity(CategoryActivity.class);
+            case R.id.iv_tab3://亲子教育2
+                startActivity(EducationCyActivity.class);
                 break;
-            case R.id.iv_tab4:
-                startActivity(CategoryActivity.class);
+            case R.id.iv_tab4://亲子绘画1
+                startActivity(DrawingCyActivity.class);
                 break;
-            case R.id.iv_tab5:
-                startActivity(CategoryActivity.class);
+            case R.id.iv_tab5://动画天地3
+                startActivity(AnimationCyActivity.class);
                 break;
             case R.id.iv_pic0:
-
                 startActivity(MbActivity.class);
                 break;
             case R.id.iv_pic1:
-                startActivity(DetailActivity.class);
+                startActivity(SingSongActivity.class);
                 break;
             case R.id.iv_pic2:
                 startActivity(DetailActivity.class);

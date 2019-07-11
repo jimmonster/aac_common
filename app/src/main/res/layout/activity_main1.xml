@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingStart="66dp"
+    android:paddingTop="10dp"
+    android:paddingEnd="66dp">
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="162dp"
+        android:layout_height="80dp"
+        android:background="@drawable/logo3"
+        android:scaleType="fitXY"/>
+
+    <ImageView
+        android:id="@+id/iv_notice"
+        android:layout_width="28dp"
+        android:layout_height="24dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp"
+        android:background="@drawable/sound"/>
+
+    <!--滚动文字-->
+    <com.jinhong.jhtv.ui.views.AutoHorizontalScrollTextView
+        android:id="@+id/tv_notice"
+        android:layout_width="416dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="16dp"
+        android:layout_toRightOf="@id/iv_notice"
+        android:focusable="false"
+        android:singleLine="true"
+        android:text="@string/test_info"
+        android:textColor="@color/color_text"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+
+    <!--时间-->
+    <TextClock
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:focusable="false"
+        android:format12Hour="MM/dd HH:mm"
+        android:format24Hour="MM/dd HH:mm"
+        android:textColor="@color/color_text"
+        android:textSize="18sp"/>
+
+    <com.jinhong.jhtv.ui.leanback.RecyclerViewTV
+        android:id="@+id/recyclerView_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:layout_below="@id/iv_logo">
+
+
+    </com.jinhong.jhtv.ui.leanback.RecyclerViewTV>
+
+    <com.jinhong.jhtv.ui.leanback.RecyclerViewTV
+        android:id="@+id/recyclerView_container"
+        android:layout_width="match_parent"
+        android:layout_height="513dp"
+        android:layout_below="@id/recyclerView_tabs"
+        android:layout_marginTop="18dp">
+
+
+    </com.jinhong.jhtv.ui.leanback.RecyclerViewTV>
+
+</RelativeLayout>

@@ -6,7 +6,6 @@ import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
 import com.jinhong.jhtv.ui.leanback.GridLayoutManagerTV;
 import com.jinhong.jhtv.ui.leanback.RecyclerViewTV;
-import com.jinhong.jhtv.ui.widgets.BorderView;
 
 import java.util.ArrayList;
 
@@ -39,15 +38,14 @@ public class TestActivity extends BaseActivity {
 
 
     private void initView() {
-        BorderView border = new BorderView(this);
-        border.setBackgroundResource(R.drawable.iv_focus);
+
         mRecyclerView = (RecyclerViewTV) findViewById(R.id.recyclerView);
-        border.attachTo(mRecyclerView);
+        mBorder.attachTo(mRecyclerView);
         TestAdapter menuAdapter = new TestAdapter(R.layout.widget_images, mList);
         mRecyclerView.setLayoutManager(new GridLayoutManagerTV(this, 3));
         mRecyclerView.setAdapter(menuAdapter);
         menuAdapter.bindToRecyclerView(mRecyclerView);
-      //  mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        //  mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
     }
 }

@@ -13,13 +13,13 @@
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission
         android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
         tools:ignore="ProtectedPermissions"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <!-- WindowManger 权限(浮动窗口)-->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
@@ -28,14 +28,18 @@
         tools:ignore="ProtectedPermissions"/>
 
 
+
+
     <application
-        android:allowBackup="true"
+        android:name=".App"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:hardwareAccelerated="false"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".test.TestActivity">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -44,20 +48,24 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.CategoryActivity"/>
         <activity android:name=".ui.activity.DetailActivity"/>
         <activity android:name=".ui.activity.VideoActivity"/>
         <activity android:name=".ui.activity.CategoryActivity2"/>
         <activity android:name=".test.GridListActivity"/>
         <activity android:name=".ui.activity.MbActivity"/>
+        <activity android:name=".ui.activity.SingSongActivity"/>
+        <activity android:name=".ui.activity.AnimationCyActivity"/>
+        <activity android:name=".ui.activity.ToyCyActivity"/>
+        <activity android:name=".ui.activity.DrawingCyActivity"/>
+        <activity android:name=".ui.activity.EducationCyActivity"/>
 
         <!--适配基准-->
         <meta-data
             android:name="design_width_in_dp"
-            android:value="1280"/>
+            android:value="1920"/>
         <meta-data
             android:name="design_height_in_dp"
-            android:value="720"/>
+            android:value="1080"/>
     </application>
 
 </manifest>

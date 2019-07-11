@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.jinhong.jhtv.ui.views.LinearMainLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/iv_mb_bg"
-    android:clipChildren="false"
-    android:clipToPadding="false">
+    android:background="@drawable/iv_mb_bg">
 
-    <com.jinhong.jhtv.ui.leanback.RecyclerViewTV
+    <com.owen.tvrecyclerview.widget.TvRecyclerView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="250dp"
-        android:layout_marginTop="180dp"
-        android:layout_marginEnd="180dp"
-        android:layout_marginBottom="38dp">
+        android:layout_marginStart="375dp"
+        android:layout_marginTop="270dp"
+        android:layout_marginEnd="270dp"
+        android:layout_marginBottom="57dp"
+        android:paddingTop="15dp"
+        android:orientation="vertical"
+        android:scrollbars="none"
+        app:tv_verticalSpacingWithMargins="27dp"
+        app:tv_horizontalSpacingWithMargins="18dp"
+        app:spanCount="3"
+        app:tv_layoutManager="V7GridLayoutManager">
 
-    </com.jinhong.jhtv.ui.leanback.RecyclerViewTV>
+    </com.owen.tvrecyclerview.widget.TvRecyclerView>
 
 
-</com.jinhong.jhtv.ui.views.LinearMainLayout>
+</FrameLayout>

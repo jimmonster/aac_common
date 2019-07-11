@@ -13,8 +13,9 @@ import com.jinhong.jhtv.base.BaseFragment;
 import com.jinhong.jhtv.model.CategoryItemBean;
 import com.jinhong.jhtv.ui.activity.DetailActivity;
 import com.jinhong.jhtv.ui.adapter.CategoryRightAdapter;
-import com.jinhong.jhtv.ui.leanback.GridLayoutManagerTV;
-import com.jinhong.jhtv.ui.leanback.RecyclerViewTV;
+import com.jinhong.jhtv.utils.FocusUtils;
+import com.owen.tvrecyclerview.widget.SimpleOnItemListener;
+import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ import java.util.List;
 @SuppressLint("ValidFragment")
 public class CategoryFragment extends BaseFragment {
     List<CategoryItemBean> items;
-    private RecyclerViewTV mRecyclerView;
+    private TvRecyclerView mRecyclerView;
     private CategoryRightAdapter mCategoryRightAdapter;
 
     public CategoryFragment(List<CategoryItemBean> data) {
@@ -46,14 +47,10 @@ public class CategoryFragment extends BaseFragment {
     private void initView(View view) {
 
         //右边内容
-        mRecyclerView = (RecyclerViewTV) view.findViewById(R.id.recyclerView_right);
-        GridLayoutManagerTV gridLayoutManager = new GridLayoutManagerTV(getActivity(), 3);
-        mRecyclerView.setLayoutManager(gridLayoutManager);
+        mRecyclerView = (TvRecyclerView) view.findViewById(R.id.recyclerView_right);
         mCategoryRightAdapter = new CategoryRightAdapter(R.layout.widget_pic, items);
         mRecyclerView.setAdapter(mCategoryRightAdapter);
-        mCategoryRightAdapter.bindToRecyclerView(mRecyclerView);
         initEvent();
-
     }
 
     private void initEvent() {
@@ -63,6 +60,24 @@ public class CategoryFragment extends BaseFragment {
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
                 startActivity(intent);
 
+            }
+        });
+
+        mRecyclerView.setOnItemListener(new SimpleOnItemListener(){
+            @Override
+            public void onItemPreSelected(TvRecyclerView parent, View itemView, int position) {
+                FocusUtils.unselected(itemView);
+            }
+
+            @Override
+            public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
+                FocusUtils.selected(itemView);
+            }
+
+            @Override
+            public void onItemClick(TvRecyclerView parent, View itemView, int position) {
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                startActivity(intent);
             }
         });
 

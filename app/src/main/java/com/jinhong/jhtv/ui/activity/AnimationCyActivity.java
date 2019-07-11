@@ -1,12 +1,12 @@
 package com.jinhong.jhtv.ui.activity;
 
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.FragmentUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
@@ -22,20 +22,21 @@ import java.util.ArrayList;
 /**
  * @author :  Jim
  * @date :  2019-07-01
- * @description :分类页面
+ * @description :动画天地分类页面
  */
-public class CategoryActivity extends BaseActivity {
+public class AnimationCyActivity extends BaseActivity {
     private RecyclerViewTV mRecyclerViewLeft;
     private LinearLayout mLlContainer;
     private CategoryLeftAdapter mCategoryLeftAdapter;
     private CategoryBean mCategoryBean;
 
     private FrameLayout mFlReplaceFragment;
+    private CategoryFragment mCategoryFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category);
+        setContentView(R.layout.activity_cy_animation);
 
         initData();
         initView();
@@ -52,7 +53,7 @@ public class CategoryActivity extends BaseActivity {
         }
         mCategoryBean.setTabsName(tabsName);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             CategoryItemBean categoryItemBean = new CategoryItemBean();
             categoryItemBean.setPic("http://pic2.52pk.com/files/allimg/090626/1553504U2-2.jpg");
             categoryItemBean.setTitle("内容标题" + i);
@@ -73,9 +74,9 @@ public class CategoryActivity extends BaseActivity {
 
         //背景图片
         mLlContainer = (LinearLayout) findViewById(R.id.ll_container);
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        CategoryFragment categoryFragment = new CategoryFragment(mCategoryBean.getItems());
-        fragmentTransaction.add(R.id.fl_replace_fragment, categoryFragment).commit();
+
+        mCategoryFragment = new CategoryFragment(mCategoryBean.getItems());
+        FragmentUtils.add(getSupportFragmentManager(), mCategoryFragment,R.id.fl_replace_fragment);
         initEvent();
     }
 
@@ -84,9 +85,7 @@ public class CategoryActivity extends BaseActivity {
         mCategoryLeftAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                CategoryFragment categoryFragment = new CategoryFragment(mCategoryBean.getItems());
-                fragmentTransaction.replace(R.id.fl_replace_fragment, categoryFragment).commit();
+                FragmentUtils.replace(getSupportFragmentManager(),mCategoryFragment,R.id.fl_replace_fragment);
 
             }
         });

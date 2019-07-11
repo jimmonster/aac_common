@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.jinhong.jhtv.ui.views.SmoothVorizontalScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,6 +9,7 @@
     android:clipToPadding="false"
     android:fillViewport="true"
     android:scrollbars="none"
+    android:orientation="vertical"
     >
 
     <LinearLayout
@@ -115,11 +116,10 @@
 
                 <TextView
                     android:id="@+id/tv_play"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="108dp"
+                    android:layout_height="64dp"
                     android:layout_below="@id/tv_info1"
                     android:layout_marginTop="18dp"
-
                     android:background="@drawable/selector_sure"
                     android:focusable="true"
                     android:textColor="@color/white"/>
@@ -138,6 +138,7 @@
                         android:orientation="horizontal">
 
                     </com.jinhong.jhtv.ui.leanback.RecyclerViewTV>
+
 
                     <com.jinhong.jhtv.ui.leanback.RecyclerViewTV
                         android:id="@+id/recyclerView_count"
@@ -184,13 +185,11 @@
             android:layout_height="0dp"
             android:layout_marginStart="100dp"
             android:layout_marginEnd="100dp"
-            android:layout_marginBottom="30dp"
             android:layout_weight="3">
 
             <com.jinhong.jhtv.ui.leanback.RecyclerViewTV
                 android:id="@+id/recyclerView_recommend"
                 android:layout_width="match_parent"
-                android:paddingBottom="50dp"
                 android:layout_height="wrap_content">
 
             </com.jinhong.jhtv.ui.leanback.RecyclerViewTV>
@@ -200,4 +199,4 @@
 
     </LinearLayout>
 
-</com.jinhong.jhtv.ui.views.SmoothVorizontalScrollView>
+</LinearLayout>

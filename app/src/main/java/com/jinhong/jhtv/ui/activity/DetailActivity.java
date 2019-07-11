@@ -117,7 +117,6 @@ public class DetailActivity extends BaseActivity implements RecyclerViewTV.OnIte
         mRecyclerViewCount.setLayoutManager(new GridLayoutManagerTV(this, 10));
         mDetailCountAdapter = new DetailCountAdapter(R.layout.widget_textview_count, mCount);
         mRecyclerViewCount.setAdapter(mDetailCountAdapter);
-//        mRecyclerViewCount.setDefaultSelect(0);
         mRecyclerViewCount.setOnItemClickListener(this);
         //推荐海报
         mRecyclerViewRecommend.setLayoutManager(new GridLayoutManagerTV(this, 4));

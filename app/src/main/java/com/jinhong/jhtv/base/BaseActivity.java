@@ -1,20 +1,24 @@
 package com.jinhong.jhtv.base;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.jinhong.jhtv.R;
+import com.jinhong.jhtv.ui.widgets.BorderView;
 
 /**
  * @author :  Jim
  * @date :  2019-07-01
  * @description :
  */
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends AppCompatActivity {
+
+    public BorderView mBorder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +26,9 @@ public abstract class BaseActivity extends Activity {
         if (ScreenUtils.isPortrait()) {
             ScreenUtils.setLandscape(this);//设置横屏
         }
+        //添加选中焦点边框
+        mBorder = new BorderView(this);
+        mBorder.setBackgroundResource(R.drawable.iv_focus);
 
 
     }
@@ -39,13 +46,12 @@ public abstract class BaseActivity extends Activity {
                 if (v != null) {
                     v.setSelected(hasFocus);
                     if (hasFocus) {
-                        v.setPadding(10,10,10,10);
-                        v.setBackgroundResource(R.drawable.iv_focus);
-                        v.animate().scaleX(1.05f).scaleY(1.05f).setDuration(200).start();
-                    } else {
-
-                        v.setBackgroundResource(R.drawable.shape_selector_border_normal);
+                        v.setBackgroundResource(R.drawable.shape_selector_border_press);
+//                        v.setPadding(10,10,10,10);
                         v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(200).start();
+                    } else {
+                        v.setBackgroundResource(R.drawable.shape_selector_border_normal);
+                        v.animate().scaleX(0.98f).scaleY(0.98f).setDuration(200).start();
                     }
                 }
             }

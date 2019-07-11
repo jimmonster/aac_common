@@ -27,10 +27,10 @@ import java.util.Map;
  */
 public class BorderEffect implements BorderView.Effect {
     private boolean mScalable = true;
-    private float mScale = 1.1f;
+    private float mScale = 1.035f;
 
     private long mDurationTraslate = 200;
-    private int mMargin = 0;
+    private int mMargin = 3;
     private View lastFocus, oldLastFocus;
     private AnimatorSet mAnimatorSet;
     private List<Animator> mAnimatorList = new ArrayList<Animator>();

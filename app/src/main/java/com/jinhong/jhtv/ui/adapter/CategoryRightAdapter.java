@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.model.CategoryItemBean;
+import com.jinhong.jhtv.utils.FocusUtils;
 
 import java.util.List;
 
@@ -29,11 +30,9 @@ public class CategoryRightAdapter extends BaseQuickAdapter<CategoryItemBean, Bas
             public void onFocusChange(View v, boolean hasFocus) {
                 if (v != null) {
                     if (hasFocus) {
-                        v.setBackgroundResource(R.drawable.shape_selector_border_press);
-                        v.animate().scaleX(1.05f).scaleY(1.05f).setDuration(200).start();
+                        FocusUtils.selected(v);
                     } else {
-                        v.setBackgroundResource(R.drawable.shape_selector_border_normal);
-                        v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(200).start();
+                        FocusUtils.unselected(v);
                     }
                 }
             }
