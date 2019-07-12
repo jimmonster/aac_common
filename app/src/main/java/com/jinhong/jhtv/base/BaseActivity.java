@@ -10,6 +10,9 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.ui.widgets.BorderView;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 /**
  * @author :  Jim
  * @date :  2019-07-01
@@ -65,8 +68,68 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public void startActivity(Class activity) {
         Intent intent = new Intent(this, activity);
+
         startActivity(intent);
 //        ActivityUtils.startActivity(intent);
+
+    }
+
+    /**
+     * 统一界面跳转,携带ArrayList参数
+     *
+     * @param activity
+     * @param data
+     */
+    public void startActivity(Class activity, ArrayList<String> data) {
+        Intent intent = new Intent(this, activity);
+        intent.putStringArrayListExtra("ExtraData", data);
+        startActivity(intent);
+//        ActivityUtils.startActivity(intent);
+
+    }
+
+    /**
+     * 统一界面跳转,携带Integer参数
+     *
+     * @param activity
+     * @param data
+     */
+    public void startActivity(Class activity, Integer data) {
+        Intent intent = new Intent(this, activity);
+        intent.putExtra("ExtraData", data);
+        startActivity(intent);
+//        ActivityUtils.startActivity(intent);
+
+    }
+
+    /**
+     * 统一界面跳转,携带 Serializable 参数
+     *
+     * @param activity
+     * @param data
+     */
+    public void startActivity(Class activity, Serializable data) {
+        Intent intent = new Intent(this, activity);
+        intent.putExtra("ExtraData", data);
+        startActivity(intent);
+//        ActivityUtils.startActivity(intent);
+
+    }
+
+    /**
+     * 统一界面跳转,携带 String 参数
+     *
+     * @param activity
+     * @param data
+     */
+    public void startActivity(Class activity, String data) {
+        Intent intent = new Intent(this, activity);
+        intent.putExtra("ExtraData", data);
+        startActivity(intent);
+//        ActivityUtils.startActivity(intent);
+
+
+
 
     }
 
@@ -115,4 +178,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
+
+
 }
