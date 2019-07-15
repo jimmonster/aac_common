@@ -1,6 +1,7 @@
 package com.jinhong.jhtv.ui.adapter;
 
 import android.support.annotation.Nullable;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -14,13 +15,21 @@ import java.util.List;
  * @description :
  */
 public class CyLeftAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
-    public CyLeftAdapter(int layoutResId, @Nullable List<String> data) {
+    private int mBtnDrawable, mTextColor;
+
+    public CyLeftAdapter(int layoutResId, @Nullable List<String> data, int btnDrawable, int textColor) {
         super(layoutResId, data);
+        mBtnDrawable = btnDrawable;
+        mTextColor = textColor;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
-        helper.setText(R.id.tv_cy_left,item);
+        TextView textView = (TextView) helper.getView(R.id.tv_cy_left);
+        helper.setText(R.id.tv_cy_left, item);
+        textView.setBackgroundResource(mBtnDrawable);
+        textView.setTextColor(mTextColor);
+
 
     }
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
@@ -22,7 +21,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="9dp">
 
         <TextView
@@ -49,7 +48,8 @@
             android:background="@drawable/selector_page_next"
             android:clickable="true"
             android:focusable="true"
-            android:scaleType="center"/>
+            android:scaleType="center"
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/iv_page_up"
@@ -62,7 +62,8 @@
             android:background="@drawable/selector_page_up"
             android:clickable="true"
             android:focusable="true"
-            android:scaleType="center"/>
+            android:scaleType="center"
+            android:visibility="gone"/>
 
 
     </RelativeLayout>

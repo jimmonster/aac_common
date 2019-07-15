@@ -9,9 +9,7 @@ import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.ui.widgets.BorderView;
-
-import java.io.Serializable;
-import java.util.ArrayList;
+import com.jinhong.jhtv.ui.widgets.LoadingFrame;
 
 /**
  * @author :  Jim
@@ -21,6 +19,7 @@ import java.util.ArrayList;
 public abstract class BaseActivity extends AppCompatActivity {
 
     public BorderView mBorder;
+    public String extraBundle = "ExtraBundle";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,62 +73,17 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * 统一界面跳转,携带ArrayList参数
-     *
-     * @param activity
-     * @param data
-     */
-    public void startActivity(Class activity, ArrayList<String> data) {
-        Intent intent = new Intent(this, activity);
-        intent.putStringArrayListExtra("ExtraData", data);
-        startActivity(intent);
-//        ActivityUtils.startActivity(intent);
-
-    }
 
     /**
-     * 统一界面跳转,携带Integer参数
+     * 统一界面跳转,携带参数
      *
      * @param activity
-     * @param data
      */
-    public void startActivity(Class activity, Integer data) {
+    public void startActivity(Class activity, Bundle bundle) {
         Intent intent = new Intent(this, activity);
-        intent.putExtra("ExtraData", data);
+        intent.putExtra(extraBundle, bundle);
         startActivity(intent);
 //        ActivityUtils.startActivity(intent);
-
-    }
-
-    /**
-     * 统一界面跳转,携带 Serializable 参数
-     *
-     * @param activity
-     * @param data
-     */
-    public void startActivity(Class activity, Serializable data) {
-        Intent intent = new Intent(this, activity);
-        intent.putExtra("ExtraData", data);
-        startActivity(intent);
-//        ActivityUtils.startActivity(intent);
-
-    }
-
-    /**
-     * 统一界面跳转,携带 String 参数
-     *
-     * @param activity
-     * @param data
-     */
-    public void startActivity(Class activity, String data) {
-        Intent intent = new Intent(this, activity);
-        intent.putExtra("ExtraData", data);
-        startActivity(intent);
-//        ActivityUtils.startActivity(intent);
-
-
-
 
     }
 
@@ -141,6 +95,63 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public void toast(String str) {
         ToastUtils.showShort(str);
+    }
+
+    /**
+     * 统一进度条，加载中
+     */
+    public void progressLoading() {
+        LoadingFrame loadingFrame = new LoadingFrame(this) {
+            @Override
+            public View onSuccessView() {
+                return this;
+            }
+
+            @Override
+            public int onLoad() {
+                return LoadingFrame.LOADING;
+            }
+        };
+        loadingFrame.show();
+
+    }
+
+    /**
+     * 统一进度条，加载失败
+     */
+    public void progressFailed() {
+        LoadingFrame loadingFrame = new LoadingFrame(this) {
+            @Override
+            public View onSuccessView() {
+                return this;
+            }
+
+            @Override
+            public int onLoad() {
+                return LoadingFrame.LOADERROR;
+            }
+        };
+
+        loadingFrame.show();
+    }
+
+    /**
+     * 统一进度条，加载成功
+     */
+    public void progressSucceed() {
+        LoadingFrame loadingFrame = new LoadingFrame(this) {
+            @Override
+            public View onSuccessView() {
+                return this;
+            }
+
+            @Override
+            public int onLoad() {
+                return LoadingFrame.LOADED;
+            }
+        };
+        loadingFrame.show();
+
     }
 
 

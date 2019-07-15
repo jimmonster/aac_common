@@ -7,6 +7,7 @@ import android.widget.TextClock;
 
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
+import com.jinhong.jhtv.test.TestActivity;
 import com.jinhong.jhtv.ui.views.AutoHorizontalScrollTextView;
 import com.jinhong.jhtv.utils.FocusUtils;
 
@@ -107,27 +108,34 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
+    Bundle bundle = new Bundle();
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             default:
                 break;
-            case R.id.iv_tab0://亲子玩具0
-                startActivity(ToyCyActivity.class);
+            case R.id.iv_tab0://亲子玩具
+                bundle.putInt("type", 1);
+                startActivity(DrawingCyActivity.class, bundle);
                 break;
-            case R.id.iv_tab1://亲子游戏0
-                startActivity(ToyCyActivity.class);
+            case R.id.iv_tab1://亲子游戏
+                bundle.putInt("type", 2);
+                startActivity(DrawingCyActivity.class, bundle);
                 break;
-            case R.id.iv_tab2://亲子手工1
-                startActivity(DrawingCyActivity.class);
+            case R.id.iv_tab2://亲子手工
+                bundle.putInt("type", 3);
+                startActivity(DrawingCyActivity.class, bundle);
                 break;
-            case R.id.iv_tab3://亲子教育2
-                startActivity(EducationCyActivity.class);
+            case R.id.iv_tab3://亲子教育
+                bundle.putInt("type", 4);
+                startActivity(DrawingCyActivity.class, bundle);
                 break;
-            case R.id.iv_tab4://亲子绘画1
-                startActivity(DrawingCyActivity.class);
+            case R.id.iv_tab4://亲子绘画
+                bundle.putInt("type", 5);
+                startActivity(DrawingCyActivity.class, bundle);
                 break;
-            case R.id.iv_tab5://动画天地3
+            case R.id.iv_tab5://动画天地
                 startActivity(AnimationCyActivity.class);
                 break;
             case R.id.iv_pic0:
@@ -140,12 +148,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(DetailActivity.class);
                 break;
             case R.id.iv_pic3:
-                startActivity(DetailActivity.class);
+                toast("测试页面");
+                startActivity(TestActivity.class);
                 break;
             case R.id.iv_pic4:
-                startActivity(DetailActivity.class);
+                toast("视频页面测试");
+                startActivity(VideoActivity.class);
                 break;
             case R.id.iv_pic5:
+
                 startActivity(DetailActivity.class);
                 break;
             case R.id.iv_pic6:
