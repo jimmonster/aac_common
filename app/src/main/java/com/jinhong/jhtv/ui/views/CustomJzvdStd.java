@@ -1,13 +1,23 @@
 package com.jinhong.jhtv.ui.views;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.jinhong.jhtv.CustomMedia.JZMediaExo;
 import com.jinhong.jhtv.R;
+import com.owen.tvrecyclerview.widget.TvRecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.jzvd.JzvdStd;
 
@@ -19,6 +29,11 @@ import cn.jzvd.JzvdStd;
 public class CustomJzvdStd extends JzvdStd {
     public OCompleteListener mCompleteListener;
     private RelativeLayout mLlTip;
+    private LinearLayout mLl_menu_container;
+    private TvRecyclerView mRecyclerView_menu;
+    private TextView mTv_up_page;
+    private TextView mTv_next_page;
+    private ArrayList<String> mTvCounts;
 
 
     public CustomJzvdStd(Context context) {
@@ -47,6 +62,46 @@ public class CustomJzvdStd extends JzvdStd {
         mLlTip.setVisibility(INVISIBLE);
         mLlTip.setOnClickListener(this);
 
+        mLl_menu_container = (LinearLayout) findViewById(R.id.ll_menu_container);
+        mLl_menu_container.setVisibility(GONE);
+        mRecyclerView_menu = (TvRecyclerView) findViewById(R.id.recyclerView_menu);
+        mTv_up_page = (TextView) findViewById(R.id.tv_up_page);
+        mTv_next_page = (TextView) findViewById(R.id.tv_next_page);
+        initData();
+        JzMenuAdapter jzMenuAdapter = new JzMenuAdapter(R.layout.widget_player_menu_item, mTvCounts);
+        mRecyclerView_menu.setAdapter(jzMenuAdapter);
+        mRecyclerView_menu.setOnItemListener(new TvRecyclerView.OnItemListener() {
+            @Override
+            public void onItemPreSelected(TvRecyclerView parent, View itemView, int position) {
+
+                TextView tv_tvcount = (TextView) itemView.findViewById(R.id.tv_tvcount);
+                tv_tvcount.setTextColor(Color.BLACK);
+                tv_tvcount.setBackgroundResource(R.drawable.shape_circle_white);
+            }
+
+            @Override
+            public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
+                TextView tv_tvcount = (TextView) itemView.findViewById(R.id.tv_tvcount);
+                tv_tvcount.setBackgroundResource(R.drawable.shape_circle_blue);
+                tv_tvcount.setTextColor(Color.WHITE);
+            }
+
+            @Override
+            public void onItemClick(TvRecyclerView parent, View itemView, int position) {
+                mLl_menu_container.setVisibility(GONE);
+                Toast.makeText(context, "当前集数" + position, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+    }
+
+    private void initData() {
+        mTvCounts = new ArrayList<>();
+        for (int i = 1; i <= 25; i++) {
+            mTvCounts.add("" + i);
+        }
     }
 
     @Override
@@ -54,7 +109,12 @@ public class CustomJzvdStd extends JzvdStd {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.ll_tip:
+                mLl_menu_container.setVisibility(VISIBLE);
                 Toast.makeText(getContext(), "显示选集列表", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.button_start:
+                Toast.makeText(getContext(), "button_start播放", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
@@ -387,6 +447,18 @@ public class CustomJzvdStd extends JzvdStd {
 
             startButton.setImageResource(R.drawable.ic_play_circle_outline_black_24dp);
             replayTextView.setVisibility(GONE);
+        }
+    }
+
+    private class JzMenuAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+        public JzMenuAdapter(int layoutResId, @Nullable List<String> data) {
+            super(layoutResId, data);
+        }
+
+        @Override
+        protected void convert(BaseViewHolder helper, String item) {
+            helper.setText(R.id.tv_tvcount, item);
+
         }
     }
 }

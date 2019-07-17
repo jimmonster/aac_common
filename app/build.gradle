@@ -86,6 +86,8 @@ dependencies {
 //    implementation 'com.owen:tv-focusborder:1.0.8'
     implementation 'com.owen:tv-widget:1.0.1'
     implementation 'com.owen:tv-gridlayout:1.0.0'
+    //版本升级
+    implementation 'com.allenliu.versionchecklib:library:2.2.0'
 
     //GSY播放器
     // implementation 'com.shuyu:GSYVideoPlayer:6.0.3'

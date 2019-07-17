@@ -2,6 +2,7 @@ package com.jinhong.jhtv;
 
 import android.app.Application;
 
+import com.blankj.utilcode.util.CrashUtils;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -20,6 +21,8 @@ public class App extends Application {
 
     private void initBugly() {
         CrashReport.initCrashReport(getApplicationContext(), Constants.BUGLYID, false);
+        //本地崩溃检测
+        CrashUtils.init();
     }
 
     private void initLeakCanary() {
@@ -33,4 +36,5 @@ public class App extends Application {
         // Normal app init code...
         /*LeakCanary*/
     }
+
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/black"
@@ -69,7 +70,6 @@
                 android:background="@null"
                 android:max="100"
                 android:maxHeight="1dp"
-                android:focusable="true"
                 android:minHeight="1dp"
                 android:paddingLeft="12dp"
                 android:paddingTop="8dp"
@@ -90,9 +90,8 @@
                 android:id="@+id/clarity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="true"
                 android:paddingLeft="20dp"
-                android:text="clarity"
+                android:text="高清"
                 android:textAlignment="center"
                 android:textColor="#ffffff"/>
 
@@ -163,6 +162,7 @@
             android:layout_toEndOf="@+id/back"
             android:layout_toRightOf="@+id/back"
             android:ellipsize="end"
+
             android:maxLines="2"
             android:textColor="#ffffff"
             android:textSize="18sp"/>
@@ -218,8 +218,8 @@
 
         <ImageView
             android:id="@+id/start"
-            android:layout_width="@dimen/jz_start_button_w_h_normal"
-            android:layout_height="@dimen/jz_start_button_w_h_normal"
+            android:layout_width="212dp"
+            android:layout_height="212dp"
             android:src="@drawable/jz_click_play_selector"/>
     </LinearLayout>
 
@@ -231,7 +231,7 @@
         android:layout_below="@+id/start_layout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="6dp"
-        android:text="@string/replay"
+        android:text="重播"
         android:textColor="#ffffff"
         android:textSize="12sp"
         android:visibility="invisible"/>
@@ -243,14 +243,13 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:gravity="center_horizontal"
-        android:focusable="true"
         android:orientation="vertical"
         android:visibility="invisible">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/video_loading_failed"
+            android:text="视频加载失败"
             android:textColor="@android:color/white"
             android:textSize="14sp"/>
 
@@ -264,7 +263,7 @@
             android:paddingTop="4dp"
             android:paddingRight="9dp"
             android:paddingBottom="4dp"
-            android:text="@string/click_to_restart"
+            android:text="点击重试"
             android:textColor="@android:color/white"
             android:textSize="14sp"/>
     </LinearLayout>
@@ -285,12 +284,75 @@
             android:layout_centerInParent="true"
             android:ems="1"
             android:text="按确定键选集"
-            android:focusable="true"
             android:textColor="@color/white"
             android:textSize="10sp">
 
         </TextView>
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_menu_container"
+        android:layout_width="210dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:background="@color/colorAccent"
+        android:orientation="vertical"
+        android:paddingStart="15dp"
+        android:paddingTop="40dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="25dp">
+
+        <com.owen.tvrecyclerview.widget.TvRecyclerView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/recyclerView_menu"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="25dp"
+            android:orientation="vertical"
+            app:tv_horizontalSpacingWithMargins="7dp"
+            app:tv_layoutManager="GridLayoutManager"
+            app:tv_numColumns="5"
+            app:tv_numRows="2"
+            app:tv_selectedItemIsCentered="true"
+            app:tv_verticalSpacingWithMargins="9dp">
+
+        </com.owen.tvrecyclerview.widget.TvRecyclerView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+
+            <TextView
+                android:id="@+id/tv_up_page"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/selector_player_next"
+                android:focusable="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:text=" 上一页"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                tools:ignore="HardcodedText"/>
+
+            <TextView
+                android:id="@+id/tv_next_page"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:layout_toRightOf="@id/tv_up_page"
+                android:background="@drawable/selector_player_next"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="下一页 "
+                android:textColor="@color/white"
+                android:textSize="12sp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

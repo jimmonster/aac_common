@@ -2,4 +2,20 @@
     <string name="app_name">JHTV</string>
     <string name="test_info">多姿多彩的假期生活仍在继续。爸爸妈妈带顾得白去外面旅游，亲近大自然之余，更是懂得了许多奇妙的自然科学知识。顾得白就在这样的生活中，在爸爸妈妈、老师、朋友的关爱、指导中，不断地成长。</string>
     <string name="tv_info">多姿多彩的假期生活仍在继续。爸爸妈妈带顾得白去外面旅游，亲近大自然之余，更是懂得了许多奇妙的自然科学知识。顾得白就在这样的生活中，在爸爸妈妈、老师、朋友的关爱、指导中，不断地成长。</string>
+    <!-- 键盘自定义按键，这只是DEMO，你可以自定义自己的 -->
+    <string name="keycode_space">62</string> <!-- 空格 -->
+    <string name="keycode_center">66</string> <!-- 回车 -->
+    <string name="keycode_back">4</string> <!-- 返回 -->
+    <string name="keycode_left">21</string> <!-- 左边 -->
+    <string name="keycode_right">22</string> <!-- 右边 -->
+    <string name="keycode_del">67</string> <!-- 删除 -->
+
+    <!-- viewpager 标题栏字体-->
+    <string name="fzlt_zhun_hei">FZLTZHUNHEI_GBK.ttf</string>
+    <string name="fzlt_cu_hei">FZLTHC_GBK.ttf</string>
+
+    <string name="nav_tab_normal_ttf">@string/fzlt_zhun_hei</string>
+    <string name="nav_tab_focus_ttf">@string/fzlt_cu_hei</string>
+
+
 </resources>

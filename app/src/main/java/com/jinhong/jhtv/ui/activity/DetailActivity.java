@@ -21,12 +21,14 @@ import com.jinhong.jhtv.utils.IoUtils;
 
 import java.util.ArrayList;
 
+import me.jessyan.autosize.internal.CustomAdapt;
+
 /**
  * @author :  Jim
  * @date :  2019-07-01
  * @description :详情页面
  */
-public class DetailActivity extends BaseActivity implements RecyclerViewTV.OnItemClickListener {
+public class DetailActivity extends BaseActivity implements CustomAdapt, RecyclerViewTV.OnItemClickListener {
 
     private ImageView mIvPoster;
     /**
@@ -120,7 +122,7 @@ public class DetailActivity extends BaseActivity implements RecyclerViewTV.OnIte
         mRecyclerViewCount.setOnItemClickListener(this);
         //推荐海报
         mRecyclerViewRecommend.setLayoutManager(new GridLayoutManagerTV(this, 4));
-        mDetailFooterAdapter = new DetailFooterAdapter(R.layout.widget_item_poster0, mPosters);
+        mDetailFooterAdapter = new DetailFooterAdapter(R.layout.widget_item_detail, mPosters);
         mRecyclerViewRecommend.setAdapter(mDetailFooterAdapter);
 //        mRecyclerViewCount.setDefaultSelect(0);
         mRecyclerViewRecommend.setOnItemClickListener(this);
@@ -142,4 +144,13 @@ public class DetailActivity extends BaseActivity implements RecyclerViewTV.OnIte
     }
 
 
+    @Override
+    public boolean isBaseOnWidth() {
+        return false;
+    }
+
+    @Override
+    public float getSizeInDp() {
+        return 720;
+    }
 }

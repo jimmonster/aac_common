@@ -51,7 +51,7 @@ public class CyFragment extends BaseFragment {
 //        mRecyclerView.addItemDecoration(new GridItemDecoration(0,0));
         mCyRightAdapter = new CyRightAdapter(R.layout.widget_cy_poster, items);
         mRecyclerView.setAdapter(mCyRightAdapter);
-       initEvent();
+        initEvent();
 
 
     }

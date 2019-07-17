@@ -62,6 +62,7 @@
         <activity android:name=".ui.activity.DrawingCyActivity"/>
         <activity android:name=".ui.activity.EducationCyActivity"/>
         <activity android:name=".test.TestActivity"/>
+        <activity android:name=".ui.activity.DemoKeyBoardActivity"/>
 
         <!--适配基准-->
         <meta-data

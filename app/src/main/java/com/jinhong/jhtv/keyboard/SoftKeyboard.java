@@ -254,11 +254,13 @@ public class SoftKeyboard {
 	}
 
 	public boolean setOneKeySelected(int row, int index) {
-		if (mKeyRows == null)
+		if (mKeyRows == null) {
 			return false;
+		}
 		row = Math.max(Math.min(row, (mKeyRows.size() - 1)), 0);
-		if (mKeyRows.get(row).getSoftKeys() == null)
+		if (mKeyRows.get(row).getSoftKeys() == null) {
 			return false;
+		}
 		List<SoftKey> softKeys = mKeyRows.get(row).getSoftKeys();
 		index = Math.max(Math.min(index, (softKeys.size() - 1)), 0);
 		SoftKey softKey = softKeys.get(index);

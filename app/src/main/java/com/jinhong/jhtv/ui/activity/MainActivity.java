@@ -66,16 +66,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mIvPic8 = (ImageView) findViewById(R.id.iv_pic8);
         mIvPic9 = (ImageView) findViewById(R.id.iv_pic9);
 
-//        onFocusChange(mIvPic0);
-//        onFocusChange(mIvPic1);
-//        onFocusChange(mIvPic2);
-//        onFocusChange(mIvPic3);
-//        onFocusChange(mIvPic4);
-//        onFocusChange(mIvPic5);
-//        onFocusChange(mIvPic6);
-//        onFocusChange(mIvPic7);
-//        onFocusChange(mIvPic8);
-//        onFocusChange(mIvPic9);
         FocusUtils.onFocusChange(mIvPic0);
         FocusUtils.onFocusChange(mIvPic1);
         FocusUtils.onFocusChange(mIvPic2);
@@ -112,6 +102,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
             default:
                 break;
@@ -156,8 +147,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(VideoActivity.class);
                 break;
             case R.id.iv_pic5:
-
-                startActivity(DetailActivity.class);
+                toast("键盘测试界面");
+                startActivity(DemoKeyBoardActivity.class);
                 break;
             case R.id.iv_pic6:
                 startActivity(DetailActivity.class);
