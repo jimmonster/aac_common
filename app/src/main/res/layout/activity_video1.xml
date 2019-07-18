@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+    <com.jinhong.jhtv.ui.views.TvVideoPlayerView
+        android:id="@+id/jz_video"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="false">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/ll_menu_container"
+                android:layout_width="210dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@color/colorAccent"
+                android:orientation="vertical"
+                android:paddingStart="15dp"
+                android:paddingTop="40dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="25dp"
+                android:visibility="gone">
+
+                <com.owen.tvrecyclerview.widget.TvRecyclerView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/recyclerView_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="25dp"
+                    android:orientation="vertical"
+                    app:tv_horizontalSpacingWithMargins="7dp"
+                    app:tv_layoutManager="GridLayoutManager"
+                    app:tv_numColumns="5"
+                    app:tv_numRows="2"
+                    app:tv_selectedItemIsCentered="true"
+                    app:tv_verticalSpacingWithMargins="9dp">
+
+                </com.owen.tvrecyclerview.widget.TvRecyclerView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp">
+
+                    <TextView
+                        android:id="@+id/tv_up_page"
+                        android:layout_width="70dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="40dp"
+                        android:background="@drawable/selector_player_next"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:text=" 上一页"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_next_page"
+                        android:layout_width="70dp"
+                        android:layout_height="25dp"
+                        android:layout_toRightOf="@id/tv_up_page"
+                        android:background="@drawable/selector_player_next"
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:text="下一页 "
+                        android:textColor="@color/white"
+                        android:textSize="12sp"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_menu_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ic_video_tip">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:ems="1"
+                    android:gravity="center"
+                    android:text="按确定键选集"
+                    android:textColor="@color/white"
+                    android:textSize="10sp">
+
+                </TextView>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </com.jinhong.jhtv.ui.views.TvVideoPlayerView>
+
+</RelativeLayout>

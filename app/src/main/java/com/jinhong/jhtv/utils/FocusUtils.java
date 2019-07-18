@@ -30,13 +30,10 @@ public class FocusUtils {
                         selected(v);
                     } else {
                         unselected(v);
-
                     }
                 }
-
             }
         });
-
     }
 
 
@@ -50,6 +47,21 @@ public class FocusUtils {
 
     public static void selected(View v) {
         v.setBackgroundResource(R.drawable.shape_selector_border_press);
+
+        v.animate().scaleY(1.1f).scaleX(1.1f).setDuration(200).start();
+
+    }
+
+    public static void unselected(View v, int drawable) {
+
+        v.setBackgroundResource(drawable);
+
+        v.animate().scaleY(1.0f).scaleX(1.0f).setDuration(200).start();
+
+    }
+
+    public static void selected(View v, int drawable) {
+        v.setBackgroundResource(drawable);
 
         v.animate().scaleY(1.1f).scaleX(1.1f).setDuration(200).start();
 

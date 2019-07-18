@@ -63,6 +63,14 @@
         <activity android:name=".ui.activity.EducationCyActivity"/>
         <activity android:name=".test.TestActivity"/>
         <activity android:name=".ui.activity.DemoKeyBoardActivity"/>
+        <activity
+            android:name=".ui.activity.VideoActivity1"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".test.VideoTestActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"/>
 
         <!--适配基准-->
         <meta-data

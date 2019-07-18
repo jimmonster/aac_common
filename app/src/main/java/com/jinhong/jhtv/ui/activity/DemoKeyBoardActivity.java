@@ -15,6 +15,7 @@ import com.jinhong.jhtv.keyboard.SkbContainer;
 import com.jinhong.jhtv.keyboard.SoftKey;
 import com.jinhong.jhtv.keyboard.SoftKeyBoardListener;
 import com.jinhong.jhtv.utils.OPENLOG;
+
 /**
  * https://git.oschina.net/hailongqiu/AndroidTVWidget/wikis/Android-TV-如何使用键盘控件%28SkbContainer%29
  * 暂时的demo.
