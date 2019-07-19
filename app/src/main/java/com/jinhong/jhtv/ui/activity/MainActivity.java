@@ -156,7 +156,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(VideoTestActivity.class);
                 break;
             case R.id.iv_pic7:
-                startActivity(DetailActivity.class);
+                startActivity(VideoActivity1.class);
                 break;
             case R.id.iv_pic8:
                 startActivity(DetailActivity.class);

@@ -92,6 +92,6 @@ dependencies {
 
 
     //GSY播放器
-    // implementation 'com.shuyu:GSYVideoPlayer:6.0.3'
+     implementation 'com.shuyu:GSYVideoPlayer:6.0.3'
 
 }

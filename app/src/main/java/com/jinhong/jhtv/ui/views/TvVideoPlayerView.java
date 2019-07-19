@@ -2,6 +2,7 @@ package com.jinhong.jhtv.ui.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.widget.SeekBar;
 
 import com.jinhong.jhtv.CustomMedia.JZMediaExo;
 import com.jinhong.jhtv.R;
@@ -17,6 +18,7 @@ import cn.jzvd.JzvdStd;
 public class TvVideoPlayerView extends JzvdStd {
 
     private JZMediaExo mJzMediaExo;
+    private SeekBar mSeekBar;
 
     public TvVideoPlayerView(Context context) {
         super(context);
@@ -33,6 +35,8 @@ public class TvVideoPlayerView extends JzvdStd {
     @Override
     public void init(Context context) {
         super.init(context);
+        mSeekBar = (SeekBar) findViewById(R.id.bottom_seek_progress);
+
 
     }
 
@@ -46,7 +50,8 @@ public class TvVideoPlayerView extends JzvdStd {
     }
 
     public void seekTo(long time){
-        mJzMediaExo.seekTo(time);
+
+        mediaInterface.seekTo(time);
     }
 
 
@@ -59,13 +64,13 @@ public class TvVideoPlayerView extends JzvdStd {
 
     @Override
     public void setAllControlsVisiblity(int topCon, int bottomCon, int startBtn, int loadingPro, int thumbImg, int bottomPro, int retryLayout) {
-        topContainer.setVisibility(topCon);
-        bottomContainer.setVisibility(bottomCon);
-        startButton.setVisibility(startBtn);
-        loadingProgressBar.setVisibility(loadingPro);
-        thumbImageView.setVisibility(thumbImg);
-        bottomProgressBar.setVisibility(bottomPro);
-        mRetryLayout.setVisibility(retryLayout);
+        topContainer.setVisibility(GONE);
+        bottomContainer.setVisibility(GONE);
+        startButton.setVisibility(GONE);
+        loadingProgressBar.setVisibility(GONE);
+        thumbImageView.setVisibility(GONE);
+        bottomProgressBar.setVisibility(GONE);
+        mRetryLayout.setVisibility(GONE);
     }
 
 

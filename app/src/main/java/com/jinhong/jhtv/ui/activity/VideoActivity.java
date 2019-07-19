@@ -29,8 +29,15 @@ import com.owen.tvrecyclerview.widget.TvRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jzvd.JZUtils;
 import cn.jzvd.Jzvd;
 import me.jessyan.autosize.internal.CancelAdapt;
+
+import static cn.jzvd.Jzvd.STATE_AUTO_COMPLETE;
+import static cn.jzvd.Jzvd.STATE_NORMAL;
+import static cn.jzvd.Jzvd.STATE_PAUSE;
+import static cn.jzvd.Jzvd.STATE_PLAYING;
+import static cn.jzvd.Jzvd.WIFI_TIP_DIALOG_SHOWED;
 
 /**
  * @author :  Jim
@@ -205,6 +212,23 @@ public class VideoActivity extends BaseActivity implements CancelAdapt, View.OnC
             case KeyEvent.KEYCODE_DPAD_CENTER:
                 Log.d(TAG, "enter--->");
                 toast("确定键enter--->");
+                if (myJzvdStd.state == STATE_NORMAL) {
+                    if (!myJzvdStd.jzDataSource.getCurrentUrl().toString().startsWith("file") && !
+                            myJzvdStd.jzDataSource.getCurrentUrl().toString().startsWith("/") &&
+                            !JZUtils.isWifiConnected(getApplicationContext()) && !WIFI_TIP_DIALOG_SHOWED) {//这个可以放到std中
+                        myJzvdStd.showWifiDialog();
+                    }
+                    myJzvdStd.startVideo();
+                } else if (myJzvdStd.state == STATE_PLAYING) {
+                    Log.d(TAG, "pauseVideo [" + this.hashCode() + "] ");
+                    myJzvdStd.mediaInterface.pause();
+                    myJzvdStd. onStatePause();
+                } else if (myJzvdStd.state == STATE_PAUSE) {
+                    myJzvdStd.mediaInterface.start();
+                    myJzvdStd.onStatePlaying();
+                } else if (myJzvdStd.state == STATE_AUTO_COMPLETE) {
+                    myJzvdStd.startVideo();
+                }
 
                 break;
             case 0x0119://收藏
@@ -285,23 +309,22 @@ public class VideoActivity extends BaseActivity implements CancelAdapt, View.OnC
 
 
                 toast("向左键");
-                if (mProgress > 0) {
-                    mProgress -= 10;
-                }
-                mSeekBar.setProgress(mProgress);
-                Log.d(TAG, "left--->" + mProgress);
-                myJzvdStd.seekToInAdvance = 100_000;
+                myJzvdStd.mediaInterface.setSpeed(1);
+
                 break;
 
             case KeyEvent.KEYCODE_DPAD_RIGHT:  //向右键，快进
 
                 toast("向右键");
-                if (mProgress < 100) {
-                    mProgress += 10;
-                }
-
-                mSeekBar.setProgress(mProgress);
                 Log.d(TAG, "right--->" + mProgress);
+
+                int seekBarProgress = mSeekBar.getProgress();
+                int totalTimeDuration = (int)myJzvdStd.getDuration();
+                String seekTime = JZUtils.stringForTime(seekBarProgress);
+                String totalTime = JZUtils.stringForTime(totalTimeDuration);
+                seekTime+=1000;
+//                myJzvdStd.showProgressDialog(1, seekTime, seekBarProgress, totalTime, totalTimeDuration);
+      myJzvdStd.mediaInterface.setSpeed(3);
                 break;
 
             case KeyEvent.KEYCODE_INFO:    //info键
