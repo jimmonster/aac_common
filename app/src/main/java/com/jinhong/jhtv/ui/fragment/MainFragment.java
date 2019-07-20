@@ -15,6 +15,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseFragment;
 import com.jinhong.jhtv.utils.FocusUtils;
+import com.owen.focus.FocusBorder;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
 import java.util.ArrayList;
@@ -25,10 +26,11 @@ import java.util.List;
  * @date :  2019-07-20
  * @description :
  */
-public class MainFragment extends BaseFragment {
+public class MainFragment extends BaseFragment  {
 
     private TvRecyclerView mRecyclerView;
     private ArrayList<String> mContents;
+    private FocusBorder mFocusBorder;
 
 
     @Nullable
@@ -57,7 +59,10 @@ public class MainFragment extends BaseFragment {
         mRecyclerView.setAdapter(gsyMenuAdapter);
         gsyMenuAdapter.bindToRecyclerView(mRecyclerView);
 
+
     }
+
+
 
     private class GSYMenuAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         public GSYMenuAdapter(int layoutResId, @Nullable List<String> data) {
