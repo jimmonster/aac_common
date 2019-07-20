@@ -1,7 +1,10 @@
 package com.jinhong.jhtv.base;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -20,7 +23,19 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public BorderView mBorder;
     public String extraBundle = "ExtraBundle";
+    @SuppressLint("HandlerLeak")
+   public Handler baseHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            baseHandler(msg);
 
+        }
+    };
+
+    public void baseHandler(Message msg){
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
