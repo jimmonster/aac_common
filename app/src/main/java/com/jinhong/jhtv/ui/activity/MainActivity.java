@@ -156,10 +156,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(VideoTestActivity.class);
                 break;
             case R.id.iv_pic7:
+                toast("视频测试1");
                 startActivity(VideoActivity1.class);
                 break;
             case R.id.iv_pic8:
-                startActivity(DetailActivity.class);
+                toast("新版主页");
+                startActivity(MainActivity1.class);
                 break;
             case R.id.iv_pic9:
                 startActivity(DetailActivity.class);

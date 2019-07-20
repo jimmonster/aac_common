@@ -2,6 +2,7 @@ package com.jinhong.jhtv.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -10,9 +11,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -20,7 +23,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
 import com.jinhong.jhtv.ui.views.BaseGSYVideoPlayer;
-import com.jinhong.jhtv.ui.widgets.DialogUtils;
 import com.jinhong.jhtv.ui.widgets.GSYPlayView;
 import com.jinhong.jhtv.utils.FocusUtils;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
@@ -74,6 +76,7 @@ public class VideoActivity1 extends BaseActivity {
         }
     };
     private GSYPlayView mStart;
+    private SeekBar mSeekBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,37 +103,42 @@ public class VideoActivity1 extends BaseActivity {
         mLlMenuContainer = (LinearLayout) findViewById(R.id.ll_menu_container);
 
         mGsyPlayer = (BaseGSYVideoPlayer) findViewById(R.id.gsy_player);
-        mStart = (GSYPlayView)mGsyPlayer.findViewById(R.id.start);
+        mStart = (GSYPlayView) mGsyPlayer.findViewById(R.id.start);
+        mSeekBar = mGsyPlayer.findViewById(R.id.progress);
         Drawable thumb = getResources().getDrawable(R.drawable.ic_video_volume_button);
         Drawable progressDrawable = getResources().getDrawable(R.drawable.seek_player_progress);
         mGsyVideoManager = mGsyPlayer.getGSYVideoManager();
-        mGsyVideoOption = new GSYVideoOptionBuilder();
-        mGsyVideoOption
-//                .setThumbImageView(imageView) //设置封面
-                .setBottomShowProgressBarDrawable(progressDrawable, thumb)
-                .setIsTouchWiget(true)
-                .setRotateViewAuto(false)
-                .setLockLand(false)
-                .setAutoFullWithSize(true)
-                .setShowFullAnimation(true)
-                .setNeedLockFull(false)
-                .setUrl(url)
-                .setPlayTag(url)
-//                .setMapHeadData(header)
-                .setCacheWithPlay(false)
-                .setVideoTitle(null)
-//                .setSeekOnStart(0)//从哪里开始播放
-//                .setGSYVideoProgressListener(new GSYVideoProgressListener() {
-//                    @Override
-//                    public void onProgress(int progress, int secProgress, int currentPosition, int duration) {
-//                      //进度条回调
-//                        Debuger.printfLog(" progress " + progress + " secProgress " + secProgress + " currentPosition " + currentPosition + " duration " + duration);
-//                    }
-//                })
+        mGsyPlayer.setBottomShowProgressBarDrawable(progressDrawable, thumb);
+        mGsyPlayer.setUp(url, true, null);
 
-                .build(mGsyPlayer);
+//        mGsyVideoOption = new GSYVideoOptionBuilder();
+//        mGsyVideoOption
+////                .setThumbImageView(imageView) //设置封面
+//                .setBottomShowProgressBarDrawable(progressDrawable, thumb)
+//                .setIsTouchWiget(true)
+//                .setRotateViewAuto(false)
+//                .setLockLand(false)
+//                .setAutoFullWithSize(true)
+//                .setShowFullAnimation(true)
+//                .setNeedLockFull(false)
+//                .setUrl(url)
+//                .setPlayTag(url)
+////                .setMapHeadData(header)
+//                .setCacheWithPlay(false)
+//                .setVideoTitle(null)
+////                .setSeekOnStart(0)//从哪里开始播放
+////                .setGSYVideoProgressListener(new GSYVideoProgressListener() {
+////                    @Override
+////                    public void onProgress(int progress, int secProgress, int currentPosition, int duration) {
+////                      //进度条回调
+////                        Debuger.printfLog(" progress " + progress + " secProgress " + secProgress + " currentPosition " + currentPosition + " duration " + duration);
+////                    }
+////                })
+//
+//                .build(mGsyPlayer);
         //自动播放
         mGsyPlayer.startPlayLogic();
+
 
         //几秒后不显示提示
         mHandler.postDelayed(new Runnable() {
@@ -178,12 +186,59 @@ public class VideoActivity1 extends BaseActivity {
     @Override
     public void onBackPressed() {
 
-        //释放所有
-        mGsyPlayer.setVideoAllCallBack(null);
-        GSYVideoManager.releaseAllVideos();
+//        //释放所有
+//        mGsyPlayer.setVideoAllCallBack(null);
+//        GSYVideoManager.releaseAllVideos();
         //弹出对话框
-        DialogUtils.getInstance(this).show();
+        showDialogForExit();
         // super.onBackPressed();
+
+    }
+
+    private void showDialogForExit() {
+
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        dialog.setView(LayoutInflater.from(this).inflate(
+                R.layout.dialog_video_toast, null)); // 设置view
+
+        dialog.show(); //显示出来
+
+        TextView tvEnd = (TextView) dialog.findViewById(R.id.tv_end);
+        tvEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //结束播放
+                dialog.dismiss();
+                dialog.cancel();
+                //释放所有
+                mGsyPlayer.setVideoAllCallBack(null);
+                GSYVideoManager.releaseAllVideos();
+                finish();
+            }
+        });
+
+        TextView tvWatching = (TextView) dialog.findViewById(R.id.tv_watching);
+        tvWatching.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //继续观看
+                dialog.dismiss();
+                dialog.cancel();
+            }
+        });
+
+        TextView tvNextCount = (TextView) dialog.findViewById(R.id.tv_next_count);
+        tvNextCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //下一集
+                dialog.dismiss();
+                dialog.cancel();
+
+
+            }
+        });
+
 
     }
 
@@ -272,11 +327,14 @@ public class VideoActivity1 extends BaseActivity {
             long currentPosition = mGsyVideoManager.getCurrentPosition();
             if (isAdd) {
                 currentPosition += 5_000;//快退5S
+                if (duration > currentPosition) {
+                    mGsyVideoManager.seekTo(currentPosition);
+                }
             } else {
                 currentPosition -= 5_000;//快退5S
-            }
-            if (duration > currentPosition) {
-                mGsyVideoManager.seekTo(currentPosition);
+                if (duration > currentPosition) {
+                    mGsyVideoManager.seekTo(currentPosition);
+                }
             }
 
 

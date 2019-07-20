@@ -1,17 +1,17 @@
 package com.jinhong.jhtv.ui.activity;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.widget.LinearLayout;
 
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
-import com.jinhong.jhtv.ui.adapter.MainTabAdapter;
-import com.jinhong.jhtv.ui.leanback.AutoMeaureGridLayoutManager;
-import com.jinhong.jhtv.ui.leanback.LinearLayoutManagerTV;
-import com.jinhong.jhtv.ui.leanback.RecyclerViewTV;
-import com.jinhong.jhtv.ui.views.AutoHorizontalScrollTextView;
+import com.jinhong.jhtv.ui.fragment.MainFragment;
 
 import java.util.ArrayList;
 
@@ -21,15 +21,11 @@ import java.util.ArrayList;
  * @description :主页界面
  */
 public class MainActivity1 extends BaseActivity {
-    private ImageView mIvNotice;
-    private AutoHorizontalScrollTextView mTvNotice;
-
-    private RecyclerViewTV mRecyclerViewTabs;
-    private RecyclerViewTV mRecyclerViewContainer;
-    private RelativeLayout mLlContainer;
-    private ArrayList<Integer> mTabs;
-    private ArrayList<Integer> mPics;
-
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
+    private LinearLayout mLlContainer;
+    private ArrayList<String> mTabs;
+    private ArrayList<String> mContents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,49 +36,66 @@ public class MainActivity1 extends BaseActivity {
     }
 
     private void initData() {
-        //
+        //分类标题
         mTabs = new ArrayList<>();
-        mTabs.add(R.drawable.selector_titles0);
-        mTabs.add(R.drawable.selector_titles1);
-        mTabs.add(R.drawable.selector_titles2);
-        mTabs.add(R.drawable.selector_titles3);
-        mTabs.add(R.drawable.selector_titles4);
-        mTabs.add(R.drawable.selector_titles5);
-
-        mPics = new ArrayList<>();
-        mPics.add(R.drawable.sy01);
-        mPics.add(R.drawable.sy02);
-        mPics.add(R.drawable.sy03);
-        mPics.add(R.drawable.sy04);
-        mPics.add(R.drawable.sy05);
-        mPics.add(R.drawable.sy06);
-        mPics.add(R.drawable.sy07);
-        mPics.add(R.drawable.sy08);
-        mPics.add(R.drawable.sy09);
-        mPics.add(R.drawable.sy10);
-
+        for (int i = 0; i < 5; i++) {
+            mTabs.add("标题"+i);
+        }
+        mContents = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            mContents.add("内容"+i);
+        }
     }
 
     private void initView() {
-        mIvNotice = (ImageView) findViewById(R.id.iv_notice);
-        mTvNotice = (AutoHorizontalScrollTextView) findViewById(R.id.tv_notice);
-        mRecyclerViewTabs = (RecyclerViewTV) findViewById(R.id.recyclerView_tabs);
-        mRecyclerViewContainer = (RecyclerViewTV) findViewById(R.id.recyclerView_container);
-        mBorder.attachTo(mRecyclerViewTabs);
-        mBorder.attachTo(mRecyclerViewContainer);
-        initEvent();
+        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        mViewPager = (ViewPager) findViewById(R.id.viewPager);
+        mLlContainer = (LinearLayout) findViewById(R.id.ll_container);
+//        for (int i = 0; i < mTabs.size(); i++) {
+//            TextView tabItemView = new TextView(this);
+//            tabItemView.setText(mTabs.get(0));
+//            mTabLayout.addView(tabItemView);
+//        }
+        ViewpagerAdapter viewpagerAdapter = new ViewpagerAdapter(getSupportFragmentManager(), mTabs,mContents);
+        mViewPager.setAdapter(viewpagerAdapter);
+        mViewPager.setOffscreenPageLimit(viewpagerAdapter.getCount());
+        mTabLayout.setupWithViewPager(mViewPager);
+
     }
 
-    private void initEvent() {
-        mRecyclerViewTabs.setLayoutManager(new LinearLayoutManagerTV(this, LinearLayoutManager.HORIZONTAL,false));
-        MainTabAdapter mainTabAdapter = new MainTabAdapter(R.layout.widget_tabs, mTabs);
-        mRecyclerViewTabs.setAdapter(mainTabAdapter);
-        mainTabAdapter.bindToRecyclerView(mRecyclerViewTabs);
 
-        mRecyclerViewContainer.setLayoutManager(new AutoMeaureGridLayoutManager(this,4,LinearLayoutManager.HORIZONTAL,false));
-        MainTabAdapter mainTabAdapter0 = new MainTabAdapter(R.layout.widget_images0, mPics);
-        mRecyclerViewContainer.setAdapter(mainTabAdapter0);
-        mainTabAdapter0.bindToRecyclerView(mRecyclerViewContainer);
+
+}
+
+class  ViewpagerAdapter extends FragmentStatePagerAdapter{
+    private ArrayList<String> mTabs;
+    private ArrayList<String> mContents;
+
+    public ViewpagerAdapter(FragmentManager fm,ArrayList<String> tabs,ArrayList<String> contents) {
+        super(fm);
+        mTabs=tabs;
+        mContents=contents;
+    }
+
+
+    @Override
+    public Fragment getItem(int i) {
+        MainFragment mainFragment = new MainFragment();
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("mainData",mContents);
+        mainFragment.setArguments(bundle);
+        return mainFragment;
+    }
+
+    @Override
+    public int getCount() {
+        return mTabs.size();
+    }
+
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mTabs.get(position);
 
     }
 }

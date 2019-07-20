@@ -43,7 +43,10 @@ public class DialogUtils {
         mDlg.setView(LayoutInflater.from(activity).inflate(
                 R.layout.dialog_video_toast, null)); // 设置view
 
-        mDlg.show(); //显示出来
+        if (!mDlg.isShowing()) {
+            mDlg.show(); //显示出来
+        }
+
 
         TextView tvEnd = (TextView) mDlg.findViewById(R.id.tv_end);
         tvEnd.setOnClickListener(new View.OnClickListener() {

@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tv_tvcount"
-    android:layout_width="30dp"
-    android:layout_height="30dp"
-    android:background="@drawable/iv_player_circle"
-    android:focusable="true"
-    android:gravity="center"
-    android:padding="3dp"
-    android:textSize="12sp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true">
+
+    <TextView
+        android:id="@+id/tv_tvcount"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:background="@drawable/iv_player_circle"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:padding="3dp"
+        android:textSize="36sp"/>
 
 
-</TextView>
+</FrameLayout>
