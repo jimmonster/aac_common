@@ -5,24 +5,81 @@
     android:id="@+id/ll_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:background="@drawable/bg"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/logo3"/>
+
+        <com.jinhong.jhtv.ui.views.AutoHorizontalScrollTextView
+            android:id="@+id/astv_notify"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:singleLine="true"
+            android:text="@string/test_info"
+            android:textColor="@color/white"
+            android:textSize="22sp"/>
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="50dp"
+            android:layout_toRightOf="@id/astv_notify"
+            android:background="@drawable/iv_btn_next"/>
+
+        <ImageView
+            android:id="@+id/iv_collection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toRightOf="@id/iv_search"
+            android:background="@drawable/iv_btn_next"/>
+
+        <ImageView
+            android:id="@+id/iv_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toRightOf="@id/iv_collection"
+            android:background="@drawable/iv_btn_next"/>
+
+
+    </RelativeLayout>
+
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
         android:layout_width="match_parent"
         android:layout_height="80dp"
 
         android:background="#ffff00"
-
+        app:tabGravity="fill"
         app:tabIndicatorColor="#66ff33"
 
-        app:tabIndicatorHeight="20dp"
+        app:tabIndicatorHeight="0dp"
+        app:tabMaxWidth="0dp"
 
         app:tabMode="fixed"
+
 
         app:tabSelectedTextColor="#CC33FF"
         app:tabTextColor="@color/colorPrimary">

@@ -51,11 +51,6 @@ public class MainActivity1 extends BaseActivity {
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
         mLlContainer = (LinearLayout) findViewById(R.id.ll_container);
-//        for (int i = 0; i < mTabs.size(); i++) {
-//            TextView tabItemView = new TextView(this);
-//            tabItemView.setText(mTabs.get(0));
-//            mTabLayout.addView(tabItemView);
-//        }
         ViewpagerAdapter viewpagerAdapter = new ViewpagerAdapter(getSupportFragmentManager(), mTabs,mContents);
         mViewPager.setAdapter(viewpagerAdapter);
         mViewPager.setOffscreenPageLimit(viewpagerAdapter.getCount());

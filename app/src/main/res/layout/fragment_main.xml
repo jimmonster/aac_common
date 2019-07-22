@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-
-                android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:paddingStart="80dp"
+             android:paddingEnd="80dp"
+    >
 
     <com.owen.tvrecyclerview.widget.TvRecyclerView
         android:id="@+id/recyclerView"
@@ -14,7 +16,7 @@
         android:scrollbars="none"
         app:tv_horizontalSpacingWithMargins="20dp"
         app:tv_layoutManager="GridLayoutManager"
-        app:tv_numColumns="5"
+        app:tv_numColumns="4"
         app:tv_numRows="3"
         app:tv_optimizeLayout="false"
         app:tv_selectedItemIsCentered="false"
@@ -22,4 +24,4 @@
 
     </com.owen.tvrecyclerview.widget.TvRecyclerView>
 
-</RelativeLayout>
+</FrameLayout>

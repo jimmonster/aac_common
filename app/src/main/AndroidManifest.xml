@@ -72,6 +72,7 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.MainActivity1"/>
+        <activity android:name=".test.RecyclerTestActivity"/>
 
         <!--适配基准-->
         <meta-data

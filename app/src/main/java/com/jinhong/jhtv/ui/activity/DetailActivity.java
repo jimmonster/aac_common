@@ -18,6 +18,7 @@ import com.jinhong.jhtv.ui.leanback.GridLayoutManagerTV;
 import com.jinhong.jhtv.ui.leanback.LinearLayoutManagerTV;
 import com.jinhong.jhtv.ui.leanback.RecyclerViewTV;
 import com.jinhong.jhtv.utils.IoUtils;
+import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
 import java.util.ArrayList;
 
@@ -59,7 +60,7 @@ public class DetailActivity extends BaseActivity implements CustomAdapt, Recycle
     private TextView mTvPlay;
 
     private RecyclerViewTV mRecyclerViewCount;
-    private RecyclerViewTV mRecyclerViewRecommend;
+    private TvRecyclerView mRecyclerViewRecommend;
     //数据
     private DetailedCard mDetailedCard;
     private ArrayList<String> mCount;
@@ -108,7 +109,7 @@ public class DetailActivity extends BaseActivity implements CustomAdapt, Recycle
         mTvInfo1 = (TextView) findViewById(R.id.tv_info1);
         mTvPlay = (TextView) findViewById(R.id.tv_play);
         mRecyclerViewCount = (RecyclerViewTV) findViewById(R.id.recyclerView_count);
-        mRecyclerViewRecommend = (RecyclerViewTV) findViewById(R.id.recyclerView_recommend);
+        mRecyclerViewRecommend = (TvRecyclerView) findViewById(R.id.recyclerView_recommend);
 
         mRecyclerViewTabs = (RecyclerViewTV) findViewById(R.id.recyclerView_tabs);
         initEvent();
@@ -121,11 +122,25 @@ public class DetailActivity extends BaseActivity implements CustomAdapt, Recycle
         mRecyclerViewCount.setAdapter(mDetailCountAdapter);
         mRecyclerViewCount.setOnItemClickListener(this);
         //推荐海报
-        mRecyclerViewRecommend.setLayoutManager(new GridLayoutManagerTV(this, 4));
         mDetailFooterAdapter = new DetailFooterAdapter(R.layout.widget_item_detail, mPosters);
         mRecyclerViewRecommend.setAdapter(mDetailFooterAdapter);
 //        mRecyclerViewCount.setDefaultSelect(0);
-        mRecyclerViewRecommend.setOnItemClickListener(this);
+        mRecyclerViewRecommend.setOnItemListener(new TvRecyclerView.OnItemListener() {
+            @Override
+            public void onItemPreSelected(TvRecyclerView parent, View itemView, int position) {
+
+            }
+
+            @Override
+            public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
+
+            }
+
+            @Override
+            public void onItemClick(TvRecyclerView parent, View itemView, int position) {
+                toast(position + "位置");
+            }
+        });
         //tabs
         mRecyclerViewTabs.setLayoutManager(new LinearLayoutManagerTV(this, LinearLayoutManager.HORIZONTAL, false));
         mDetailTabAdapter = new DetailTabAdapter(R.layout.widget_textview_tab, mTabs);
@@ -139,7 +154,7 @@ public class DetailActivity extends BaseActivity implements CustomAdapt, Recycle
     @Override
     public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
         startActivity(VideoActivity.class);
-//        toast(position + "位置");
+        toast(position + "位置");
 
     }
 

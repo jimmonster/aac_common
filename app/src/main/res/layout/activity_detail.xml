@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg"
     android:clipChildren="false"
     android:clipToPadding="false"
@@ -101,7 +102,7 @@
                 android:layout_below="@id/tv_info0"
                 android:layout_marginTop="14dp"
                 android:ellipsize="end"
-                android:lineSpacingExtra="24dp"
+                android:lineSpacingExtra="24px"
                 android:maxLines="2"
                 android:text="@string/tv_info"
                 android:textColor="@color/white"
@@ -119,7 +120,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignTop="@id/tv_play"
                 android:layout_marginStart="14dp"
                 android:layout_toEndOf="@id/tv_play"
@@ -128,8 +129,7 @@
                 <com.jinhong.jhtv.ui.leanback.RecyclerViewTV
                     android:id="@+id/recyclerView_tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
 
                 </com.jinhong.jhtv.ui.leanback.RecyclerViewTV>
 
@@ -178,12 +178,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.jinhong.jhtv.ui.leanback.RecyclerViewTV
+        <com.owen.tvrecyclerview.widget.TvRecyclerView
             android:id="@+id/recyclerView_recommend"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:descendantFocusability="afterDescendants"
+            android:orientation="vertical"
+            android:scrollbars="none"
+            app:tv_horizontalSpacingWithMargins="72dp"
+            app:tv_layoutManager="GridLayoutManager"
+            app:tv_numColumns="4"
+            app:tv_numRows="3"
+            app:tv_optimizeLayout="false"
+            app:tv_selectedItemIsCentered="false"
+            app:tv_verticalSpacingWithMargins="28dp">
 
-        </com.jinhong.jhtv.ui.leanback.RecyclerViewTV>
+        </com.owen.tvrecyclerview.widget.TvRecyclerView>
 
     </LinearLayout>
 

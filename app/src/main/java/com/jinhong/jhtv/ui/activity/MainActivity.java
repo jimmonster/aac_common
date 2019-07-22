@@ -7,6 +7,7 @@ import android.widget.TextClock;
 
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
+import com.jinhong.jhtv.test.RecyclerTestActivity;
 import com.jinhong.jhtv.test.TestActivity;
 import com.jinhong.jhtv.test.VideoTestActivity;
 import com.jinhong.jhtv.ui.views.AutoHorizontalScrollTextView;
@@ -164,7 +165,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(MainActivity1.class);
                 break;
             case R.id.iv_pic9:
-                startActivity(DetailActivity.class);
+                startActivity(RecyclerTestActivity.class);
                 break;
         }
     }
