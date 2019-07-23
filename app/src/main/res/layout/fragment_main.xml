@@ -7,21 +7,14 @@
              android:paddingEnd="80dp"
     >
 
-    <com.owen.tvrecyclerview.widget.TvRecyclerView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:descendantFocusability="afterDescendants"
-        android:orientation="vertical"
-        android:scrollbars="none"
-        app:tv_horizontalSpacingWithMargins="20dp"
-        app:tv_layoutManager="GridLayoutManager"
-        app:tv_numColumns="4"
-        app:tv_numRows="3"
-        app:tv_optimizeLayout="false"
-        app:tv_selectedItemIsCentered="false"
-        app:tv_verticalSpacingWithMargins="28dp">
-
-    </com.owen.tvrecyclerview.widget.TvRecyclerView>
+        android:clipToPadding="true"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:requiresFadingEdge="none"
+        android:scrollbars="none"/>
 
 </FrameLayout>

@@ -52,12 +52,14 @@ public class ImageUtils {
         RoundedCorners roundedCorners = new RoundedCorners(30);
 //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
         RequestOptions options = RequestOptions.bitmapTransform(roundedCorners);
-
         Activity topActivity = ActivityUtils.getTopActivity();
         Glide.with(topActivity)
+
                 .load(drawable)
+
                 .apply(options)
                 .into(view);
+
 
     }
 

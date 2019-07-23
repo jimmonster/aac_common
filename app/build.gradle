@@ -41,6 +41,7 @@ dependencies {
     implementation 'me.jessyan:autosize:1.1.2'
     //图片框架
     implementation 'com.github.bumptech.glide:glide:4.3.1'
+    implementation 'jp.wasabeef:glide-transformations:4.0.0'
     //Android TV
     implementation "com.android.support:leanback-v17:+"
 
@@ -89,9 +90,17 @@ dependencies {
     //版本升级
     implementation 'com.allenliu.versionchecklib:library:2.2.0'
 
+    //tangram UI
+    implementation 'com.alibaba.android:tangram:2.0.5@aar'
+    implementation ('com.alibaba.android:virtualview:1.0.5@aar') {
+        transitive = true
+    }
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+
 
 
     //GSY播放器
-     implementation 'com.shuyu:GSYVideoPlayer:6.0.3'
+    implementation 'com.shuyu:GSYVideoPlayer:6.0.3'
 
 }

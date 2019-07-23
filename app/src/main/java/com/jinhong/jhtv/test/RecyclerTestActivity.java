@@ -32,6 +32,7 @@ public class RecyclerTestActivity extends BaseActivity {
 
     private TvRecyclerView mRecyclerView;
     private List<DelegateAdapter.Adapter> adapters;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +43,7 @@ public class RecyclerTestActivity extends BaseActivity {
 
     private void initView() {
         mRecyclerView = (TvRecyclerView) findViewById(R.id.recyclerView);
-        final DelegateAdapter delegateAdapter = new DelegateAdapter((VLayoutManager)mRecyclerView.getLayoutManager(), true);
+        final DelegateAdapter delegateAdapter = new DelegateAdapter((VLayoutManager) mRecyclerView.getLayoutManager(), true);
         mRecyclerView.setAdapter(delegateAdapter);
         mRecyclerView.setSelectedItemAtCentered(true);
 //        mRecyclerView.setSpacingWithMargins(10, 10);
@@ -125,6 +126,7 @@ public class RecyclerTestActivity extends BaseActivity {
             adapters.add(new SubAdapter(this, layoutHelper, 88));
         }
     }
+
     static class TitleAdapter extends DelegateAdapter.Adapter<MainViewHolder> {
 
         private Context mContext;

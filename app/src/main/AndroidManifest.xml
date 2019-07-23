@@ -73,6 +73,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.MainActivity1"/>
         <activity android:name=".test.RecyclerTestActivity"/>
+        <activity android:name=".test.VLayoutActivity"/>
 
         <!--适配基准-->
         <meta-data
