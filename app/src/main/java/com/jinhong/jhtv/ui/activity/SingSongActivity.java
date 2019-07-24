@@ -11,7 +11,7 @@ import com.jinhong.jhtv.base.BaseActivity;
 /**
  * @author :  Jim
  * @date :  2019-07-09
- * @description :
+ * @description :一起唱儿歌页面
  */
 public class SingSongActivity extends BaseActivity implements View.OnClickListener {
 

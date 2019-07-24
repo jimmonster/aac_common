@@ -48,6 +48,7 @@ public class MainActivity1 extends BaseActivity {
     }
 
     private void initView() {
+
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
         mLlContainer = (LinearLayout) findViewById(R.id.ll_container);

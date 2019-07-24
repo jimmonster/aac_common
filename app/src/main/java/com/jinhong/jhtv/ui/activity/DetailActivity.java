@@ -17,19 +17,18 @@ import com.jinhong.jhtv.ui.adapter.DetailTabAdapter;
 import com.jinhong.jhtv.ui.leanback.GridLayoutManagerTV;
 import com.jinhong.jhtv.ui.leanback.LinearLayoutManagerTV;
 import com.jinhong.jhtv.ui.leanback.RecyclerViewTV;
+import com.jinhong.jhtv.utils.FocusUtils;
 import com.jinhong.jhtv.utils.IoUtils;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
 import java.util.ArrayList;
-
-import me.jessyan.autosize.internal.CustomAdapt;
 
 /**
  * @author :  Jim
  * @date :  2019-07-01
  * @description :详情页面
  */
-public class DetailActivity extends BaseActivity implements CustomAdapt, RecyclerViewTV.OnItemClickListener {
+public class DetailActivity extends BaseActivity implements  RecyclerViewTV.OnItemClickListener {
 
     private ImageView mIvPoster;
     /**
@@ -74,7 +73,7 @@ public class DetailActivity extends BaseActivity implements CustomAdapt, Recycle
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_detail1);
         initData();
         initView();
     }
@@ -128,12 +127,13 @@ public class DetailActivity extends BaseActivity implements CustomAdapt, Recycle
         mRecyclerViewRecommend.setOnItemListener(new TvRecyclerView.OnItemListener() {
             @Override
             public void onItemPreSelected(TvRecyclerView parent, View itemView, int position) {
+                FocusUtils.unselected(itemView);
 
             }
 
             @Override
             public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
-
+                FocusUtils.selected(itemView);
             }
 
             @Override
@@ -153,19 +153,11 @@ public class DetailActivity extends BaseActivity implements CustomAdapt, Recycle
 
     @Override
     public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-        startActivity(VideoActivity.class);
+        startActivity(VideoActivity1.class);
         toast(position + "位置");
 
     }
 
 
-    @Override
-    public boolean isBaseOnWidth() {
-        return false;
-    }
 
-    @Override
-    public float getSizeInDp() {
-        return 720;
-    }
 }

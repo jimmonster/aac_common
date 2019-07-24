@@ -77,7 +77,7 @@ public class VLayoutActivity extends BaseActivity {
                              @Override
                              public void onBindViewHolder(MainViewHolder holder, int position) {
                                  super.onBindViewHolder(holder, position);
-                               //  holder.itemView.setFocusable(true);
+                                 //  holder.itemView.setFocusable(true);
                                  VirtualLayoutManager.LayoutParams lp = (VirtualLayoutManager.LayoutParams) holder.itemView.getLayoutParams();
                                  if (position == 0) {
                                      lp.rightMargin = 1;

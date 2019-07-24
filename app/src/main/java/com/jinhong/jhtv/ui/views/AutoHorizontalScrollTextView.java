@@ -1,6 +1,8 @@
 package com.jinhong.jhtv.ui.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Rect;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.TextView;
@@ -33,5 +35,16 @@ public class AutoHorizontalScrollTextView extends TextView{
     @Override
     public boolean isFocused() {
         return true;
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        //super.onFocusChanged(focused, direction, previouslyFocusedRect);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasWindowFocus) {
+        //super.onWindowFocusChanged(hasWindowFocus);
     }
 }

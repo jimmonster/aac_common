@@ -1,159 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:fillViewport="true"
-    android:orientation="vertical"
-    android:paddingStart="100dp"
-    android:paddingTop="80dp"
-    android:paddingEnd="100dp"
-    android:paddingBottom="20dp"
-    android:scrollbars="none"
-    tools:ignore="RtlSymmetry">
+    android:paddingStart="150dp"
+    android:paddingTop="120dp"
+    android:paddingEnd="150dp"
+    >
 
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/iv_poster"
+        android:layout_width="630dp"
+        android:layout_height="525dp"
+        android:background="@drawable/iv_poster_0"
+        android:scaleType="fitXY"/>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="340dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/iv_poster"
+        android:paddingStart="75dp">
 
-        <ImageView
-            android:id="@+id/iv_poster"
-            android:layout_width="420dp"
-            android:layout_height="350dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/iv_poster_0"/>
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="嗨，顾得白之奇妙生活"
+            android:textColor="@color/white"
+            android:textSize="48sp"
+            android:textStyle="bold"/>
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/ll_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingStart="50dp"
-            tools:ignore="RtlSymmetry">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_type"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:text="嗨，顾得白之奇妙生活"
+                android:layout_weight="3.4"
+                android:text="类型：搞笑/益智"
                 android:textColor="@color/white"
-                android:textSize="32sp"
-                android:textStyle="bold"/>
+                android:textSize="27sp"/>
 
-            <LinearLayout
-                android:id="@+id/ll_container"
+            <TextView
+                android:id="@+id/tv_update"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.4"
+                android:text="上映时间：2019"
+                android:textColor="@color/white"
+                android:textSize="27sp"/>
+
+            <TextView
+                android:id="@+id/tv_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.8"
+                android:text="集数：32"
+                android:textColor="@color/white"
+                android:textSize="27sp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_info0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_container"
+            android:layout_marginTop="27dp"
+            android:text="剧情介绍："
+            android:textColor="@color/white"
+            android:textSize="27sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_info1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_info0"
+            android:layout_marginTop="20dp"
+            android:ellipsize="end"
+            android:lineSpacingExtra="36dp"
+            android:maxLines="2"
+            android:text="@string/tv_info"
+            android:textColor="@color/white"
+            android:textSize="24sp"/>
+
+        <TextView
+            android:id="@+id/tv_play"
+            android:layout_width="108dp"
+            android:layout_height="64dp"
+            android:layout_below="@id/tv_info1"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/selector_sure"
+            android:focusable="true"
+            android:textColor="@color/white"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tv_play"
+            android:layout_marginStart="28dp"
+            android:layout_toEndOf="@id/tv_play"
+            android:orientation="vertical">
+
+            <com.jinhong.jhtv.ui.leanback.RecyclerViewTV
+                android:id="@+id/recyclerView_tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_title"
-                android:layout_marginTop="14dp"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_type"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3.4"
-                    android:text="类型：搞笑/益智"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"/>
+            </com.jinhong.jhtv.ui.leanback.RecyclerViewTV>
 
-                <TextView
-                    android:id="@+id/tv_update"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3.4"
-                    android:text="上映时间：2019"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"/>
 
-                <TextView
-                    android:id="@+id/tv_count"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2.8"
-                    android:text="集数：32"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_info0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/ll_container"
-                android:layout_marginTop="18dp"
-                android:text="剧情介绍："
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/tv_info1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_info0"
-                android:layout_marginTop="14dp"
-                android:ellipsize="end"
-                android:lineSpacingExtra="24dp"
-                android:maxLines="2"
-                android:text="@string/tv_info"
-                android:textColor="@color/white"
-                android:textSize="16sp"/>
-
-            <TextView
-                android:id="@+id/tv_play"
-                android:layout_width="108dp"
-                android:layout_height="64dp"
-                android:layout_below="@id/tv_info1"
-                android:layout_marginTop="18dp"
-                android:background="@drawable/selector_sure"
-                android:focusable="true"
-                android:textColor="@color/white"/>
-
-            <LinearLayout
+            <com.jinhong.jhtv.ui.leanback.RecyclerViewTV
+                android:id="@+id/recyclerView_count"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@id/tv_play"
-                android:layout_marginStart="14dp"
-                android:layout_toEndOf="@id/tv_play"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
+            </com.jinhong.jhtv.ui.leanback.RecyclerViewTV>
 
-                <com.jinhong.jhtv.ui.leanback.RecyclerViewTV
-                    android:id="@+id/recyclerView_tabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                </com.jinhong.jhtv.ui.leanback.RecyclerViewTV>
+        </LinearLayout>
 
 
-                <com.jinhong.jhtv.ui.leanback.RecyclerViewTV
-                    android:id="@+id/recyclerView_count"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </com.jinhong.jhtv.ui.leanback.RecyclerViewTV>
+    </RelativeLayout>
 
-            </LinearLayout>
-
-
-        </RelativeLayout>
-
-    </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_div"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="26dp"
-        android:layout_marginBottom="30dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_poster"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="46dp"
         android:orientation="horizontal">
 
         <TextView
@@ -162,11 +153,12 @@
             android:gravity="center_vertical"
             android:text="猜你喜欢"
             android:textColor="@color/white"
-            android:textSize="24sp"/>
+            android:textSize="36sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="3dp"
             android:layout_marginStart="14dp"
             android:layout_marginTop="4dp"
             android:background="@color/white"
@@ -174,18 +166,20 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <com.owen.tvrecyclerview.widget.TvRecyclerView
+        android:id="@+id/recyclerView_recommend"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_div"
+        android:layout_marginTop="45dp"
+        android:orientation="vertical"
+        android:scrollbars="none"
+        app:tv_horizontalSpacingWithMargins="108dp"
+        app:tv_layoutManager="GridLayoutManager"
+        app:tv_numColumns="4"
+        app:tv_numRows="1">
 
-        <com.jinhong.jhtv.ui.leanback.RecyclerViewTV
-            android:id="@+id/recyclerView_recommend"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </com.jinhong.jhtv.ui.leanback.RecyclerViewTV>
-
-    </LinearLayout>
+    </com.owen.tvrecyclerview.widget.TvRecyclerView>
 
 
-</LinearLayout>
+</RelativeLayout>

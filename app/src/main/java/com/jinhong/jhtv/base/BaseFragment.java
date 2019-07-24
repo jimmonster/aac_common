@@ -1,57 +1,37 @@
 package com.jinhong.jhtv.base;
 
 
-import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.View;
 
+import com.owen.focus.AbsFocusBorder;
 import com.owen.focus.FocusBorder;
 
 /**
  * Base Fragment
  */
 public abstract class BaseFragment extends Fragment {
-    protected FocusBorder mFocusBorder;
+
+    public FocusBorder mFocusBorder;
 
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (getActivity() instanceof FocusBorderHelper) {
-            mFocusBorder = ((FocusBorderHelper) getActivity()).getFocusBorder();
-        }
-    }
-
-    /**
-     * 移动边框
-     *
-     * @param focusedView
-     * @param scale
-     */
-    public void onMoveFocusBorder(View focusedView, float scale) {
-        if (null != mFocusBorder) {
-            mFocusBorder.onFocus(focusedView, FocusBorder.OptionsFactory.get(scale, scale));
-        }
-    }
-
-    /**
-     * 移动边框
-     *
-     * @param focusedView
-     * @param scale
-     * @param roundRadius
-     */
-    public void onMoveFocusBorder(View focusedView, float scale, float roundRadius) {
-        if (null != mFocusBorder) {
-            mFocusBorder.onFocus(focusedView, FocusBorder.OptionsFactory.get(scale, scale, roundRadius));
-        }
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initBoader();
+    }
+
 
 
     @Override
@@ -59,11 +39,35 @@ public abstract class BaseFragment extends Fragment {
         super.onDestroyView();
     }
 
-    /**
-     * 需要实现此接口才能拿到边框
-     */
-    public interface FocusBorderHelper {
-        FocusBorder getFocusBorder();
+    private void initBoader() {
+        /** 颜色焦点框 */
+        mFocusBorder = new FocusBorder.Builder().asColor()
+                //阴影宽度(方法shadowWidth(18f)也可以设置阴影宽度)
+                .shadowWidth(TypedValue.COMPLEX_UNIT_DIP, 20f)
+                //阴影颜色
+                .shadowColor(Color.parseColor("#3FBB66"))
+                //边框宽度(方法borderWidth(2f)也可以设置边框宽度)
+                .borderWidth(TypedValue.COMPLEX_UNIT_DIP, 3.2f)
+                //边框颜色
+                .borderColor(Color.parseColor("#00FF00"))
+                //padding值
+                .padding(2f)
+                //动画时长
+                .animDuration(300)
+                //不要闪光动画
+                //.noShimmer()
+                //闪光颜色
+                .shimmerColor(Color.parseColor("#66FFFFFF"))
+                //闪光动画时长
+                .shimmerDuration(1000)
+                //不要呼吸灯效果
+                //.noBreathing()
+                //呼吸灯效果时长
+                .breathingDuration(3000)
+                //边框动画模式
+                .animMode(AbsFocusBorder.Mode.SEQUENTIALLY)
+                .build(this);
+
     }
 }
 
