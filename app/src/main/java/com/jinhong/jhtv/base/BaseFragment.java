@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.Toast;
 
 import com.owen.focus.AbsFocusBorder;
 import com.owen.focus.FocusBorder;
@@ -20,7 +22,6 @@ public abstract class BaseFragment extends Fragment {
     public FocusBorder mFocusBorder;
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +32,6 @@ public abstract class BaseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initBoader();
     }
-
 
 
     @Override
@@ -68,6 +68,14 @@ public abstract class BaseFragment extends Fragment {
                 .animMode(AbsFocusBorder.Mode.SEQUENTIALLY)
                 .build(this);
 
+    }
+
+    public void toast(String s) {
+        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+    }
+
+    public void log(String s) {
+        Log.d("jim:" + getClass().getName(), "{ " + s + " }");
     }
 }
 

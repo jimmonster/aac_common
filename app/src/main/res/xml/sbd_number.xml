@@ -3,14 +3,14 @@
 <Keyboard
     bg_res="@drawable/main_bg"
     key_bg_res="@drawable/key_bg_rectangle"
-    key_height="100dp"
+    key_height="600dp"
     key_left_padding="10dp"
     key_press_res="@drawable/softkey_bg_press2"
     key_select_res="@drawable/softkey_bg_select2"
     key_text_color="#b8bbbf"
     key_text_size="60dp"
     key_top_padding="10dp"
-    key_width="100dp"
+    key_width="600dp"
     start_pos_x="240dp"
     start_pos_y="20dp" >
 
@@ -53,7 +53,7 @@
         <key key_label="(" />
         <key key_label=")" />
         <!-- 回车 -->
-        <key
+         <key
             key_code="@string/keycode_center"
             key_icon="@drawable/g_search_icon"
             key_height="210dp"
@@ -66,7 +66,7 @@
             key_code="110"
             key_label="翻页"
             key_text_size="30dp" />
-
+        
         <key
             key_label=".com"
             key_text_size="30dp" />

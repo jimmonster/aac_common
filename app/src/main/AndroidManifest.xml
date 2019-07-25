@@ -74,6 +74,9 @@
         <activity android:name=".ui.activity.MainActivity1"/>
         <activity android:name=".test.RecyclerTestActivity"/>
         <activity android:name=".test.VLayoutActivity"/>
+        <activity android:name=".ui.activity.SearchActivity"/>
+        <activity android:name=".ui.activity.RecordActivity"/>
+        <activity android:name=".ui.activity.CollectionActivity"/>
 
         <!--适配基准-->
         <meta-data

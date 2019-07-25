@@ -72,7 +72,7 @@ public class VideoTestActivity extends BaseActivity implements CancelAdapt {
                 case 0x2:
                     seekBarCurrent = msg.arg1;
                     seekBarProgress = msg.arg2;
-                    setSeekBar(seekBarCurrent, 0, seekBarProgress);
+                   // setSeekBar(seekBarCurrent, 0, seekBarProgress);
                     break;
 
 

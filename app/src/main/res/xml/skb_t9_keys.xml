@@ -2,56 +2,56 @@
 <!-- T9键盘 -->
 <Keyboard
     bg_res="@drawable/main_bg"
-    key_left_padding="10dp"
     key_bg_res="@drawable/key_bg_rectangle"
+    key_height="100dp"
+    key_left_padding="10dp"
     key_select_res="@drawable/white_light_10"
     key_text_color="#b8bbbf"
     key_text_size="30dp"
     key_top_padding="10dp"
-    key_height="100dp"
     key_width="100dp"
+    left_right_move="false"
     start_pos_x="240dp"
     start_pos_y="20dp"
-    left_right_move="false"
-    top_bottom_move="false" >
+    top_bottom_move="false">
 
     <!-- 第一行 -->
     <row>
         <key
             key_code="1251"
-            key_icon="@drawable/t9_key1" />
+            key_icon="@drawable/t9_key1"/>
         <key
             key_code="1252"
-            key_icon="@drawable/t9_key2" />
+            key_icon="@drawable/t9_key2"/>
         <key
             key_code="1253"
-            key_icon="@drawable/t9_key3" />
+            key_icon="@drawable/t9_key3"/>
     </row>
 
     <!-- 第二行 -->
     <row>
         <key
             key_code="1254"
-            key_icon="@drawable/t9_key4" />
+            key_icon="@drawable/t9_key4"/>
         <key
             key_code="1255"
-            key_icon="@drawable/t9_key5" />
+            key_icon="@drawable/t9_key5"/>
         <key
             key_code="1256"
-            key_icon="@drawable/t9_key6" />
+            key_icon="@drawable/t9_key6"/>
     </row>
 
     <!-- 第三行 -->
     <row>
         <key
             key_code="1257"
-            key_icon="@drawable/t9_key7" />
+            key_icon="@drawable/t9_key7"/>
         <key
             key_code="1258"
-            key_icon="@drawable/t9_key8" />
+            key_icon="@drawable/t9_key8"/>
         <key
             key_code="1259"
-            key_icon="@drawable/t9_key9" />
+            key_icon="@drawable/t9_key9"/>
     </row>
 
     <!-- 第四行 -->
@@ -59,14 +59,14 @@
         <!-- 删除-->
         <key
             key_code="1260"
-            key_icon="@drawable/delete" />
+            key_icon="@drawable/delete"/>
         <key
             key_code="1250"
-            key_icon="@drawable/t9_key0" />
+            key_icon="@drawable/t9_key0"/>
         <!-- 清除-->
         <key
             key_code="1261"
-            key_icon="@drawable/delete" />
+            key_icon="@drawable/delete"/>
     </row>
 
 </Keyboard>

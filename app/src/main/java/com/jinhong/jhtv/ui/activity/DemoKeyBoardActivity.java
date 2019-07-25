@@ -1,8 +1,8 @@
 package com.jinhong.jhtv.ui.activity;
 
-import android.app.Activity;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,6 +16,9 @@ import com.jinhong.jhtv.keyboard.SoftKey;
 import com.jinhong.jhtv.keyboard.SoftKeyBoardListener;
 import com.jinhong.jhtv.utils.OPENLOG;
 
+import me.jessyan.autosize.internal.CancelAdapt;
+
+
 /**
  * https://git.oschina.net/hailongqiu/AndroidTVWidget/wikis/Android-TV-如何使用键盘控件%28SkbContainer%29
  * 暂时的demo.
@@ -24,7 +27,7 @@ import com.jinhong.jhtv.utils.OPENLOG;
  * 具体看DEMO.
  * 千万不要将 keyCode设置为 0.
  */
-public class DemoKeyBoardActivity extends Activity {
+public class DemoKeyBoardActivity extends AppCompatActivity implements CancelAdapt {
 
 	TextView input_tv;
 	SkbContainer skbContainer;
@@ -75,18 +78,18 @@ public class DemoKeyBoardActivity extends Activity {
 					}
 				}
 			}
-			
+
 			@Override
 			public void onBack(SoftKey key) {
 				finish();
 			}
-			
+
 			@Override
 			public void onDelete(SoftKey key) {
 				String text = input_tv.getText().toString();
 				input_tv.setText(text.substring(0, text.length() - 1));
 			}
-			
+
 		});
 		// DEMO（测试键盘失去焦点和获取焦点)
 		skbContainer.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -143,7 +146,11 @@ public class DemoKeyBoardActivity extends Activity {
 	private void setSkbContainerMove() {
 		mOldSoftKey = null;
 		skbContainer.setMoveSoftKey(true); // 设置是否移动按键边框.
-		RectF rectf = new RectF(25, 25, 25, 25);
+		RectF rectf = new RectF((int)getResources().getDimension(R.dimen.
+				dp_25), (int)getResources().getDimension(R.dimen.
+				dp_25), (int)getResources().getDimension(R.dimen.
+				dp_25), (int)getResources().getDimension(R.dimen.
+				dp_25));
 		skbContainer.setSoftKeySelectPadding(rectf); // 设置移动边框相差的间距.
 		skbContainer.setMoveDuration(200); // 设置移动边框的时间(默认:300)
 		skbContainer.setSelectSofkKeyFront(true); // 设置选中边框在最前面.
@@ -182,7 +189,7 @@ public class DemoKeyBoardActivity extends Activity {
 	/**
 	 * 处理T9键盘的按键.
 	 * @param softKey
-     */
+	 */
 	private void onCommitT9Text(SoftKey softKey) {
 		Toast.makeText(DemoKeyBoardActivity.this, "keycode:" + softKey.getKeyCode(), Toast.LENGTH_SHORT).show();
 	}

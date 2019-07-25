@@ -7,7 +7,6 @@ import android.widget.TextClock;
 
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
-import com.jinhong.jhtv.test.TestActivity;
 import com.jinhong.jhtv.test.VLayoutActivity;
 import com.jinhong.jhtv.test.VideoTestActivity;
 import com.jinhong.jhtv.ui.views.AutoHorizontalScrollTextView;
@@ -141,12 +140,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(DetailActivity.class);
                 break;
             case R.id.iv_pic3:
-                toast("测试页面");
-                startActivity(TestActivity.class);
+                toast("测试键盘页面");
+                startActivity(SearchActivity.class);
                 break;
             case R.id.iv_pic4:
                 toast("视频页面测试");
-                startActivity(VideoActivity.class);
+                startActivity(DetailActivity.class);
                 break;
             case R.id.iv_pic5:
                 toast("键盘测试界面");

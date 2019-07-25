@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:paddingStart="100dp"
+    android:paddingTop="35dp"
+    android:paddingEnd="80dp">
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/logo3"/>
+
+    <TextView
+        android:id="@+id/iv_search_info"
+        android:layout_width="670dp"
+        android:layout_height="120dp"
+        android:layout_below="@id/iv_logo"
+        android:background="@color/color_yellow"/>
+
+
+    <com.owen.tvrecyclerview.widget.TvRecyclerView
+        android:id="@+id/recyclerView_keyboard"
+        android:layout_width="670dp"
+        android:layout_height="435dp"
+        android:layout_below="@id/iv_search_info"
+        android:orientation="vertical"
+        android:scrollbars="none"
+        app:tv_layoutManager="StaggeredGridLayoutManager"
+        app:tv_numColumns="10"
+        app:tv_numRows="3">
+
+    </com.owen.tvrecyclerview.widget.TvRecyclerView>
+
+
+    <com.owen.tvrecyclerview.widget.TvRecyclerView
+        android:id="@+id/recyclerView_info"
+        android:layout_width="match_parent"
+        android:layout_height="560dp"
+        android:layout_alignTop="@id/iv_search_info"
+        android:layout_marginStart="45dp"
+        android:layout_toEndOf="@id/iv_search_info"
+        android:orientation="vertical"
+        android:scrollbars="none">
+
+    </com.owen.tvrecyclerview.widget.TvRecyclerView>
+
+
+    <TextView
+        android:id="@+id/tv_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/recyclerView_keyboard"
+        android:text="小朋友们最爱看"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        android:textStyle="bold"/>
+
+
+    <com.owen.tvrecyclerview.widget.TvRecyclerView
+        android:id="@+id/recyclerView_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tv_favorite"
+        android:orientation="vertical"
+        android:scrollbars="none">
+
+    </com.owen.tvrecyclerview.widget.TvRecyclerView>
+
+
+</RelativeLayout>

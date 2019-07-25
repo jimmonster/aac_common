@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.blankj.utilcode.util.ScreenUtils;
@@ -24,7 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public BorderView mBorder;
     public String extraBundle = "ExtraBundle";
     @SuppressLint("HandlerLeak")
-   public Handler baseHandler = new Handler() {
+    public Handler baseHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -33,9 +34,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     };
 
-    public void baseHandler(Message msg){
+    public void baseHandler(Message msg) {
 
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,30 +52,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-
-    /**
-     * 焦点变化统一的处理
-     *
-     * @param view
-     */
-    public void onFocusChange(View view) {
-        view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (v != null) {
-                    v.setSelected(hasFocus);
-                    if (hasFocus) {
-                        v.setBackgroundResource(R.drawable.shape_selector_border_press);
-//                        v.setPadding(10,10,10,10);
-                        v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(200).start();
-                    } else {
-                        v.setBackgroundResource(R.drawable.shape_selector_border_normal);
-                        v.animate().scaleX(0.98f).scaleY(0.98f).setDuration(200).start();
-                    }
-                }
-            }
-        });
-    }
 
     /**
      * 统一界面跳转
@@ -110,6 +88,15 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public void toast(String str) {
         ToastUtils.showShort(str);
+    }
+
+    /**
+     * 统一log
+     *
+     * @param str
+     */
+    public void log(String str) {
+        Log.d("jim" + getClass().getName(), "{" + str + "}");
     }
 
     /**

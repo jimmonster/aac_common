@@ -1,0 +1,157 @@
+package com.jinhong.jhtv.ui.fragment;
+
+import android.graphics.Rect;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.alibaba.android.vlayout.LayoutHelper;
+import com.alibaba.android.vlayout.VirtualLayoutAdapter;
+import com.alibaba.android.vlayout.VirtualLayoutManager;
+import com.alibaba.android.vlayout.layout.GridLayoutHelper;
+import com.jinhong.jhtv.R;
+import com.jinhong.jhtv.base.BaseFragment;
+import com.jinhong.jhtv.utils.FocusUtils;
+import com.jinhong.jhtv.utils.ImageUtils;
+
+import java.util.LinkedList;
+import java.util.List;
+
+/**
+ * @author :  Jim
+ * @date :  2019-07-25
+ * @description :亲子玩具页面
+ */
+public class ToyFragment extends BaseFragment {
+    private static volatile ToyFragment mInstance;
+    private String dataType;//activity传递过来的分类数据
+    private RecyclerView recyclerView;
+
+
+    public static ToyFragment getInstance(String s) {
+        if (mInstance == null) {
+            synchronized (ToyFragment.class) {
+                if (mInstance == null) {
+                    mInstance = new ToyFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("DATA", s);
+                    mInstance.setArguments(bundle);
+                }
+            }
+        }
+        return mInstance;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View inflate = inflater.inflate(R.layout.fragment_main, container, false);
+        initData();
+        initView(inflate);
+        return inflate;
+    }
+
+    private void initData() {
+        //获取到activity传递过来的数据
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            String data = bundle.getString("DATA");
+            log(data);
+        }
+
+        //todo 数据添加
+
+
+    }
+
+    private void initView(View inflate) {
+        recyclerView = inflate.findViewById(R.id.recyclerView);
+        VirtualLayoutManager layoutManager = new VirtualLayoutManager(getContext());
+
+        recyclerView.setLayoutManager(layoutManager);
+
+//        layoutManager.setReverseLayout(true);//等比划分
+
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                outRect.set(10, 10, 10, 10);
+            }
+        });
+
+        final List<LayoutHelper> helpers = new LinkedList<>();
+        //添加布局
+        //网格布局
+        final GridLayoutHelper gridLayoutHelper1 = new GridLayoutHelper(4);
+        gridLayoutHelper1.setItemCount(8);
+
+        helpers.add(gridLayoutHelper1);
+        layoutManager.setLayoutHelpers(helpers);
+
+
+        recyclerView.setAdapter(
+                new VirtualLayoutAdapter(layoutManager) {
+                    @NonNull
+                    @Override
+                    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                        ImageView imageView = new ImageView(getContext());
+                        //加载参数
+                        return new ToyViewHolder(imageView);
+                    }
+
+                    @Override
+                    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+                        ImageView imageView = (ImageView) holder.itemView;
+                        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                        ImageUtils.load(R.drawable.iv_poster_0, (ImageView) holder.itemView);
+
+                    }
+
+                    @Override
+                    public int getItemCount() {
+                        List<LayoutHelper> helpers = getLayoutHelpers();
+                        if (helpers == null) {
+                            return 0;
+                        }
+                        int count = 0;
+                        for (int i = 0, size = helpers.size(); i < size; i++) {
+                            count += helpers.get(i).getItemCount();
+                        }
+                        return count;
+                    }
+
+                }
+
+        );
+
+    }
+
+
+    class ToyViewHolder extends RecyclerView.ViewHolder {
+
+        public ToyViewHolder(ImageView itemView) {
+            super(itemView);
+            //传入item对应的view
+            itemView.setFocusable(true);
+
+            FocusUtils.onFocusChange(itemView);
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), "v:" + v, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+    }
+
+
+}

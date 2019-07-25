@@ -98,9 +98,8 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
 
-
-
     //GSY播放器
     implementation 'com.shuyu:GSYVideoPlayer:6.0.3'
+
 
 }

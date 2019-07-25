@@ -12,6 +12,7 @@ import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
 import com.jinhong.jhtv.ui.leanback.GridLayoutManagerTV;
 import com.jinhong.jhtv.ui.leanback.LinearLayoutManagerTV;
+import com.jinhong.jhtv.utils.FocusUtils;
 import com.jinhong.jhtv.utils.ImageUtils;
 
 import java.util.ArrayList;
@@ -80,8 +81,7 @@ public class GridListActivity extends BaseActivity implements BaseQuickAdapter.O
 
         @Override
         protected void convert(BaseViewHolder helper, String item) {
-            onFocusChange(helper.itemView);
-            helper.setText(R.id.tv_test, item);
+            FocusUtils.onFocusChange(helper.itemView);
         }
     }
 
@@ -93,7 +93,7 @@ public class GridListActivity extends BaseActivity implements BaseQuickAdapter.O
 
         @Override
         protected void convert(BaseViewHolder helper, String item) {
-            onFocusChange(helper.itemView);
+            FocusUtils.onFocusChange(helper.itemView);
             ImageUtils.load("http://pic13.nipic.com/20110409/7119492_114440620000_2.jpg", helper.getView(R.id.iv_pics));
         }
     }

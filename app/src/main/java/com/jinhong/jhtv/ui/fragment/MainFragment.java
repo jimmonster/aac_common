@@ -30,10 +30,11 @@ import java.util.List;
 /**
  * @author :  Jim
  * @date :  2019-07-20
- * @description :主页对应的fragment
+ * @description :主页对应的fragment页面
  */
 public class MainFragment extends BaseFragment {
-
+    private static volatile MainFragment mInstance;
+    private String dataType;//activity传递过来的分类数据
     private RecyclerView recyclerView;
     private ArrayList<String> mContents;
 
@@ -41,6 +42,21 @@ public class MainFragment extends BaseFragment {
     private MainBean1 mMainBean2;
     private MainBean1 mMainBean3;
     private ArrayList<MainBean1> mMainBean1s;
+
+
+    public static MainFragment getInstance(String s) {
+        if (mInstance == null) {
+            synchronized (MainFragment.class) {
+                if (mInstance == null) {
+                    mInstance = new MainFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("DATA", s);
+                    mInstance.setArguments(bundle);
+                }
+            }
+        }
+        return mInstance;
+    }
 
 
     @Nullable
@@ -73,10 +89,13 @@ public class MainFragment extends BaseFragment {
     }
 
     private void initData() {
-        Bundle arguments = getArguments();
-        if (arguments != null) {
-            mContents = (ArrayList<String>) arguments.get("mainData");
+        //获取到activity传递过来的数据
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            String data = bundle.getString("DATA");
         }
+
+
         //todo  3种假数据类型
         //1 GridLayoutManager 一行展示4张图片，展示2行 等比。方形，带圆角，白色选中边框，选中缩小放大
         //2 圆形 单行展示6个 等比
@@ -232,6 +251,7 @@ public class MainFragment extends BaseFragment {
 
 
     }
+
 
 
     class MainViewHolder extends RecyclerView.ViewHolder {

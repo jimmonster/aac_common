@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          android:id="@+id/tv_keycode"
+          android:layout_width="50dp"
+          android:layout_height="50dp"
+          android:background="@drawable/selector_count"
+          android:focusable="true"
+          android:gravity="center"
+          android:textColor="@color/white"
+          android:padding="10dp"
+          android:textSize="24sp">
+
+</TextView>
