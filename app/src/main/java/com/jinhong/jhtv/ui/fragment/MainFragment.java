@@ -15,7 +15,7 @@ import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.VirtualLayoutAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
-import com.alibaba.android.vlayout.layout.OnePlusNLayoutHelperEx;
+import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.alibaba.android.vlayout.layout.StaggeredGridLayoutHelper;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseFragment;
@@ -33,7 +33,7 @@ import java.util.List;
  * @description :主页对应的fragment页面
  */
 public class MainFragment extends BaseFragment {
-    private static volatile MainFragment mInstance;
+
     private String dataType;//activity传递过来的分类数据
     private RecyclerView recyclerView;
     private ArrayList<String> mContents;
@@ -44,18 +44,11 @@ public class MainFragment extends BaseFragment {
     private ArrayList<MainBean1> mMainBean1s;
 
 
-    public static MainFragment getInstance(String s) {
-        if (mInstance == null) {
-            synchronized (MainFragment.class) {
-                if (mInstance == null) {
-                    mInstance = new MainFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("DATA", s);
-                    mInstance.setArguments(bundle);
-                }
-            }
-        }
-        return mInstance;
+    public MainFragment getInstance(String s) {
+        Bundle bundle = new Bundle();
+        bundle.putString("DATA", s);
+        setArguments(bundle);
+        return this;
     }
 
 
@@ -137,23 +130,27 @@ public class MainFragment extends BaseFragment {
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                outRect.set(10, 10, 10, 10);
+                outRect.set(13, 12, 13, 12);
             }
         });
 
         final List<LayoutHelper> helpers = new LinkedList<>();
 
 //网格布局
-        final GridLayoutHelper gridLayoutHelper1 = new GridLayoutHelper(4);
+        final GridLayoutHelper gridLayoutHelper0 = new GridLayoutHelper(4);
 
-        gridLayoutHelper1.setItemCount(8);
+        gridLayoutHelper0.setItemCount(8);
 
 //网格布局
-        final GridLayoutHelper gridLayoutHelper = new GridLayoutHelper(6);
-        gridLayoutHelper.setItemCount(6);
+        final GridLayoutHelper gridLayoutHelper1 = new GridLayoutHelper(6);
+        gridLayoutHelper1.setItemCount(6);
 
 //1+N布局
-        OnePlusNLayoutHelperEx onePlusNLayoutHelperEx = new OnePlusNLayoutHelperEx(5);
+        // OnePlusNLayoutHelperEx onePlusNLayoutHelperEx = new OnePlusNLayoutHelperEx(5);
+//标题
+        LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
+        linearLayoutHelper.setItemCount(1);
+
 //网格布局
         final GridLayoutHelper gridLayoutHelper2 = new GridLayoutHelper(4);
         gridLayoutHelper2.setItemCount(4);
@@ -161,12 +158,14 @@ public class MainFragment extends BaseFragment {
 //        FixLayoutHelper layoutHelper = new FixLayoutHelper(80, 80);
         //流式布局
         StaggeredGridLayoutHelper staggeredGridLayoutHelper = new StaggeredGridLayoutHelper(4);
+        staggeredGridLayoutHelper.setHGap(0);
+        staggeredGridLayoutHelper.setVGap(0);
         staggeredGridLayoutHelper.setItemCount(6);
 
 //按照顺序添加类型条目布局
+        helpers.add(gridLayoutHelper0);
         helpers.add(gridLayoutHelper1);
-        helpers.add(gridLayoutHelper);
-//        helpers.add(onePlusNLayoutHelperEx);
+        helpers.add(linearLayoutHelper);
         helpers.add(staggeredGridLayoutHelper);
         helpers.add(gridLayoutHelper2);
 
@@ -188,6 +187,9 @@ public class MainFragment extends BaseFragment {
                         ImageView imageView = (ImageView) holder.itemView;
                         switch (position) {
                             default:
+                                ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(416, 318);
+                                holder.itemView.setLayoutParams(layoutParams);
+
                                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                                 ImageUtils.load(R.drawable.iv_poster_0, (ImageView) holder.itemView);
                                 break;
@@ -198,7 +200,7 @@ public class MainFragment extends BaseFragment {
                             case 11:
                             case 12:
                             case 13:
-                                ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(200, 200);
+                                layoutParams = new ViewGroup.LayoutParams(225, 225);
                                 holder.itemView.setLayoutParams(layoutParams);
                                 ImageView itemView = (ImageView) holder.itemView;
                                 itemView.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -206,19 +208,28 @@ public class MainFragment extends BaseFragment {
                                 break;
 
                             case 14:
-                            case 17:
+                                imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                layoutParams = new ViewGroup.LayoutParams(284, 56);
+                                holder.itemView.setLayoutParams(layoutParams);
+                                holder.itemView.setFocusable(false);
+                                ImageUtils.load(R.drawable.iv_qinzi_main_biaoti, (ImageView) holder.itemView);
+                                break;
+
+                            case 15:
+                            case 18:
                                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                                layoutParams = new ViewGroup.LayoutParams(400, 600);
+                                layoutParams = new ViewGroup.LayoutParams(416, 520);
                                 holder.itemView.setLayoutParams(layoutParams);
                                 ImageUtils.load(R.drawable.iv_poster_0, (ImageView) holder.itemView);
                                 break;
 
-                            case 15:
+
                             case 16:
                             case 19:
-                            case 18:
+                            case 20:
+                            case 17:
                                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                                layoutParams = new ViewGroup.LayoutParams(400, 300);
+                                layoutParams = new ViewGroup.LayoutParams(416, 248);
                                 holder.itemView.setLayoutParams(layoutParams);
                                 ImageUtils.load(R.drawable.iv_poster_0, (ImageView) holder.itemView);
 
@@ -253,7 +264,6 @@ public class MainFragment extends BaseFragment {
     }
 
 
-
     class MainViewHolder extends RecyclerView.ViewHolder {
 
         public MainViewHolder(ImageView itemView) {
@@ -261,7 +271,7 @@ public class MainFragment extends BaseFragment {
             //传入item对应的view
             itemView.setFocusable(true);
 
-            FocusUtils.onFocusChange(itemView);
+            FocusUtils.onFocusChange(itemView,R.drawable.shape_selector_border_corner_press,R.drawable.shape_selector_border_normal);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 /**
  * @author :  Jim
  * @date :  2019-07-11
- * @description :亲子手工/绘画页面
+ * @description :亲子手工/绘画页面  二级页面
  */
 public class DrawingCyActivity extends BaseActivity {
 

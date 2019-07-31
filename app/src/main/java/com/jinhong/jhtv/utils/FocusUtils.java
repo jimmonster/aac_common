@@ -17,7 +17,7 @@ public class FocusUtils {
     final private static int DURATION = 200;
 
     /**
-     * 焦点监听
+     * 焦点监听,不带圆角
      *
      * @param view
      */
@@ -41,8 +41,46 @@ public class FocusUtils {
     }
 
 
-    public static void unselected(View v) {
+    public static void onFocusChange(View view, int selected, int unselected) {
+        unselected(view, unselected);
+        view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (v != null) {
+                    if (hasFocus) {
+                        selected(v, selected);
+                    } else {
+                        unselected(v, unselected);
+                    }
+                }
+            }
+        });
+    }
 
+
+    public static void onFocusChange(View view, int selected) {
+        unselected(view, selected);
+        view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (v != null) {
+                    if (hasFocus) {
+                        selected(v, selected);
+                    } else {
+                        unselected(v, selected);
+                    }
+                }
+            }
+        });
+    }
+
+
+
+
+    public static void unselected(View v) {
+        v.setSelected(false);
         v.setBackgroundResource(R.drawable.shape_selector_border_normal);
 
         v.animate().scaleY(SELECT).scaleX(SELECT).setDuration(DURATION).start();
@@ -50,6 +88,7 @@ public class FocusUtils {
     }
 
     public static void selected(View v) {
+        v.setSelected(true);
         v.setBackgroundResource(R.drawable.shape_selector_border_press);
         v.animate().scaleY(NORMAL).scaleX(NORMAL).setDuration(DURATION).start();
 
@@ -57,7 +96,7 @@ public class FocusUtils {
     }
 
     public static void unselected(View v, int drawable) {
-
+        v.setSelected(false);
         v.setBackgroundResource(drawable);
 
         v.animate().scaleY(SELECT).scaleX(SELECT).setDuration(DURATION).start();
@@ -65,6 +104,7 @@ public class FocusUtils {
     }
 
     public static void selected(View v, int drawable) {
+        v.setSelected(true);
         v.setBackgroundResource(drawable);
         v.animate().scaleY(NORMAL).scaleX(NORMAL).setDuration(DURATION).start();
 

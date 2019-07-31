@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
           android:id="@+id/tv_keycode"
-          android:layout_width="50dp"
-          android:layout_height="50dp"
-          android:background="@drawable/selector_count"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:background="@drawable/iv_search_btn"
           android:focusable="true"
           android:gravity="center"
+          android:singleLine="true"
           android:textColor="@color/white"
-          android:padding="10dp"
-          android:textSize="24sp">
+          android:textSize="36sp"
+          android:textStyle="bold">
 
 </TextView>

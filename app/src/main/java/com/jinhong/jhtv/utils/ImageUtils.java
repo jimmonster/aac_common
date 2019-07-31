@@ -46,6 +46,20 @@ public class ImageUtils {
     }
 
 
+    public static void load2Circle(String drawable, ImageView view) {
+        RequestOptions options = RequestOptions.circleCropTransform();
+//                .diskCacheStrategy(DiskCacheStrategy.NONE)//不做磁盘缓存
+//                .skipMemoryCache(true);//不做内存缓存
+
+        Activity topActivity = ActivityUtils.getTopActivity();
+        Glide.with(topActivity)
+                .load(drawable)
+                .apply(options)
+                .into(view);
+
+    }
+
+
     public static void load2Corners(int drawable, ImageView view) {
 
 //设置图片圆角角度

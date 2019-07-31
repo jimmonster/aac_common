@@ -4,11 +4,12 @@
     <!-- 默认时的背景图片
     <item android:drawable="@drawable/btn02_f"/>
     -->
-    <!-- 没有焦点时的背景图片 -->
-    <item android:drawable="@drawable/btn02" android:state_window_focused="false"/>
     <!-- 非触摸模式下获得焦点并单击时的背景图片
-      -->
-    <item android:drawable="@drawable/btn02_f" android:state_focused="true" android:state_pressed="true"/>
+    -->
+    <item android:drawable="@drawable/btn02_f" android:state_focused="true" android:state_pressed="true" android:state_selected="true"/>
+
+    <!-- 没有焦点时的背景图片 -->
+    <item android:drawable="@drawable/btn02" android:state_window_focused="false" />
 
     <!-- 触摸模式下单击时的背景图片 -->
     <!--<item android:drawable="@drawable/btn02_f" android:state_focused="false" android:state_pressed="true"/>-->

@@ -1,15 +1,16 @@
 package com.jinhong.jhtv.ui.activity;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
 import com.jinhong.jhtv.model.CollectionBean;
 import com.jinhong.jhtv.ui.adapter.InfoListAdapter;
+import com.jinhong.jhtv.utils.FocusUtils;
+import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
 import java.util.ArrayList;
 
@@ -18,9 +19,17 @@ import java.util.ArrayList;
  * @date :  2019-07-25
  * @description :收藏页面
  */
-public class CollectionActivity extends BaseActivity {
-    private RecyclerView mRecyclerView;
+public class CollectionActivity extends BaseActivity implements View.OnClickListener {
+    private TvRecyclerView mRecyclerView;
     private ArrayList<CollectionBean> mInfoList;
+    /**
+     * 观影记录
+     */
+    private TextView mTvMovieRecord;
+    /**
+     * 我的收藏
+     */
+    private TextView mTvMineCollection;
 
 
     @Override
@@ -43,8 +52,7 @@ public class CollectionActivity extends BaseActivity {
     }
 
     private void initView() {
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView = (TvRecyclerView) findViewById(R.id.recyclerView);
         InfoListAdapter infoListAdapter = new InfoListAdapter(R.layout.widget_collection, mInfoList);
         mRecyclerView.setAdapter(infoListAdapter);
         infoListAdapter.bindToRecyclerView(mRecyclerView);
@@ -54,6 +62,33 @@ public class CollectionActivity extends BaseActivity {
                 toast("view" + position);
             }
         });
+        mTvMovieRecord = (TextView) findViewById(R.id.tv_movie_record);
+        mTvMovieRecord.setOnClickListener(this);
+        mTvMineCollection = (TextView) findViewById(R.id.tv_mine_collection);
+        mTvMineCollection.setOnClickListener(this);
+        mTvMineCollection.requestFocus();
+        FocusUtils.onFocusChange(mTvMovieRecord, R.drawable.iv_collection_btn_f, R.drawable.iv_collection_btn_x);
+        FocusUtils.onFocusChange(mTvMineCollection, R.drawable.iv_collection_btn_f, R.drawable.iv_collection_btn_x);
+        //默认选中我的收藏
+        mTvMineCollection.requestFocus();
+        mTvMineCollection.setBackgroundResource(R.drawable.iv_collection_btn_f);
+
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            default:
+                break;
+            case R.id.tv_movie_record:
+                startActivity(RecordActivity.class);
+                finish();
+
+                break;
+            case R.id.tv_mine_collection:
+                break;
+        }
     }
 }
 

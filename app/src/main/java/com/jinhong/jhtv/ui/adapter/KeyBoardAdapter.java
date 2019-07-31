@@ -1,11 +1,11 @@
 package com.jinhong.jhtv.ui.adapter;
 
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jinhong.jhtv.R;
-import com.jinhong.jhtv.utils.FocusUtils;
 
 import java.util.List;
 
@@ -21,8 +21,20 @@ public class KeyBoardAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
-        FocusUtils.onFocusChange(helper.itemView);
-        helper.setText(R.id.tv_keycode,item);
+
+        helper.itemView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (v != null) {
+                    if (hasFocus) {
+                        v.setBackgroundResource(R.drawable.iv_search_btn_f);
+                    } else {
+                        v.setBackgroundResource(R.drawable.iv_search_btn);
+                    }
+                }
+            }
+        });
+        helper.setText(R.id.tv_keycode, item);
 
     }
 }

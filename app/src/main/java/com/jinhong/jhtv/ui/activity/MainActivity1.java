@@ -1,7 +1,7 @@
 package com.jinhong.jhtv.ui.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,6 +20,7 @@ import com.jinhong.jhtv.ui.fragment.MainFragment;
 import com.jinhong.jhtv.ui.fragment.ManualFragment;
 import com.jinhong.jhtv.ui.fragment.ToyFragment;
 import com.jinhong.jhtv.ui.views.AutoHorizontalScrollTextView;
+import com.jinhong.jhtv.utils.FocusUtils;
 
 import java.util.ArrayList;
 
@@ -32,7 +33,7 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private LinearLayout mLlContainer;
-    private ArrayList<String> mTabs;
+    private ArrayList<Integer> mTabs;
     private ArrayList<String> mContents;
     private ArrayList<Fragment> mFragments;
     private ImageView mIvLogo;
@@ -54,23 +55,16 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
     }
 
     private void initData() {
-        //分类标题
-        mTabs = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            mTabs.add("标题" + i);
-        }
-        mContents = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            mContents.add("内容" + i);
-        }
+
+
         //添加页面
         mFragments = new ArrayList<>();
-        mFragments.add(MainFragment.getInstance("MainFragment"));
-        mFragments.add(ToyFragment.getInstance("ToyFragment"));
-        mFragments.add(GameFragment.getInstance("GameFragment"));
-        mFragments.add(ManualFragment.getInstance("ManualFragment"));
-        mFragments.add(EducationFragment.getInstance("EducationFragment"));
-        mFragments.add(DrawFragment.getInstance("DrawFragment"));
+        mFragments.add(new MainFragment().getInstance("MainFragment"));
+        mFragments.add(new ToyFragment().getInstance("ToyFragment"));
+        mFragments.add(new GameFragment().getInstance("GameFragment"));
+        mFragments.add(new ManualFragment().getInstance("ManualFragment"));
+        mFragments.add(new EducationFragment().getInstance("EducationFragment"));
+        mFragments.add(new DrawFragment().getInstance("DrawFragment"));
     }
 
     private void initView() {
@@ -83,15 +77,41 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
         mLlContainer = (LinearLayout) findViewById(R.id.ll_container);
-        ViewpagerAdapter viewpagerAdapter = new ViewpagerAdapter(getSupportFragmentManager(), mTabs, mContents, mFragments);
-        mViewPager.setAdapter(viewpagerAdapter);
-        mViewPager.setOffscreenPageLimit(-1);
-        mTabLayout.setupWithViewPager(mViewPager);
+        ViewpagerAdapter viewpagerAdapter = new ViewpagerAdapter(getSupportFragmentManager(), this, mFragments);
 
 
         mIvSearch.setOnClickListener(this);
         mIvCollection.setOnClickListener(this);
         mIvRecord.setOnClickListener(this);
+//添加tab图片
+        TabLayout.Tab tab = mTabLayout.newTab().setCustomView(R.layout.tab_layout_item);
+        mTabLayout.addTab(tab);
+        FocusUtils.onFocusChange(tab.view, R.drawable.selector_main_tab0);
+
+        TabLayout.Tab tab1 = mTabLayout.newTab().setCustomView(R.layout.tab_layout_item);
+        mTabLayout.addTab(tab1);
+        FocusUtils.onFocusChange(tab1.view, R.drawable.selector_main_tab1);
+
+        TabLayout.Tab tab2 = mTabLayout.newTab().setCustomView(R.layout.tab_layout_item);
+        mTabLayout.addTab(tab2);
+        FocusUtils.onFocusChange(tab2.view, R.drawable.selector_main_tab2);
+
+        TabLayout.Tab tab3 = mTabLayout.newTab().setCustomView(R.layout.tab_layout_item);
+        mTabLayout.addTab(tab3);
+        FocusUtils.onFocusChange(tab3.view, R.drawable.selector_main_tab3);
+
+        TabLayout.Tab tab4 = mTabLayout.newTab().setCustomView(R.layout.tab_layout_item);
+        mTabLayout.addTab(tab4);
+        FocusUtils.onFocusChange(tab4.view, R.drawable.selector_main_tab4);
+
+        TabLayout.Tab tab5 = mTabLayout.newTab().setCustomView(R.layout.tab_layout_item);
+
+        mTabLayout.addTab(tab5);
+        FocusUtils.onFocusChange(tab5.view, R.drawable.selector_main_tab5);
+
+        mViewPager.setAdapter(viewpagerAdapter);
+        mViewPager.setOffscreenPageLimit(-1);
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
 
@@ -111,17 +131,18 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
                 break;
         }
     }
+
 }
 
 class ViewpagerAdapter extends FragmentStatePagerAdapter {
-    private ArrayList<String> mTabs;
-    private ArrayList<String> mContents;
-    private ArrayList<Fragment> mFragmentArrayList;
 
-    public ViewpagerAdapter(FragmentManager fm, ArrayList<String> tabs, ArrayList<String> contents, ArrayList<Fragment> fragments) {
+    private ArrayList<Fragment> mFragmentArrayList;
+    private Activity mActivity;
+
+    public ViewpagerAdapter(FragmentManager fm, Activity activity, ArrayList<Fragment> fragments) {
         super(fm);
-        mTabs = tabs;
-        mContents = contents;
+        mActivity = activity;
+
         mFragmentArrayList = fragments;
     }
 
@@ -133,13 +154,23 @@ class ViewpagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return mTabs.size();
+        return mFragmentArrayList.size();
     }
 
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return mTabs.get(position);
+//    @Nullable
+//    @Override
+//    public CharSequence getPageTitle(int position) {
+//
+//        Drawable image = mActivity.getResources().getDrawable(mTabs.get(position));
+//        image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
+//        SpannableString sb = new SpannableString(" ");
+//        ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
+//        sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//
+//        return "";
+//
+//
+//    }
 
-    }
+
 }

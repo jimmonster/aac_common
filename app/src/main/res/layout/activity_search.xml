@@ -5,56 +5,91 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    android:paddingStart="100dp"
-    android:paddingTop="35dp"
-    android:paddingEnd="80dp">
+    android:paddingStart="90dp"
+    android:paddingTop="40dp"
+    android:paddingEnd="90dp">
 
     <ImageView
         android:id="@+id/iv_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/logo3"/>
+        android:layout_width="170dp"
+        android:layout_height="60dp"
+        android:background="@drawable/iv_search_log"/>
 
     <TextView
-        android:id="@+id/iv_search_info"
-        android:layout_width="670dp"
+        android:id="@+id/tv_search_info"
+        android:layout_width="672dp"
         android:layout_height="120dp"
         android:layout_below="@id/iv_logo"
-        android:background="@color/color_yellow"/>
+        android:layout_marginTop="40dp"
+        android:background="@drawable/iv_search_input"
+        android:ellipsize="start"
+        android:gravity="center_vertical"
+        android:hint="输入节目首字母搜索"
+        android:paddingStart="64dp"
+        android:paddingEnd="120dp"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="20sp"/>
 
 
     <com.owen.tvrecyclerview.widget.TvRecyclerView
         android:id="@+id/recyclerView_keyboard"
         android:layout_width="670dp"
         android:layout_height="435dp"
-        android:layout_below="@id/iv_search_info"
+        android:layout_below="@id/tv_search_info"
         android:orientation="vertical"
         android:scrollbars="none"
         app:tv_layoutManager="StaggeredGridLayoutManager"
-        app:tv_numColumns="10"
-        app:tv_numRows="3">
+        app:tv_numColumns="8"
+        app:tv_numRows="5">
 
     </com.owen.tvrecyclerview.widget.TvRecyclerView>
+
+    <TextView
+        android:layout_width="500dp"
+        android:layout_height="40dp"
+        android:layout_alignRight="@id/recyclerView_info"
+        android:layout_marginTop="60dp"
+        android:drawableLeft="@drawable/iv_search_up"
+        android:drawablePadding="110dp"
+        android:text="(共10条搜索记录，当前1/2页)"
+        android:textColor="@color/white"
+        android:textSize="20sp"/>
 
 
     <com.owen.tvrecyclerview.widget.TvRecyclerView
         android:id="@+id/recyclerView_info"
         android:layout_width="match_parent"
-        android:layout_height="560dp"
-        android:layout_alignTop="@id/iv_search_info"
-        android:layout_marginStart="45dp"
-        android:layout_toEndOf="@id/iv_search_info"
+        android:layout_height="590dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="100dp"
+        android:layout_toEndOf="@id/tv_search_info"
         android:orientation="vertical"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        app:tv_verticalSpacingWithMargins="12dp">
 
     </com.owen.tvrecyclerview.widget.TvRecyclerView>
+
+    <TextView
+        android:layout_width="500dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/recyclerView_info"
+        android:layout_alignRight="@id/recyclerView_info"
+        android:drawableLeft="@drawable/iv_search_down"
+        android:drawablePadding="110dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="28sp"/>
 
 
     <TextView
         android:id="@+id/tv_favorite"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="50dp"
         android:layout_below="@id/recyclerView_keyboard"
+        android:layout_marginTop="60dp"
         android:text="小朋友们最爱看"
         android:textColor="@color/white"
         android:textSize="36sp"
@@ -67,7 +102,12 @@
         android:layout_height="match_parent"
         android:layout_below="@id/tv_favorite"
         android:orientation="vertical"
-        android:scrollbars="none">
+        app:tv_horizontalSpacingWithMargins="16dp"
+        app:tv_layoutManager="GridLayoutManager"
+        app:tv_numColumns="6"
+        app:tv_numRows="1"
+        app:tv_selectedItemIsCentered="true"
+        app:tv_verticalSpacingWithMargins="20dp">
 
     </com.owen.tvrecyclerview.widget.TvRecyclerView>
 

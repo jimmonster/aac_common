@@ -1,6 +1,7 @@
 package com.jinhong.jhtv.base;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,7 +21,7 @@ import com.owen.focus.FocusBorder;
 public abstract class BaseFragment extends Fragment {
 
     public FocusBorder mFocusBorder;
-
+    public String extraBundle = "ExtraBundle";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,34 @@ public abstract class BaseFragment extends Fragment {
 
     public void log(String s) {
         Log.d("jim:" + getClass().getName(), "{ " + s + " }");
+    }
+
+
+    /**
+     * 统一界面跳转,携带参数
+     *
+     * @param activity
+     */
+    public void startActivity(Class activity, Bundle bundle) {
+        Intent intent = new Intent(getActivity(), activity);
+        intent.putExtra(extraBundle, bundle);
+        startActivity(intent);
+//        ActivityUtils.startActivity(intent);
+
+    }
+
+
+    /**
+     * 统一界面跳转
+     *
+     * @param activity
+     */
+    public void startActivity(Class activity) {
+        Intent intent = new Intent(getActivity(), activity);
+
+        startActivity(intent);
+//        ActivityUtils.startActivity(intent);
+
     }
 }
 

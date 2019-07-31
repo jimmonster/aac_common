@@ -7,6 +7,7 @@ import android.widget.TextClock;
 
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
+import com.jinhong.jhtv.test.TabLayoutTest;
 import com.jinhong.jhtv.test.VLayoutActivity;
 import com.jinhong.jhtv.test.VideoTestActivity;
 import com.jinhong.jhtv.ui.views.AutoHorizontalScrollTextView;
@@ -15,8 +16,9 @@ import com.jinhong.jhtv.utils.FocusUtils;
 /**
  * @author :  Jim
  * @date :  2019-07-01
- * @description :主页界面
+ * @description :主页界面，已废弃
  */
+@Deprecated
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mTvLog;
     private AutoHorizontalScrollTextView mTvNotice;
@@ -131,7 +133,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(AnimationCyActivity.class);
                 break;
             case R.id.iv_pic0:
-                startActivity(MbActivity.class);
+                startActivity(TabLayoutTest.class);
                 break;
             case R.id.iv_pic1:
                 startActivity(SingSongActivity.class);

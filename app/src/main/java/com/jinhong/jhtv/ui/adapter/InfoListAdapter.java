@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author :  Jim
  * @date :  2019-07-25
- * @description :
+ * @description :我的收藏适配器
  */
 public class InfoListAdapter extends BaseQuickAdapter<CollectionBean, BaseViewHolder> {
 
@@ -23,8 +23,12 @@ public class InfoListAdapter extends BaseQuickAdapter<CollectionBean, BaseViewHo
 
     @Override
     protected void convert(BaseViewHolder helper, CollectionBean item) {
-        //焦点
-        FocusUtils.onFocusChange(helper.itemView);
+
+        FocusUtils.onFocusChange(helper.itemView.findViewById(R.id.tv_play), R.drawable.iv_collection_co_f, R.drawable.iv_collection_co);
+
+        FocusUtils.onFocusChange(helper.itemView.findViewById(R.id.tv_isCollection), R.drawable.iv_collection_co_f, R.drawable.iv_collection_co);
+
+
         helper.setText(R.id.tv_name, item.getName());
         helper.setText(R.id.tv_type, item.getType());
         helper.setText(R.id.tv_isCollection, item.getIsCollect());

@@ -16,7 +16,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         initBugly();//异常捕捉
-        // initLeakCanary();//内存泄露检测
+//         initLeakCanary();//内存泄露检测
 
     }
 

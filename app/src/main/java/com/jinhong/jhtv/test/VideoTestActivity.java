@@ -29,8 +29,10 @@ import me.jessyan.autosize.internal.CancelAdapt;
 /**
  * @author :  Jim
  * @date :  2019-07-18
- * @description :
+ * @description :饺子播放器，已废弃
  */
+
+@Deprecated
 public class VideoTestActivity extends BaseActivity implements CancelAdapt {
 
     private static final String TAG = "VideoTestActivity";
