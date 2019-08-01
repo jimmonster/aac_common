@@ -19,9 +19,9 @@ import java.util.ArrayList;
 /**
  * @author :  Jim
  * @date :  2019-07-11
- * @description :亲子手工/绘画页面  二级页面
+ * @description : 二级页面,分类界面
  */
-public class DrawingCyActivity extends BaseActivity {
+public class CategoryActivity extends BaseActivity {
 
 
     private ImageView mIvLogo;
@@ -171,9 +171,13 @@ public class DrawingCyActivity extends BaseActivity {
         mLlContainer.setBackgroundResource(bg);
         mIvLogo.setImageResource(log);
         initEvent(n, f, p);
-
     }
 
+    /**
+     * @param n 默认
+     * @param f 焦点选中
+     * @param p 按下
+     */
     private void initEvent(int n, int f, int p) {
         mRecyclerview.setSelection(0);
         mRecyclerview.setOnItemListener(new TvRecyclerView.OnItemListener() {
@@ -198,7 +202,6 @@ public class DrawingCyActivity extends BaseActivity {
                     itemView.setBackgroundResource(p);
                 }
                 mCyFragment = new CyFragment(mCategoryBean.getItems());
-                toast("itemView" + position);
                 FragmentUtils.replace(getSupportFragmentManager(), mCyFragment, R.id.fl_replace_fragment);
             }
         });

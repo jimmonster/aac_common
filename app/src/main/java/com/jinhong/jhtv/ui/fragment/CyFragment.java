@@ -60,6 +60,7 @@ public class CyFragment extends BaseFragment {
         mRecyclerView.setOnItemListener(new AbstractOnItemListener() {
             @Override
             public void onItemClick(TvRecyclerView parent, View itemView, int position) {
+
                 Toast.makeText(getActivity(), "itemView" + position, Toast.LENGTH_SHORT).show();
             }
         });

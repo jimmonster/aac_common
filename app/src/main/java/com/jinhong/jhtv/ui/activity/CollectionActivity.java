@@ -4,12 +4,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
 import com.jinhong.jhtv.model.CollectionBean;
 import com.jinhong.jhtv.ui.adapter.InfoListAdapter;
-import com.jinhong.jhtv.utils.FocusUtils;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
 import java.util.ArrayList;
@@ -56,22 +54,16 @@ public class CollectionActivity extends BaseActivity implements View.OnClickList
         InfoListAdapter infoListAdapter = new InfoListAdapter(R.layout.widget_collection, mInfoList);
         mRecyclerView.setAdapter(infoListAdapter);
         infoListAdapter.bindToRecyclerView(mRecyclerView);
-        infoListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                toast("view" + position);
-            }
-        });
+
         mTvMovieRecord = (TextView) findViewById(R.id.tv_movie_record);
         mTvMovieRecord.setOnClickListener(this);
         mTvMineCollection = (TextView) findViewById(R.id.tv_mine_collection);
+
         mTvMineCollection.setOnClickListener(this);
+        mTvMineCollection.setSelected(true);
         mTvMineCollection.requestFocus();
-        FocusUtils.onFocusChange(mTvMovieRecord, R.drawable.iv_collection_btn_f, R.drawable.iv_collection_btn_x);
-        FocusUtils.onFocusChange(mTvMineCollection, R.drawable.iv_collection_btn_f, R.drawable.iv_collection_btn_x);
-        //默认选中我的收藏
-        mTvMineCollection.requestFocus();
-        mTvMineCollection.setBackgroundResource(R.drawable.iv_collection_btn_f);
+
+
 
 
     }

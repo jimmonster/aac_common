@@ -11,7 +11,6 @@ import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
 import com.jinhong.jhtv.model.CollectionBean;
 import com.jinhong.jhtv.ui.adapter.RecordInfoListAdapter;
-import com.jinhong.jhtv.utils.FocusUtils;
 
 import java.util.ArrayList;
 
@@ -65,15 +64,16 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
             }
         });
         mTvMovieRecord = (TextView) findViewById(R.id.tv_movie_record);
+
+
         mTvMovieRecord.setOnClickListener(this);
         mTvMineCollection = (TextView) findViewById(R.id.tv_mine_collection);
+
         mTvMineCollection.setOnClickListener(this);
-        mTvMovieRecord.requestFocus();
-        FocusUtils.onFocusChange(mTvMovieRecord, R.drawable.iv_collection_btn_f, R.drawable.iv_collection_btn_x);
-        FocusUtils.onFocusChange(mTvMineCollection, R.drawable.iv_collection_btn_f, R.drawable.iv_collection_btn_x);
         //默认选中我的收藏
+        mTvMovieRecord.setSelected(true);
         mTvMovieRecord.requestFocus();
-        mTvMovieRecord.setBackgroundResource(R.drawable.iv_collection_btn_f);
+
 
     }
 

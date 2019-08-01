@@ -92,7 +92,7 @@ dependencies {
 
     //tangram UI
     implementation 'com.alibaba.android:tangram:2.0.5@aar'
-    implementation ('com.alibaba.android:virtualview:1.0.5@aar') {
+    implementation('com.alibaba.android:virtualview:1.0.5@aar') {
         transitive = true
     }
     implementation 'com.squareup.picasso:picasso:2.5.2'

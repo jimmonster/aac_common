@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="@drawable/iv_qinzi_main_bg"
     android:paddingStart="90dp"
     android:paddingTop="40dp"
     android:paddingEnd="90dp">
@@ -37,11 +37,14 @@
         android:id="@+id/recyclerView_keyboard"
         android:layout_width="670dp"
         android:layout_height="435dp"
+        android:layout_marginTop="25dp"
         android:layout_below="@id/tv_search_info"
         android:orientation="vertical"
         android:scrollbars="none"
         app:tv_layoutManager="StaggeredGridLayoutManager"
         app:tv_numColumns="8"
+        app:tv_verticalSpacingWithMargins="20dp"
+        app:tv_horizontalSpacingWithMargins="16dp"
         app:tv_numRows="5">
 
     </com.owen.tvrecyclerview.widget.TvRecyclerView>

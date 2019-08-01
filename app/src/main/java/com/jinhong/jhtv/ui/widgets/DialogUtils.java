@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jinhong.jhtv.R;
 
@@ -19,10 +18,16 @@ public class DialogUtils {
 
     private static volatile DialogUtils mInstance;
     private AlertDialog mDlg;
-    private Activity activity;
 
-    public DialogUtils(Activity a) {
-        activity = a;
+    Activity mActivity;
+
+
+    public DialogUtils(Activity activity) {
+        mActivity=activity;
+        mDlg = new AlertDialog.Builder(activity).create();
+        mDlg.setView(LayoutInflater.from(activity).inflate(
+                R.layout.dialog_video_toast, null)); // 设置view
+
     }
 
     public static DialogUtils getInstance(Activity activity) {
@@ -37,11 +42,6 @@ public class DialogUtils {
     }
 
     public AlertDialog show() {
-        mDlg = new AlertDialog.Builder(activity).create();
-
-
-        mDlg.setView(LayoutInflater.from(activity).inflate(
-                R.layout.dialog_video_toast, null)); // 设置view
 
         if (!mDlg.isShowing()) {
             mDlg.show(); //显示出来
@@ -52,10 +52,8 @@ public class DialogUtils {
         tvEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //结束播放
-                Toast.makeText(activity, "结束播放", Toast.LENGTH_SHORT).show();
                 mDlg.dismiss();
-                activity.finish();
+                mActivity.finish();
             }
         });
 
@@ -63,8 +61,7 @@ public class DialogUtils {
         tvWatching.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //继续观看
-                Toast.makeText(activity, "继续观看", Toast.LENGTH_SHORT).show();
+
                 mDlg.dismiss();
             }
         });
@@ -73,10 +70,8 @@ public class DialogUtils {
         tvNextCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //下一集
-                Toast.makeText(activity, "下一集", Toast.LENGTH_SHORT).show();
                 mDlg.dismiss();
-                activity.finish();
+                mActivity.finish();
 
             }
         });

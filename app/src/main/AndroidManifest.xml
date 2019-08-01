@@ -59,7 +59,7 @@
         <activity android:name=".ui.activity.SingSongActivity"/>
         <activity android:name=".ui.activity.AnimationCyActivity"/>
         <activity android:name=".ui.activity.ToyCyActivity"/>
-        <activity android:name=".ui.activity.DrawingCyActivity"/>
+        <activity android:name=".ui.activity.CategoryActivity"/>
         <activity android:name=".ui.activity.EducationCyActivity"/>
         <activity android:name=".test.TestActivity"/>
         <activity android:name=".ui.activity.DemoKeyBoardActivity"/>
@@ -79,6 +79,7 @@
         <activity android:name=".ui.activity.CollectionActivity"/>
         <activity android:name=".test.TabLayoutTest"/>
         <activity android:name=".ui.activity.MainActivity1"/>
+        <activity android:name=".test.ViewTestActivity" />
 
         <!--适配基准-->
         <meta-data

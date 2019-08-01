@@ -44,6 +44,7 @@ import static cn.jzvd.Jzvd.WIFI_TIP_DIALOG_SHOWED;
  * @date :  2019-07-02
  * @description :视频播放界面
  */
+@Deprecated
 public class VideoActivity extends BaseActivity implements CancelAdapt, View.OnClickListener, ViewTreeObserver.OnGlobalFocusChangeListener {
 
     private static final String TAG = "VideoActivity";

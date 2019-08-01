@@ -5,7 +5,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="90dp"
-    android:background="@drawable/iv_collection_jl"
+    android:background="@drawable/iv_watch_jl"
     android:focusable="false"
     android:orientation="horizontal">
 

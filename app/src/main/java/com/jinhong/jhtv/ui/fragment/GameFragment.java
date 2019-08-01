@@ -17,7 +17,7 @@ import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseFragment;
-import com.jinhong.jhtv.ui.activity.DrawingCyActivity;
+import com.jinhong.jhtv.ui.activity.CategoryActivity;
 import com.jinhong.jhtv.utils.FocusUtils;
 import com.jinhong.jhtv.utils.ImageUtils;
 
@@ -125,7 +125,7 @@ public class GameFragment extends BaseFragment {
                                     public void onClick(View v) {
                                         Bundle bundle = new Bundle();
                                         bundle.putInt("type", 2);
-                                        startActivity(DrawingCyActivity.class, bundle);
+                                        startActivity(CategoryActivity.class, bundle);
                                     }
                                 });
 

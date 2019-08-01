@@ -10,8 +10,13 @@ import com.jinhong.jhtv.base.BaseActivity;
 import com.jinhong.jhtv.test.TabLayoutTest;
 import com.jinhong.jhtv.test.VLayoutActivity;
 import com.jinhong.jhtv.test.VideoTestActivity;
+import com.jinhong.jhtv.test.ViewTestActivity;
+import com.jinhong.jhtv.ui.dialog.CommonDialog;
 import com.jinhong.jhtv.ui.views.AutoHorizontalScrollTextView;
 import com.jinhong.jhtv.utils.FocusUtils;
+import com.jinhong.jhtv.utils.OkGoUtils;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 /**
  * @author :  Jim
@@ -45,7 +50,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initView();
+    }
+
+    private void initData() {
+        toast("initData");
+        String url = "http://api.live.bilibili.com/AppIndex/tags?_device=android&appkey=1d8b6e7d45233436&build=505000&mobi_app=android&platform=android&ts=1495438990&sign=27e923afa5c522c9c8c42f6e56f4bf99";
+        OkGoUtils.get(url, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                log(response.body());
+            }
+        });
+
+
     }
 
     private void initView() {
@@ -110,24 +129,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             default:
                 break;
             case R.id.iv_tab0://亲子玩具
-                bundle.putInt("type", 1);
-                startActivity(DrawingCyActivity.class, bundle);
+                startActivity(ViewTestActivity.class);
                 break;
             case R.id.iv_tab1://亲子游戏
-                bundle.putInt("type", 2);
-                startActivity(DrawingCyActivity.class, bundle);
+                toast("DialogUtils");
+                CommonDialog.getInstance(this).show();
                 break;
             case R.id.iv_tab2://亲子手工
                 bundle.putInt("type", 3);
-                startActivity(DrawingCyActivity.class, bundle);
+                startActivity(CategoryActivity.class, bundle);
                 break;
             case R.id.iv_tab3://亲子教育
                 bundle.putInt("type", 4);
-                startActivity(DrawingCyActivity.class, bundle);
+                startActivity(CategoryActivity.class, bundle);
                 break;
             case R.id.iv_tab4://亲子绘画
                 bundle.putInt("type", 5);
-                startActivity(DrawingCyActivity.class, bundle);
+                startActivity(CategoryActivity.class, bundle);
                 break;
             case R.id.iv_tab5://动画天地
                 startActivity(AnimationCyActivity.class);

@@ -3,7 +3,7 @@
           android:id="@+id/tv_item_search_info"
           android:layout_width="1004dp"
           android:layout_height="106dp"
-          android:background="@color/color_blue_5f71bb"
+          android:background="@drawable/iv_search_sbg"
           android:ellipsize="end"
           android:gravity="center_vertical"
           android:paddingStart="80dp"

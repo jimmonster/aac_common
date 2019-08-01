@@ -1,6 +1,5 @@
 package com.jinhong.jhtv.ui.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -77,7 +76,7 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
         mLlContainer = (LinearLayout) findViewById(R.id.ll_container);
-        ViewpagerAdapter viewpagerAdapter = new ViewpagerAdapter(getSupportFragmentManager(), this, mFragments);
+        ViewpagerAdapter viewpagerAdapter = new ViewpagerAdapter(getSupportFragmentManager(),  mFragments);
 
 
         mIvSearch.setOnClickListener(this);
@@ -137,11 +136,9 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
 class ViewpagerAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<Fragment> mFragmentArrayList;
-    private Activity mActivity;
 
-    public ViewpagerAdapter(FragmentManager fm, Activity activity, ArrayList<Fragment> fragments) {
+    public ViewpagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
         super(fm);
-        mActivity = activity;
 
         mFragmentArrayList = fragments;
     }

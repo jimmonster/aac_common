@@ -26,9 +26,9 @@ public class ItemSearchInfoAdapter extends BaseQuickAdapter<String, BaseViewHold
             public void onFocusChange(View v, boolean hasFocus) {
                 if (v != null) {
                     if (hasFocus) {
-                        v.setBackgroundResource(R.color.color_orange_e4a74c);
+                        v.setBackgroundResource(R.drawable.iv_search_sbg_f);
                     }else {
-                        v.setBackgroundResource(R.color.color_blue_5f71bb);
+                        v.setBackgroundResource(R.drawable.iv_search_sbg);
                     }
                 }
             }
