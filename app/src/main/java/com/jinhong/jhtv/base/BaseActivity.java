@@ -98,8 +98,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void log(String str) {
         String clazz = this.getClass().getSimpleName();
         String method = Thread.currentThread().getStackTrace()[1].getMethodName();
-
-        Log.d("Jim:" + clazz + "******" + method, "\n                        " + str + "                    \n");
+        Log.d("jim:" + clazz + "******" + method, "\n                        " + str + "                    \n");
     }
 
     /**

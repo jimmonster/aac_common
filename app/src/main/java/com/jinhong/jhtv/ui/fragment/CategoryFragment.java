@@ -2,10 +2,7 @@ package com.jinhong.jhtv.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jinhong.jhtv.R;
@@ -34,17 +31,14 @@ public class CategoryFragment extends BaseFragment {
         items = data;
     }
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        View inflate = inflater.inflate(R.layout.fragment_category, container, false);
-        initView(inflate);
-
-        return inflate;
+    public int getLayoutId() {
+        return R.layout.fragment_category;
     }
 
-    private void initView(View view) {
+    @Override
+    protected void initView(View view) {
 
         //右边内容
         mRecyclerView = (TvRecyclerView) view.findViewById(R.id.recyclerView_right);
@@ -53,7 +47,8 @@ public class CategoryFragment extends BaseFragment {
         initEvent();
     }
 
-    private void initEvent() {
+    @Override
+    protected void initEvent() {
         mCategoryRightAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

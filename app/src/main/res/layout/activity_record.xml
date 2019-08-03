@@ -138,6 +138,7 @@
             android:background="@drawable/iv_search_down"/>
 
         <TextView
+            android:id="@+id/tv_current_page"
             android:layout_width="160dp"
             android:layout_height="35dp"
             android:layout_alignParentEnd="true"

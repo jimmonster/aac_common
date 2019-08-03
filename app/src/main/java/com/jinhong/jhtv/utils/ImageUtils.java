@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.jinhong.jhtv.R;
 
 /**
  * @author :  Jim
@@ -19,6 +20,8 @@ public class ImageUtils {
         Activity topActivity = ActivityUtils.getTopActivity();
         Glide.with(topActivity)
                 .load(url)
+                .placeholder(R.drawable.iv_default_loading)
+
                 .into(view);
 
     }

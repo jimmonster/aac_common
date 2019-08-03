@@ -80,6 +80,7 @@
         <activity android:name=".test.TabLayoutTest"/>
         <activity android:name=".ui.activity.MainActivity1"/>
         <activity android:name=".test.ViewTestActivity" />
+        <activity android:name=".test.ViewModelActivity"/>
 
         <!--适配基准-->
         <meta-data

@@ -1,11 +1,7 @@
 package com.jinhong.jhtv.ui.fragment;
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.jinhong.jhtv.R;
@@ -34,17 +30,15 @@ public class CyFragment extends BaseFragment {
     }
 
 
+
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        View inflate = inflater.inflate(R.layout.fragment_cy, container, false);
-        initView(inflate);
-
-        return inflate;
+    public int getLayoutId() {
+        return R.layout.fragment_cy;
     }
 
-    private void initView(View view) {
+    @Override
+    protected void initView(View view) {
 
         //右边内容
         mRecyclerView = (TvRecyclerView) view.findViewById(R.id.recyclerView_right);
@@ -56,7 +50,8 @@ public class CyFragment extends BaseFragment {
 
     }
 
-    private void initEvent() {
+    @Override
+    protected void initEvent() {
         mRecyclerView.setOnItemListener(new AbstractOnItemListener() {
             @Override
             public void onItemClick(TvRecyclerView parent, View itemView, int position) {

@@ -7,16 +7,14 @@ import android.widget.TextClock;
 
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
+import com.jinhong.jhtv.test.GridListActivity;
 import com.jinhong.jhtv.test.TabLayoutTest;
 import com.jinhong.jhtv.test.VLayoutActivity;
 import com.jinhong.jhtv.test.VideoTestActivity;
+import com.jinhong.jhtv.test.ViewModelActivity;
 import com.jinhong.jhtv.test.ViewTestActivity;
-import com.jinhong.jhtv.ui.dialog.CommonDialog;
 import com.jinhong.jhtv.ui.views.AutoHorizontalScrollTextView;
 import com.jinhong.jhtv.utils.FocusUtils;
-import com.jinhong.jhtv.utils.OkGoUtils;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
 
 /**
  * @author :  Jim
@@ -54,18 +52,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         initView();
     }
 
-    private void initData() {
-        toast("initData");
-        String url = "http://api.live.bilibili.com/AppIndex/tags?_device=android&appkey=1d8b6e7d45233436&build=505000&mobi_app=android&platform=android&ts=1495438990&sign=27e923afa5c522c9c8c42f6e56f4bf99";
-        OkGoUtils.get(url, new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                log(response.body());
-            }
-        });
-
-
-    }
 
     private void initView() {
         mTvLog = (ImageView) findViewById(R.id.tv_log);
@@ -132,12 +118,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(ViewTestActivity.class);
                 break;
             case R.id.iv_tab1://亲子游戏
-                toast("DialogUtils");
-                CommonDialog.getInstance(this).show();
+                startActivity(ViewModelActivity.class);
                 break;
             case R.id.iv_tab2://亲子手工
-                bundle.putInt("type", 3);
-                startActivity(CategoryActivity.class, bundle);
+
+                startActivity(GridListActivity.class);
                 break;
             case R.id.iv_tab3://亲子教育
                 bundle.putInt("type", 4);
@@ -169,7 +154,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.iv_pic5:
                 toast("键盘测试界面");
-                startActivity(DemoKeyBoardActivity.class);
+                startActivity(DetailActivity.class);
                 break;
             case R.id.iv_pic6:
                 toast("视频测试");

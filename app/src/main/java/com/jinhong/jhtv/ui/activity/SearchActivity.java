@@ -91,15 +91,17 @@ public class SearchActivity extends BaseActivity {
         mRecyclerViewInfo.setAdapter(searchInfoAdapter);
         //推荐收藏
         mRecyclerViewFavorite = (TvRecyclerView) findViewById(R.id.recyclerView_favorite);
-
         ItemFavoriteAdapter favoriteAdapter = new ItemFavoriteAdapter(R.layout.widget_item_favorite, mFavorite);
         mRecyclerViewFavorite.setAdapter(favoriteAdapter);
 
         //按键
         mRecyclerViewKeyboard = (TvRecyclerView) findViewById(R.id.recyclerView_keyboard);
         KeyBoardAdapter keyBoardAdapter = new KeyBoardAdapter(R.layout.widget_item_keyboard, mLetters);
+
         mRecyclerViewKeyboard.setAdapter(keyBoardAdapter);
         keyBoardAdapter.bindToRecyclerView(mRecyclerViewKeyboard);
+
+
         keyBoardAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -121,10 +123,11 @@ public class SearchActivity extends BaseActivity {
                         } else {
                             toast("搜索内容不能为空");
                         }
+
                         break;
 
                     case 37://清空
-                        searchInfo="";
+                        searchInfo = "";
                         mTvSearchInfo.setText(searchInfo);
                         break;
                 }

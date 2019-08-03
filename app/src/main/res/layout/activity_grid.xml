@@ -7,25 +7,12 @@
               android:orientation="horizontal">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView_left"
-        android:layout_width="@dimen/dp_120"
-        android:layout_height="match_parent"
-        android:descendantFocusability="afterDescendants"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
+        android:id="@+id/recyclerView"
+        android:layout_width="670dp"
+        android:layout_height="435dp"
         >
 
     </android.support.v7.widget.RecyclerView>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView_right"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:descendantFocusability="afterDescendants"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        >
-
-    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

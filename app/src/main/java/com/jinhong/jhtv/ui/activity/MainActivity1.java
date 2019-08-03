@@ -45,6 +45,7 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
     private ImageView mIvCollection;
     private ImageView mIvRecord;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,8 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
         initData();
         initView();
     }
+
+
 
     private void initData() {
 
@@ -76,7 +79,7 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
         mLlContainer = (LinearLayout) findViewById(R.id.ll_container);
-        ViewpagerAdapter viewpagerAdapter = new ViewpagerAdapter(getSupportFragmentManager(),  mFragments);
+        ViewpagerAdapter viewpagerAdapter = new ViewpagerAdapter(getSupportFragmentManager(), mFragments);
 
 
         mIvSearch.setOnClickListener(this);
@@ -111,6 +114,7 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
         mViewPager.setAdapter(viewpagerAdapter);
         mViewPager.setOffscreenPageLimit(-1);
         mTabLayout.setupWithViewPager(mViewPager);
+
     }
 
 

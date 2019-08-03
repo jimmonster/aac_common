@@ -1,11 +1,13 @@
 package com.jinhong.jhtv.ui.fragment;
 
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,13 +17,17 @@ import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.VirtualLayoutAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
+import com.jinhong.jhtv.Constants;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseFragment;
+import com.jinhong.jhtv.model.MainListBean;
 import com.jinhong.jhtv.ui.activity.CategoryActivity;
 import com.jinhong.jhtv.utils.FocusUtils;
 import com.jinhong.jhtv.utils.ImageUtils;
+import com.jinhong.jhtv.vm.viewmodel.CommonViewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,56 +40,41 @@ public class ManualFragment extends BaseFragment {
 
     private String dataType;//activity传递过来的分类数据
     private RecyclerView recyclerView;
-    private ArrayList<Integer> mPosters;
+    private ArrayList<String> mContents;
+    private MutableLiveData<MainListBean> mMainListBean;
+    private List<MainListBean.DataBean.PosterVosBean> mPosterVos;
 
-    public  ManualFragment getInstance(String s) {
+    public ManualFragment getInstance(String s) {
         Bundle bundle = new Bundle();
         bundle.putString("DATA", s);
         setArguments(bundle);
-        return this;}
+        return this;
+    }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View inflate = inflater.inflate(R.layout.fragment_main, container, false);
-        initData();
-        initView(inflate);
-        return inflate;
+    public int getLayoutId() {
+        return R.layout.fragment_main;
     }
 
 
-    private void initData() {
+    @Override
+    protected void initData() {
         //获取到activity传递过来的数据
         Bundle bundle = getArguments();
         if (bundle != null) {
             String data = bundle.getString("DATA");
         }
+        CommonViewModel commonViewModel = ViewModelProviders.of(getActivity()).get(CommonViewModel.class);
+        HashMap<String, String> params = new HashMap<>();
+        params.put("columnId", "10007");
+        mMainListBean = commonViewModel.getMainListBean(Constants.GET_COLUMN_AND_CONTENT_BY_ID, params);
 
-        mPosters = new ArrayList<>();
-        mPosters.add(R.drawable.iv_qinzi_main_pos01);
-        mPosters.add(R.drawable.iv_qinzi_main_pos02);
-        mPosters.add(R.drawable.iv_qinzi_main_pos02);
-        mPosters.add(R.drawable.iv_qinzi_main_pos03);
-        mPosters.add(R.drawable.iv_qinzi_main_pos04);
-        mPosters.add(R.drawable.iv_qinzi_main_pos05);
-        mPosters.add(R.drawable.iv_qinzi_main_pos06);
-        mPosters.add(R.drawable.iv_qinzi_main_pos07);
-        mPosters.add(R.drawable.iv_qinzi_main_pos08);
-        mPosters.add(R.drawable.iv_qinzi_main_pos09);
-        mPosters.add(R.drawable.iv_qinzi_main_pos10);
-        mPosters.add(R.drawable.iv_qinzi_main_pos11);
-        mPosters.add(R.drawable.iv_qinzi_main_pos12);
-        mPosters.add(R.drawable.iv_qinzi_main_pos13);
-        mPosters.add(R.drawable.iv_qinzi_main_pos14);
-        mPosters.add(R.drawable.iv_qinzi_main_pos15);
-        mPosters.add(R.drawable.iv_qinzi_main_pos16);
-        mPosters.add(R.drawable.iv_qinzi_main_pos17);
-        mPosters.add(R.drawable.iv_qinzi_main_pos18);
 
     }
 
 
-    private void initView(View inflate) {
+    @Override
+    protected void initView(View inflate) {
         recyclerView = (RecyclerView) inflate.findViewById(R.id.recyclerView);
 
         VirtualLayoutManager layoutManager = new VirtualLayoutManager(getContext());
@@ -116,7 +107,19 @@ public class ManualFragment extends BaseFragment {
 
         layoutManager.setLayoutHelpers(helpers);
 
+        mMainListBean.observe(getActivity(), new Observer<MainListBean>() {
+            @Override
+            public void onChanged(@Nullable MainListBean mainListBean) {
+                mPosterVos = mainListBean.getData().getPosterVos();
+                log("mPosterVos:" + mPosterVos);
+                setManualAdapter(layoutManager, mPosterVos);
+            }
+        });
 
+
+    }
+
+    private void setManualAdapter(VirtualLayoutManager layoutManager, List<MainListBean.DataBean.PosterVosBean> posterVos) {
         recyclerView.setAdapter(
                 new VirtualLayoutAdapter(layoutManager) {
                     @NonNull
@@ -135,7 +138,7 @@ public class ManualFragment extends BaseFragment {
                                 ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(416, 318);
                                 holder.itemView.setLayoutParams(layoutParams);
                                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                                ImageUtils.load(mPosters.get(position), (ImageView) holder.itemView);
+                                ImageUtils.load(posterVos.get(position).getPosterPath(), (ImageView) holder.itemView);
                                 break;
 
                             case 0:
@@ -143,7 +146,7 @@ public class ManualFragment extends BaseFragment {
                                 layoutParams = new ViewGroup.LayoutParams(858, 318);
                                 holder.itemView.setLayoutParams(layoutParams);
                                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                                ImageUtils.load(mPosters.get(position), (ImageView) holder.itemView);
+                                ImageUtils.load(posterVos.get(position).getPosterPath(), (ImageView) holder.itemView);
                                 break;
 
 
@@ -151,7 +154,7 @@ public class ManualFragment extends BaseFragment {
                                 layoutParams = new ViewGroup.LayoutParams(416, 318);
                                 holder.itemView.setLayoutParams(layoutParams);
                                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                                ImageUtils.load(R.drawable.iv_qinzi_more, (ImageView) holder.itemView);
+                                ImageUtils.load(posterVos.get(position).getPosterPath(), (ImageView) holder.itemView);
                                 imageView.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
@@ -185,8 +188,6 @@ public class ManualFragment extends BaseFragment {
                 }
 
         );
-
-
     }
 
 
@@ -197,7 +198,7 @@ public class ManualFragment extends BaseFragment {
             //传入item对应的view
             itemView.setFocusable(true);
 
-            FocusUtils.onFocusChange(itemView,R.drawable.shape_selector_border_corner_press,R.drawable.shape_selector_border_normal);
+            FocusUtils.onFocusChange(itemView, R.drawable.shape_selector_border_corner_press, R.drawable.shape_selector_border_normal);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

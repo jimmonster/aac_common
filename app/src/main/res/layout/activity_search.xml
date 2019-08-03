@@ -28,8 +28,8 @@
         android:paddingStart="64dp"
         android:paddingEnd="120dp"
         android:singleLine="true"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColor="@color/common_black"
+        android:textColorHint="@color/common_black"
         android:textSize="20sp"/>
 
 
@@ -37,19 +37,20 @@
         android:id="@+id/recyclerView_keyboard"
         android:layout_width="670dp"
         android:layout_height="435dp"
-        android:layout_marginTop="25dp"
         android:layout_below="@id/tv_search_info"
+        android:layout_marginTop="25dp"
         android:orientation="vertical"
         android:scrollbars="none"
+        app:tv_horizontalSpacingWithMargins="16dp"
         app:tv_layoutManager="StaggeredGridLayoutManager"
         app:tv_numColumns="8"
-        app:tv_verticalSpacingWithMargins="20dp"
-        app:tv_horizontalSpacingWithMargins="16dp"
-        app:tv_numRows="5">
+        app:tv_numRows="5"
+        app:tv_verticalSpacingWithMargins="20dp">
 
     </com.owen.tvrecyclerview.widget.TvRecyclerView>
 
     <TextView
+        android:id="@+id/tv_current_page"
         android:layout_width="500dp"
         android:layout_height="40dp"
         android:layout_alignRight="@id/recyclerView_info"
@@ -57,7 +58,7 @@
         android:drawableLeft="@drawable/iv_search_up"
         android:drawablePadding="110dp"
         android:text="(共10条搜索记录，当前1/2页)"
-        android:textColor="@color/white"
+        android:textColor="@color/gray_black"
         android:textSize="20sp"/>
 
 
@@ -94,7 +95,7 @@
         android:layout_below="@id/recyclerView_keyboard"
         android:layout_marginTop="60dp"
         android:text="小朋友们最爱看"
-        android:textColor="@color/white"
+        android:textColor="@color/gray_black"
         android:textSize="36sp"
         android:textStyle="bold"/>
 

@@ -3,9 +3,7 @@ package com.jinhong.jhtv.ui.fragment;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -43,16 +41,13 @@ public class ToyFragment extends BaseFragment {
         setArguments(bundle);
         return this;}
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View inflate = inflater.inflate(R.layout.fragment_main, container, false);
-        initData();
-        initView(inflate);
-        return inflate;
+    public int getLayoutId() {
+        return R.layout.fragment_main;
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
         //获取到activity传递过来的数据
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -86,7 +81,7 @@ public class ToyFragment extends BaseFragment {
 
     }
 
-    private void initView(View inflate) {
+    protected void initView(View inflate) {
         recyclerView = (RecyclerView) inflate.findViewById(R.id.recyclerView);
 
         VirtualLayoutManager layoutManager = new VirtualLayoutManager(getContext());
