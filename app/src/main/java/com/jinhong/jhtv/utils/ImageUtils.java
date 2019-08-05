@@ -21,7 +21,7 @@ public class ImageUtils {
         Glide.with(topActivity)
                 .load(url)
                 .placeholder(R.drawable.iv_default_loading)
-
+                .error(R.drawable.iv_default_loading)
                 .into(view);
 
     }
@@ -30,6 +30,8 @@ public class ImageUtils {
         Activity topActivity = ActivityUtils.getTopActivity();
         Glide.with(topActivity)
                 .load(drawable)
+                .placeholder(R.drawable.iv_default_loading)
+                .error(R.drawable.iv_default_loading)
                 .into(view);
 
     }
@@ -43,6 +45,8 @@ public class ImageUtils {
         Activity topActivity = ActivityUtils.getTopActivity();
         Glide.with(topActivity)
                 .load(drawable)
+                .placeholder(R.drawable.iv_default_loading)
+                .error(R.drawable.iv_default_loading)
                 .apply(options)
                 .into(view);
 
@@ -57,6 +61,8 @@ public class ImageUtils {
         Activity topActivity = ActivityUtils.getTopActivity();
         Glide.with(topActivity)
                 .load(drawable)
+                .placeholder(R.drawable.iv_default_loading)
+                .error(R.drawable.iv_default_loading)
                 .apply(options)
                 .into(view);
 
@@ -73,6 +79,8 @@ public class ImageUtils {
         Glide.with(topActivity)
 
                 .load(drawable)
+                .placeholder(R.drawable.iv_default_loading)
+                .error(R.drawable.iv_default_loading)
 
                 .apply(options)
                 .into(view);

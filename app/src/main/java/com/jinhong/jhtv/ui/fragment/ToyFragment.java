@@ -1,8 +1,11 @@
 package com.jinhong.jhtv.ui.fragment;
 
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +16,16 @@ import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.VirtualLayoutAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
+import com.blankj.utilcode.util.LogUtils;
+import com.jinhong.jhtv.Constants;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseFragment;
+import com.jinhong.jhtv.model.MainListBean;
 import com.jinhong.jhtv.ui.activity.CategoryActivity;
 import com.jinhong.jhtv.utils.FocusUtils;
 import com.jinhong.jhtv.utils.ImageUtils;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,14 +38,15 @@ public class ToyFragment extends BaseFragment {
 
     private String dataType;//activity传递过来的分类数据
     private RecyclerView recyclerView;
-    private ArrayList<Integer> mPosters;
+    private MutableLiveData<MainListBean> mMainListBean;
 
 
-    public  ToyFragment getInstance(String s) {
+    public ToyFragment getInstance(String s) {
         Bundle bundle = new Bundle();
         bundle.putString("DATA", s);
         setArguments(bundle);
-        return this;}
+        return this;
+    }
 
     @Override
     public int getLayoutId() {
@@ -52,35 +59,16 @@ public class ToyFragment extends BaseFragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             String data = bundle.getString("DATA");
-            log(data);
         }
-
-        //todo 数据添加
-
-        mPosters = new ArrayList<>();
-        mPosters.add(R.drawable.iv_qinzi_main_pos01);
-        mPosters.add(R.drawable.iv_qinzi_main_pos02);
-        mPosters.add(R.drawable.iv_qinzi_main_pos02);
-        mPosters.add(R.drawable.iv_qinzi_main_pos03);
-        mPosters.add(R.drawable.iv_qinzi_main_pos04);
-        mPosters.add(R.drawable.iv_qinzi_main_pos05);
-        mPosters.add(R.drawable.iv_qinzi_main_pos06);
-        mPosters.add(R.drawable.iv_qinzi_main_pos07);
-        mPosters.add(R.drawable.iv_qinzi_main_pos08);
-        mPosters.add(R.drawable.iv_qinzi_main_pos09);
-        mPosters.add(R.drawable.iv_qinzi_main_pos10);
-        mPosters.add(R.drawable.iv_qinzi_main_pos11);
-        mPosters.add(R.drawable.iv_qinzi_main_pos12);
-        mPosters.add(R.drawable.iv_qinzi_main_pos13);
-        mPosters.add(R.drawable.iv_qinzi_main_pos14);
-        mPosters.add(R.drawable.iv_qinzi_main_pos15);
-        mPosters.add(R.drawable.iv_qinzi_main_pos16);
-        mPosters.add(R.drawable.iv_qinzi_main_pos17);
-        mPosters.add(R.drawable.iv_qinzi_main_pos18);
+        //10010
+        HashMap<String, String> params = new HashMap<>();
+        params.put("columnId", "10010");
+        mMainListBean = mCommonViewModel.getMainListBean(Constants.GET_COLUMN_AND_CONTENT_BY_ID, params);
 
 
     }
 
+    @Override
     protected void initView(View inflate) {
         recyclerView = (RecyclerView) inflate.findViewById(R.id.recyclerView);
 
@@ -113,6 +101,22 @@ public class ToyFragment extends BaseFragment {
         helpers.add(gridLayoutHelper1);
 
         layoutManager.setLayoutHelpers(helpers);
+        mMainListBean.observe(this, new Observer<MainListBean>() {
+            @Override
+            public void onChanged(@Nullable MainListBean mainListBean) {
+                try {
+                    setToyAdapter(layoutManager, mainListBean);
+                } catch (Exception e) {
+                    LogUtils.e(e);
+                }
+            }
+        });
+
+
+    }
+
+    private void setToyAdapter(VirtualLayoutManager layoutManager, MainListBean mainListBean) {
+        List<MainListBean.DataBean.PosterVosBean> posterVos = mainListBean.getData().getPosterVos();
 
 
         recyclerView.setAdapter(
@@ -128,40 +132,48 @@ public class ToyFragment extends BaseFragment {
                     @Override
                     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
                         ImageView imageView = (ImageView) holder.itemView;
-                        switch (position) {
-                            default:
-                                ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(416, 318);
-                                holder.itemView.setLayoutParams(layoutParams);
-                                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                                ImageUtils.load(mPosters.get(position), (ImageView) holder.itemView);
-                                break;
-
-                            case 0:
-                            case 1:
-                                layoutParams = new ViewGroup.LayoutParams(858, 318);
-                                holder.itemView.setLayoutParams(layoutParams);
-                                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                                ImageUtils.load(mPosters.get(position), (ImageView) holder.itemView);
-                                break;
+                        try {
 
 
-                            case 9:
-                                layoutParams = new ViewGroup.LayoutParams(416, 318);
-                                holder.itemView.setLayoutParams(layoutParams);
-                                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                                ImageUtils.load(R.drawable.iv_qinzi_more, (ImageView) holder.itemView);
-                                imageView.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Bundle bundle = new Bundle();
-                                        bundle.putInt("type", 1);
-                                        startActivity(CategoryActivity.class, bundle);
-                                    }
-                                });
+                            switch (position) {
+                                default:
+                                    ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(416, 318);
+                                    holder.itemView.setLayoutParams(layoutParams);
+                                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                                    ImageUtils.load(posterVos.get(position).getHomePosterPath(), (ImageView) holder.itemView);
+                                    break;
 
-                                break;
+                                case 0:
+                                case 1:
+                                    layoutParams = new ViewGroup.LayoutParams(858, 318);
+                                    holder.itemView.setLayoutParams(layoutParams);
+                                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                                    ImageUtils.load(posterVos.get(position).getHomePosterPath(), (ImageView) holder.itemView);
+                                    break;
 
 
+                                case 9:
+                                    layoutParams = new ViewGroup.LayoutParams(416, 318);
+                                    holder.itemView.setLayoutParams(layoutParams);
+                                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                                    ImageUtils.load(R.drawable.iv_qinzi_more, (ImageView) holder.itemView);
+                                    imageView.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Bundle bundle = new Bundle();
+                                            bundle.putInt("type", 1);
+                                            startActivity(CategoryActivity.class, bundle);
+                                        }
+                                    });
+
+                                    break;
+
+
+                            }
+                        } catch (
+                                Exception e
+                        ) {
+                            LogUtils.e(e);
                         }
 
                     }
@@ -183,7 +195,6 @@ public class ToyFragment extends BaseFragment {
 
         );
 
-
     }
 
 
@@ -194,7 +205,7 @@ public class ToyFragment extends BaseFragment {
             //传入item对应的view
             itemView.setFocusable(true);
 
-            FocusUtils.onFocusChange(itemView,R.drawable.shape_selector_border_corner_press,R.drawable.shape_selector_border_normal);
+            FocusUtils.onFocusChange(itemView, R.drawable.shape_selector_border_corner_press, R.drawable.shape_selector_border_normal);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

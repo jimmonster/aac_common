@@ -61,6 +61,7 @@ public class SearchActivity extends BaseActivity {
         mLetters.add("清空");
 
 
+
         mFavorite = new ArrayList<>();
         mFavorite.add(R.drawable.iv_search_ip01);
         mFavorite.add(R.drawable.iv_search_ip02);
@@ -68,6 +69,8 @@ public class SearchActivity extends BaseActivity {
         mFavorite.add(R.drawable.iv_search_ip04);
         mFavorite.add(R.drawable.iv_search_ip05);
         mFavorite.add(R.drawable.iv_search_ip06);
+
+
 
         mInfos = new ArrayList<>();
         for (int i = 0; i < 15; i++) {

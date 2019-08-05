@@ -53,7 +53,7 @@ public class OkGoUtils {
 
     //post，不需要传递TAG
     public static void post(String url, Map<String, String> paramMap, StringCallback callback) {
-        OkGo.<String>post(url).params(paramMap).execute(callback);
+        OkGo.<String>post(url).headers("Content-Type","application/x-www-form-urlencoded").params(paramMap).execute(callback);
     }
 
     //post,不需要传参

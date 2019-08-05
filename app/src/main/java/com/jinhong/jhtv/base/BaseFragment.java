@@ -21,7 +21,7 @@ import com.jinhong.jhtv.vm.viewmodel.CommonViewModel;
 public abstract class BaseFragment extends Fragment {
 
     public String extraBundle = "ExtraBundle";
-    private CommonViewModel mCommonViewModel;
+    public CommonViewModel mCommonViewModel;
 
 
     @Nullable

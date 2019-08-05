@@ -1,8 +1,11 @@
 package com.jinhong.jhtv.ui.fragment;
 
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +18,17 @@ import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.alibaba.android.vlayout.layout.StaggeredGridLayoutHelper;
+import com.blankj.utilcode.util.LogUtils;
+import com.jinhong.jhtv.Constants;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseFragment;
 import com.jinhong.jhtv.model.MainBean1;
+import com.jinhong.jhtv.model.MainListBean;
 import com.jinhong.jhtv.utils.FocusUtils;
 import com.jinhong.jhtv.utils.ImageUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,6 +47,7 @@ public class MainFragment extends BaseFragment {
     private MainBean1 mMainBean2;
     private MainBean1 mMainBean3;
     private ArrayList<MainBean1> mMainBean1s;
+    private MutableLiveData<MainListBean> mMainListBean;
 
 
     public MainFragment getInstance(String s) {
@@ -48,7 +56,6 @@ public class MainFragment extends BaseFragment {
         setArguments(bundle);
         return this;
     }
-
 
 
     @Override
@@ -64,34 +71,14 @@ public class MainFragment extends BaseFragment {
         if (bundle != null) {
             String data = bundle.getString("DATA");
         }
-
-
-        //todo  3种假数据类型
-        //1 GridLayoutManager 一行展示4张图片，展示2行 等比。方形，带圆角，白色选中边框，选中缩小放大
-        //2 圆形 单行展示6个 等比
-        //3 带标题，图片对称，不等宽高，带圆角
-//内容
-
-        mMainBean1s = new ArrayList<>();
-        for (int i = 0; i < 8; i++) {
-            mMainBean1 = new MainBean1(1, R.drawable.iv_poster_0);
-            mMainBean1.setSpanSize(1);
-            mMainBean1s.add(mMainBean1);
-        }
-        for (int i = 0; i < 6; i++) {
-            mMainBean2 = new MainBean1(2, R.drawable.iv_poster_0);
-            mMainBean2.setSpanSize(2);
-            mMainBean1s.add(mMainBean2);
-        }
-        for (int i = 0; i < 10; i++) {
-            mMainBean3 = new MainBean1(3, R.drawable.iv_poster_0);
-            mMainBean3.setSpanSize(3);
-            mMainBean1s.add(mMainBean3);
-        }
+        HashMap<String, String> params = new HashMap<>();
+        params.put("columnId", "10007");
+        mMainListBean = mCommonViewModel.getMainListBean(Constants.GET_COLUMN_AND_CONTENT_BY_ID, params);
 
 
     }
 
+    @Override
     protected void initView(View inflate) {
 
 
@@ -149,6 +136,23 @@ public class MainFragment extends BaseFragment {
 
         layoutManager.setLayoutHelpers(helpers);
 
+        mMainListBean.observe(this, new Observer<MainListBean>() {
+            @Override
+            public void onChanged(@Nullable MainListBean mainListBean) {
+                setMainAdapter(layoutManager, mainListBean);
+            }
+        });
+
+
+/**************/
+
+
+    }
+
+    private void setMainAdapter(VirtualLayoutManager layoutManager, MainListBean mainListBean) {
+        List<MainListBean.DataBean.PosterVosBean> posterVos = mainListBean.getData().getPosterVos();
+
+
         recyclerView.setAdapter(
                 new VirtualLayoutAdapter(layoutManager) {
                     @NonNull
@@ -161,59 +165,66 @@ public class MainFragment extends BaseFragment {
 
                     @Override
                     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+
                         ImageView imageView = (ImageView) holder.itemView;
-                        switch (position) {
-                            default:
-                                ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(416, 318);
-                                holder.itemView.setLayoutParams(layoutParams);
+                        try {
+                            switch (position) {
+                                default:
+                                    ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(416, 318);
+                                    holder.itemView.setLayoutParams(layoutParams);
 
-                                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                                ImageUtils.load(R.drawable.iv_poster_0, (ImageView) holder.itemView);
-                                break;
+                                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                                    ImageUtils.load(posterVos.get(position).getHomePosterPath(), (ImageView) holder.itemView);
+                                    break;
 
-                            case 8:
-                            case 9:
-                            case 10:
-                            case 11:
-                            case 12:
-                            case 13:
-                                layoutParams = new ViewGroup.LayoutParams(225, 225);
-                                holder.itemView.setLayoutParams(layoutParams);
-                                ImageView itemView = (ImageView) holder.itemView;
-                                itemView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                ImageUtils.load2Circle(R.drawable.iv_poster_0, (ImageView) holder.itemView);
-                                break;
+                                case 8:
+                                case 9:
+                                case 10:
+                                case 11:
+                                case 12:
+                                case 13:
+                                    layoutParams = new ViewGroup.LayoutParams(225, 225);
+                                    holder.itemView.setLayoutParams(layoutParams);
+                                    ImageView itemView = (ImageView) holder.itemView;
+                                    itemView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                    ImageUtils.load2Circle(posterVos.get(position).getHomePosterPath(), (ImageView) holder.itemView);
+                                    break;
 
-                            case 14:
-                                imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                layoutParams = new ViewGroup.LayoutParams(284, 56);
-                                holder.itemView.setLayoutParams(layoutParams);
-                                holder.itemView.setFocusable(false);
-                                ImageUtils.load(R.drawable.iv_qinzi_main_biaoti, (ImageView) holder.itemView);
-                                break;
+                                case 14:
+                                    imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                    layoutParams = new ViewGroup.LayoutParams(284, 56);
+                                    holder.itemView.setLayoutParams(layoutParams);
+                                    holder.itemView.setFocusable(false);
+                                    ImageUtils.load(posterVos.get(position).getHomePosterPath(), (ImageView) holder.itemView);
+                                    break;
 
-                            case 15:
-                            case 18:
-                                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                                layoutParams = new ViewGroup.LayoutParams(416, 520);
-                                holder.itemView.setLayoutParams(layoutParams);
-                                ImageUtils.load(R.drawable.iv_poster_0, (ImageView) holder.itemView);
-                                break;
-
-
-                            case 16:
-                            case 19:
-                            case 20:
-                            case 17:
-                                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                                layoutParams = new ViewGroup.LayoutParams(416, 248);
-                                holder.itemView.setLayoutParams(layoutParams);
-                                ImageUtils.load(R.drawable.iv_poster_0, (ImageView) holder.itemView);
-
-                                break;
+                                case 15:
+                                case 18:
+                                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                                    layoutParams = new ViewGroup.LayoutParams(416, 520);
+                                    holder.itemView.setLayoutParams(layoutParams);
+                                    ImageUtils.load(posterVos.get(position).getHomePosterPath(), (ImageView) holder.itemView);
+                                    break;
 
 
+                                case 16:
+                                case 19:
+                                case 20:
+                                case 17:
+                                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                                    layoutParams = new ViewGroup.LayoutParams(416, 248);
+                                    holder.itemView.setLayoutParams(layoutParams);
+                                    ImageUtils.load(posterVos.get(position).getHomePosterPath(), (ImageView) holder.itemView);
+
+                                    break;
+
+
+                            }
+                        } catch (Exception e) {
+                            LogUtils.e(e);
                         }
+
 
                     }
 
@@ -234,10 +245,6 @@ public class MainFragment extends BaseFragment {
 
         );
 
-
-/**************/
-
-
     }
 
 
@@ -248,7 +255,7 @@ public class MainFragment extends BaseFragment {
             //传入item对应的view
             itemView.setFocusable(true);
 
-            FocusUtils.onFocusChange(itemView,R.drawable.shape_selector_border_corner_press,R.drawable.shape_selector_border_normal);
+            FocusUtils.onFocusChange(itemView, R.drawable.shape_selector_border_corner_press, R.drawable.shape_selector_border_normal);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

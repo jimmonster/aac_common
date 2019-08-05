@@ -1,6 +1,7 @@
 package com.jinhong.jhtv.base;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +15,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.ui.widgets.BorderView;
 import com.jinhong.jhtv.ui.widgets.LoadingFrame;
+import com.jinhong.jhtv.vm.viewmodel.CommonViewModel;
 
 /**
  * @author :  Jim
@@ -21,7 +23,7 @@ import com.jinhong.jhtv.ui.widgets.LoadingFrame;
  * @description :
  */
 public abstract class BaseActivity extends AppCompatActivity {
-
+    public CommonViewModel mCommonViewModel;
     public BorderView mBorder;
     public String extraBundle = "ExtraBundle";
     @SuppressLint("HandlerLeak")
@@ -33,6 +35,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         }
     };
+
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        mCommonViewModel = ViewModelProviders.of(this).get(CommonViewModel.class);
+    }
 
     public void baseHandler(Message msg) {
 
