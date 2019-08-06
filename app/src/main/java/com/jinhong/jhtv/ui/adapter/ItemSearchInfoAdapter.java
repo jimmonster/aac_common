@@ -6,6 +6,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jinhong.jhtv.R;
+import com.jinhong.jhtv.model.SearchBean;
 
 import java.util.List;
 
@@ -14,13 +15,15 @@ import java.util.List;
  * @date :  2019-07-30
  * @description :
  */
-public class ItemSearchInfoAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
-    public ItemSearchInfoAdapter(int layoutResId, @Nullable List<String> data) {
+public class ItemSearchInfoAdapter extends BaseQuickAdapter<SearchBean.DataBean.ListBean, BaseViewHolder> {
+
+
+    public ItemSearchInfoAdapter(int layoutResId, @Nullable List<SearchBean.DataBean.ListBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
+    protected void convert(BaseViewHolder helper, SearchBean.DataBean.ListBean item) {
         helper.itemView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -33,7 +36,7 @@ public class ItemSearchInfoAdapter extends BaseQuickAdapter<String, BaseViewHold
                 }
             }
         });
-        helper.setText(R.id.tv_item_search_info, item);
+        helper.setText(R.id.tv_item_search_info, item.getHomePosterPath());
 
     }
 }

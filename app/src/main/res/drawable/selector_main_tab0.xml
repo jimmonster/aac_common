@@ -3,14 +3,14 @@
 
 
     <!-- 非触摸模式下获得焦点并单击时的背景图片-->
-    <item android:state_pressed="true" android:state_selected="true">
+    <item android:state_checkable="true" android:state_checked="true" android:state_pressed="true" android:state_selected="true">
         <layer-list>
             <item>
                 <shape>
                     <solid android:color="@android:color/transparent"/>
                 </shape>
             </item>
-            <item android:drawable="@drawable/iv_qinzi_tab_btn01_f" android:left="13dp" android:right="13dp">
+            <item android:drawable="@drawable/iv_main_btn01_f" android:left="13dp" android:right="13dp">
             </item>
         </layer-list>
     </item>
@@ -22,7 +22,7 @@
                     <solid android:color="@android:color/transparent"/>
                 </shape>
             </item>
-            <item android:drawable="@drawable/iv_qinzi_tab_btn01" android:left="13dp" android:right="13dp">
+            <item android:drawable="@drawable/iv_main_btn01" android:left="13dp" android:right="13dp">
             </item>
         </layer-list>
     </item>
@@ -36,7 +36,7 @@
                     <solid android:color="@android:color/transparent"/>
                 </shape>
             </item>
-            <item android:drawable="@drawable/iv_qinzi_tab_btn01_f" android:left="13dp" android:right="13dp">
+            <item android:drawable="@drawable/iv_main_btn01_f" android:left="13dp" android:right="13dp">
             </item>
         </layer-list>
     </item>

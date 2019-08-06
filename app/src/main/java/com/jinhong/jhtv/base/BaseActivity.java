@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.jinhong.jhtv.R;
@@ -107,7 +107,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void log(String str) {
         String clazz = this.getClass().getSimpleName();
         String method = Thread.currentThread().getStackTrace()[1].getMethodName();
-        Log.d("jim:" + clazz + "******" + method, "\n                        " + str + "                    \n");
+        LogUtils.e("jim:" + clazz + "******" + method, "\n                        " + str + "                    \n");
     }
 
     /**

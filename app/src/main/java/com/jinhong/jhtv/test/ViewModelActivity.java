@@ -16,8 +16,6 @@ import com.jinhong.jhtv.model.MainListBean;
 import com.jinhong.jhtv.model.Test1Bean;
 import com.jinhong.jhtv.vm.viewmodel.CommonViewModel;
 
-import java.util.HashMap;
-
 /**
  * @author :  Jim
  * @date :  2019-08-03
@@ -42,9 +40,8 @@ public class ViewModelActivity extends BaseActivity implements View.OnClickListe
         setContentView(R.layout.activity_viewmodel);
         initView();
         CommonViewModel commonViewModel = ViewModelProviders.of(this).get(CommonViewModel.class);
-        HashMap<String, String> params = new HashMap<>();
-        params.put("columnId", "10007");
-        mMainListBean = commonViewModel.getMainListBean(Constants.GET_COLUMN_AND_CONTENT_BY_ID, params);
+
+        mMainListBean = commonViewModel.getMainListBean("10007");
         mTest1Bean = commonViewModel.getTest1Bean(Constants.TEST_URL1);
 
 

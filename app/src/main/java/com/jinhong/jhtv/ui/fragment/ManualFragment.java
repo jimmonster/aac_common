@@ -17,7 +17,6 @@ import com.alibaba.android.vlayout.VirtualLayoutAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.blankj.utilcode.util.LogUtils;
-import com.jinhong.jhtv.Constants;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseFragment;
 import com.jinhong.jhtv.model.MainListBean;
@@ -26,7 +25,6 @@ import com.jinhong.jhtv.utils.FocusUtils;
 import com.jinhong.jhtv.utils.ImageUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -63,9 +61,8 @@ public class ManualFragment extends BaseFragment {
         if (bundle != null) {
             String data = bundle.getString("DATA");
         }
-        HashMap<String, String> params = new HashMap<>();
-        params.put("columnId", "10012");
-        mMainListBean = mCommonViewModel.getMainListBean(Constants.GET_COLUMN_AND_CONTENT_BY_ID, params);
+
+        mMainListBean = mCommonViewModel.getMainListBean("10012");
 
 
     }
@@ -120,7 +117,6 @@ public class ManualFragment extends BaseFragment {
     private void setManualAdapter(VirtualLayoutManager layoutManager, List<MainListBean.DataBean.PosterVosBean> posterVos) {
 
 
-
         recyclerView.setAdapter(
                 new VirtualLayoutAdapter(layoutManager) {
                     @NonNull
@@ -135,42 +131,42 @@ public class ManualFragment extends BaseFragment {
                     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
                         ImageView imageView = (ImageView) holder.itemView;
                         try {
-                        switch (position) {
-                            default:
-                                ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(416, 318);
-                                holder.itemView.setLayoutParams(layoutParams);
-                                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                                ImageUtils.load(posterVos.get(position).getHomePosterPath(), (ImageView) holder.itemView);
-                                break;
+                            switch (position) {
+                                default:
+                                    ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(416, 318);
+                                    holder.itemView.setLayoutParams(layoutParams);
+                                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                                    ImageUtils.load(posterVos.get(position).getHomePosterPath(), (ImageView) holder.itemView);
+                                    break;
 
-                            case 0:
-                            case 1:
-                                layoutParams = new ViewGroup.LayoutParams(858, 318);
-                                holder.itemView.setLayoutParams(layoutParams);
-                                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                                ImageUtils.load(posterVos.get(position).getHomePosterPath(), (ImageView) holder.itemView);
-                                break;
-
-
-                            case 9:
-                                layoutParams = new ViewGroup.LayoutParams(416, 318);
-                                holder.itemView.setLayoutParams(layoutParams);
-                                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                                ImageUtils.load(posterVos.get(position).getHomePosterPath(), (ImageView) holder.itemView);
-                                imageView.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Bundle bundle = new Bundle();
-                                        bundle.putInt("type", 1);
-                                        startActivity(CategoryActivity.class, bundle);
-                                    }
-                                });
-
-                                break;
+                                case 0:
+                                case 1:
+                                    layoutParams = new ViewGroup.LayoutParams(858, 318);
+                                    holder.itemView.setLayoutParams(layoutParams);
+                                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                                    ImageUtils.load(posterVos.get(position).getHomePosterPath(), (ImageView) holder.itemView);
+                                    break;
 
 
-                        }}
-                        catch (Exception e){
+                                case 9:
+                                    layoutParams = new ViewGroup.LayoutParams(416, 318);
+                                    holder.itemView.setLayoutParams(layoutParams);
+                                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                                    ImageUtils.load(posterVos.get(position).getHomePosterPath(), (ImageView) holder.itemView);
+                                    imageView.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Bundle bundle = new Bundle();
+                                            bundle.putInt("type", 1);
+                                            startActivity(CategoryActivity.class, bundle);
+                                        }
+                                    });
+
+                                    break;
+
+
+                            }
+                        } catch (Exception e) {
                             LogUtils.e(e);
                         }
 

@@ -1,5 +1,6 @@
 package com.jinhong.jhtv.utils;
 
+import com.jinhong.jhtv.callback.JsonCallback;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.FileCallback;
 import com.lzy.okgo.callback.StringCallback;
@@ -55,6 +56,13 @@ public class OkGoUtils {
     public static void post(String url, Map<String, String> paramMap, StringCallback callback) {
         OkGo.<String>post(url).headers("Content-Type","application/x-www-form-urlencoded").params(paramMap).execute(callback);
     }
+
+
+    //post，不需要传递TAG
+    public static void post(String url, Map<String, String> paramMap, JsonCallback callback) {
+        OkGo.<String>post(url).headers("Content-Type","application/x-www-form-urlencoded").params(paramMap).execute(callback);
+    }
+
 
     //post,不需要传参
     public static void post(String url, StringCallback callback) {

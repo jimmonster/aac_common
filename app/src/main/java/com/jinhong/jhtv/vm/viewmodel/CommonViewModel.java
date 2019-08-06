@@ -3,6 +3,7 @@ package com.jinhong.jhtv.vm.viewmodel;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
+import com.jinhong.jhtv.Constants;
 import com.jinhong.jhtv.model.CategoryLeftBean;
 import com.jinhong.jhtv.model.CollectListBean;
 import com.jinhong.jhtv.model.DeleteRecordBean;
@@ -26,34 +27,35 @@ import java.util.HashMap;
 /**
  * @author :  Jim
  * @date :  2019-08-03
- * @description :共同的viewModel
+ * @description :共同的viewModel,用来处理视图和数据的交互
  */
 public class CommonViewModel extends ViewModel {
-    CommonRepository mRepository;
+    private CommonRepository mRepository;
+
+    public CommonViewModel() {
+        mRepository = new CommonRepository();
+    }
 
     //测试接口1
     public MutableLiveData<Test1Bean> getTest1Bean(String url) {
-        if (mRepository == null) {
-            mRepository = new CommonRepository();
-        }
+
         //数据请求建议放在Repository，viewModel主攻业务
         return mRepository.requestgetTest1Data(url);
     }
 
     //测试接口
     public MutableLiveData<TestBean> getTestBean(String url) {
-        if (mRepository == null) {
-            mRepository = new CommonRepository();
-        }
+
         //数据请求建议放在Repository，viewModel主攻业务
         return mRepository.requestgetTestData(url);
     }
 
     //根据栏目id查询栏目下绑定的内容列表与子栏目列表（适用于首页）
-    public MutableLiveData<MainListBean> getMainListBean(String url, HashMap<String, String> params) {
-        if (mRepository == null) {
-            mRepository = new CommonRepository();
-        }
+    public MutableLiveData<MainListBean> getMainListBean(String id) {
+        String url = Constants.GET_COLUMN_AND_CONTENT_BY_ID;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("columnId", id);
+
         //数据请求建议放在Repository，viewModel主攻业务
         return mRepository.requestMainListData(url, params);
     }
@@ -95,7 +97,13 @@ public class CommonViewModel extends ViewModel {
     //pageNum - 当前第几页，默认为1
     //pageSize - 每页的数量，默认为6
 
-    public MutableLiveData<SearchBean> getSearchBean(String url, HashMap<String, String> params) {
+    public MutableLiveData<SearchBean> getSearchBean(String key) {
+        String url = Constants.POST_BY_KEYWORD;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("keyword", key);
+        params.put("pageNum", "1");
+        params.put("pageSize", "6");
+
         if (mRepository == null) {
             mRepository = new CommonRepository();
         }
@@ -110,7 +118,12 @@ public class CommonViewModel extends ViewModel {
     //“pageSize”:6
     //}
 
-    public MutableLiveData<RecordListBean> getRecordListBean(String url, HashMap<String, String> params) {
+    public MutableLiveData<RecordListBean> getRecordListBean(String userId) {
+        String url = Constants.POST_RECORD_LIST;
+        HashMap<String, String> params = new HashMap<>();
+        params.put("userId", userId);
+        params.put("pageNum", "1");
+        params.put("pageSize", "6");
         if (mRepository == null) {
             mRepository = new CommonRepository();
         }

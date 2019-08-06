@@ -1,6 +1,9 @@
 package com.jinhong.jhtv.ui.activity;
 
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,10 +12,11 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
-import com.jinhong.jhtv.model.CollectionBean;
+import com.jinhong.jhtv.model.RecordListBean;
 import com.jinhong.jhtv.ui.adapter.RecordInfoListAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author :  Jim
@@ -22,7 +26,7 @@ import java.util.ArrayList;
 public class RecordActivity extends BaseActivity implements View.OnClickListener {
 
     private RecyclerView mRecyclerView;
-    private ArrayList<CollectionBean> mInfoList;
+    private List<RecordListBean.DataBean.ListBean> mInfoList;
     /**
      * 观影记录
      */
@@ -42,13 +46,16 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
 
     private void initData() {
         mInfoList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            CollectionBean collectionBean = new CollectionBean();
-            collectionBean.setName("标题" + i);
-            collectionBean.setType("类型" + i);
-            collectionBean.setIsCollect("进度" + i);
-            mInfoList.add(collectionBean);
-        }
+
+        MutableLiveData<RecordListBean> recordListBean = mCommonViewModel.getRecordListBean("testott11");
+        recordListBean.observe(this, new Observer<RecordListBean>() {
+            @Override
+            public void onChanged(@Nullable RecordListBean recordListBean) {
+                if (recordListBean != null) {
+                    mInfoList = recordListBean.getData().getList();
+                }
+            }
+        });
     }
 
     private void initView() {

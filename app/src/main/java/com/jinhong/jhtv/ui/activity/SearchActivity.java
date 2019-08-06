@@ -1,6 +1,9 @@
 package com.jinhong.jhtv.ui.activity;
 
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.KeyEvent;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
+import com.jinhong.jhtv.model.SearchBean;
 import com.jinhong.jhtv.ui.adapter.ItemFavoriteAdapter;
 import com.jinhong.jhtv.ui.adapter.ItemSearchInfoAdapter;
 import com.jinhong.jhtv.ui.adapter.KeyBoardAdapter;
@@ -32,7 +36,8 @@ public class SearchActivity extends BaseActivity {
 
     private String searchInfo = "";
     private ArrayList<Integer> mFavorite;
-    private ArrayList<String> mInfos;
+    private SearchBean.DataBean mSearchInfoData;
+    private ItemSearchInfoAdapter mSearchInfoAdapter;
 
 
     @Override
@@ -61,7 +66,6 @@ public class SearchActivity extends BaseActivity {
         mLetters.add("清空");
 
 
-
         mFavorite = new ArrayList<>();
         mFavorite.add(R.drawable.iv_search_ip01);
         mFavorite.add(R.drawable.iv_search_ip02);
@@ -69,16 +73,24 @@ public class SearchActivity extends BaseActivity {
         mFavorite.add(R.drawable.iv_search_ip04);
         mFavorite.add(R.drawable.iv_search_ip05);
         mFavorite.add(R.drawable.iv_search_ip06);
+        //requestSearchInfo
+        requestSearchInfo("YX");
 
 
+    }
 
-        mInfos = new ArrayList<>();
-        for (int i = 0; i < 15; i++) {
-            mInfos.add("小猪佩奇玩玩具：" + i);
-
-        }
-
-
+    private void requestSearchInfo(String search) {
+        MutableLiveData<SearchBean> searchBeanLiveData = mCommonViewModel.getSearchBean(search);
+        searchBeanLiveData.observe(this, new Observer<SearchBean>() {
+            @Override
+            public void onChanged(@Nullable SearchBean searchBean) {
+                if (searchBean != null) {
+                    mSearchInfoData = searchBean.getData();
+                    mSearchInfoAdapter.addData(mSearchInfoData.getList());
+                    mSearchInfoAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
 
@@ -90,8 +102,8 @@ public class SearchActivity extends BaseActivity {
         mRecyclerViewInfo = (TvRecyclerView) findViewById(R.id.recyclerView_info);
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(this);
         mRecyclerViewInfo.setLayoutManager(linearLayoutManager1);
-        ItemSearchInfoAdapter searchInfoAdapter = new ItemSearchInfoAdapter(R.layout.widget_item_search_info, mInfos);
-        mRecyclerViewInfo.setAdapter(searchInfoAdapter);
+        mSearchInfoAdapter = new ItemSearchInfoAdapter(R.layout.widget_item_search_info, mSearchInfoData.getList());
+        mRecyclerViewInfo.setAdapter(mSearchInfoAdapter);
         //推荐收藏
         mRecyclerViewFavorite = (TvRecyclerView) findViewById(R.id.recyclerView_favorite);
         ItemFavoriteAdapter favoriteAdapter = new ItemFavoriteAdapter(R.layout.widget_item_favorite, mFavorite);
@@ -114,6 +126,9 @@ public class SearchActivity extends BaseActivity {
                         searchInfo += mLetters.get(position);
                         mTvSearchInfo.setText(searchInfo);
                         //todo 请求后台
+                        //最开始就请求一次热门的ip
+                        requestSearchInfo(searchInfo);
+
                         break;
 
                     case 32://删除
@@ -123,6 +138,8 @@ public class SearchActivity extends BaseActivity {
                             searchInfo = searchInfo.substring(0, length);
                             mTvSearchInfo.setText(searchInfo);
                             //todo 请求后台
+                            requestSearchInfo(searchInfo);
+
                         } else {
                             toast("搜索内容不能为空");
                         }
@@ -153,6 +170,7 @@ public class SearchActivity extends BaseActivity {
                     searchInfo = searchInfo.substring(0, length);
                     mTvSearchInfo.setText(searchInfo);
                     //todo 请求后台
+                    requestSearchInfo(searchInfo);
                 } else {
                     toast("搜索内容不能为空");
                 }
@@ -165,4 +183,6 @@ public class SearchActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
 
     }
+
+
 }

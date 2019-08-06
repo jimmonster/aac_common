@@ -55,7 +55,6 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
     }
 
 
-
     private void initData() {
 
 
@@ -85,7 +84,10 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
         mIvSearch.setOnClickListener(this);
         mIvCollection.setOnClickListener(this);
         mIvRecord.setOnClickListener(this);
-//添加tab图片
+
+        mTabLayout.setSelectedTabIndicator(R.drawable.selector_main_indicator);
+
+        //添加tab图片
         TabLayout.Tab tab = mTabLayout.newTab().setCustomView(R.layout.tab_layout_item);
         mTabLayout.addTab(tab);
         FocusUtils.onFocusChange(tab.view, R.drawable.selector_main_tab0);

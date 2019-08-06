@@ -18,6 +18,7 @@ package com.jinhong.jhtv.callback;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.request.base.Request;
 
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import okhttp3.Response;
@@ -74,6 +75,17 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
 
         //详细自定义的原理和文档，看这里： https://github.com/jeasonlzy/okhttp-OkGo/wiki/JsonCallback
 
-        return null;
+        if (type == null) {
+            if (clazz == null) {
+                Type genType = getClass().getGenericSuperclass();
+                type = ((ParameterizedType) genType).getActualTypeArguments()[0];
+            } else {
+                JsonConvert<T> convert = new JsonConvert<>(clazz);
+                return convert.convertResponse(response);
+            }
+        }
+
+        JsonConvert<T> convert = new JsonConvert<>(type);
+        return convert.convertResponse(response);
     }
 }

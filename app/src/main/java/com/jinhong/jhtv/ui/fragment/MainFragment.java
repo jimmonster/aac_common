@@ -19,16 +19,13 @@ import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.alibaba.android.vlayout.layout.StaggeredGridLayoutHelper;
 import com.blankj.utilcode.util.LogUtils;
-import com.jinhong.jhtv.Constants;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseFragment;
-import com.jinhong.jhtv.model.MainBean1;
 import com.jinhong.jhtv.model.MainListBean;
 import com.jinhong.jhtv.utils.FocusUtils;
 import com.jinhong.jhtv.utils.ImageUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,10 +40,6 @@ public class MainFragment extends BaseFragment {
     private RecyclerView recyclerView;
     private ArrayList<String> mContents;
 
-    private MainBean1 mMainBean1;
-    private MainBean1 mMainBean2;
-    private MainBean1 mMainBean3;
-    private ArrayList<MainBean1> mMainBean1s;
     private MutableLiveData<MainListBean> mMainListBean;
 
 
@@ -71,9 +64,7 @@ public class MainFragment extends BaseFragment {
         if (bundle != null) {
             String data = bundle.getString("DATA");
         }
-        HashMap<String, String> params = new HashMap<>();
-        params.put("columnId", "10007");
-        mMainListBean = mCommonViewModel.getMainListBean(Constants.GET_COLUMN_AND_CONTENT_BY_ID, params);
+        mMainListBean = mCommonViewModel.getMainListBean("10007");
 
 
     }
@@ -139,7 +130,11 @@ public class MainFragment extends BaseFragment {
         mMainListBean.observe(this, new Observer<MainListBean>() {
             @Override
             public void onChanged(@Nullable MainListBean mainListBean) {
-                setMainAdapter(layoutManager, mainListBean);
+                if (mainListBean != null) {
+                    log(mainListBean.getMsg());
+
+                    setMainAdapter(layoutManager, mainListBean);
+                }
             }
         });
 
@@ -151,8 +146,6 @@ public class MainFragment extends BaseFragment {
 
     private void setMainAdapter(VirtualLayoutManager layoutManager, MainListBean mainListBean) {
         List<MainListBean.DataBean.PosterVosBean> posterVos = mainListBean.getData().getPosterVos();
-
-
         recyclerView.setAdapter(
                 new VirtualLayoutAdapter(layoutManager) {
                     @NonNull

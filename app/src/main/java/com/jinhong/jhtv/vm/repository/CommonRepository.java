@@ -2,6 +2,7 @@ package com.jinhong.jhtv.vm.repository;
 
 import android.arch.lifecycle.MutableLiveData;
 
+import com.jinhong.jhtv.callback.JsonCallback;
 import com.jinhong.jhtv.model.CategoryLeftBean;
 import com.jinhong.jhtv.model.CollectListBean;
 import com.jinhong.jhtv.model.DeleteRecordBean;
@@ -81,12 +82,11 @@ public class CommonRepository {
 
     //根据栏目id查询栏目下绑定的内容列表与子栏目列表（适用于首页）
     public MutableLiveData<MainListBean> requestMainListData(String url, HashMap<String, String> params) {
-        OkGoUtils.post(url, params, new StringCallback() {
+        OkGoUtils.post(url, params, new JsonCallback<MainListBean>() {
                     @Override
-                    public void onSuccess(Response<String> response) {
+                    public void onSuccess(Response<MainListBean> response) {
                         if (response != null) {
-                            MainListBean mainListBean = GsonUtil.GsonToBean(response.body(), MainListBean.class);
-                            mainListLiveData.setValue(mainListBean);
+                            mainListLiveData.setValue(response.body());
                         }
                     }
                 }

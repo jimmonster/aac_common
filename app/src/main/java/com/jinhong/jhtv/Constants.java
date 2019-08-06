@@ -6,7 +6,7 @@ package com.jinhong.jhtv;
  * @description :
  */
 public class Constants {
-    public static String MAIN = "http://192.168.0.109:9369/";
+    public static String MAIN = "http://192.168.0.20:9369/";
     //bugly ID and KEY
     public static String BUGLYID = "d9ec61125d";
     public static String BUGLYKEY = "fa91456f-9045-4a3f-b184-65ce46419b6b";

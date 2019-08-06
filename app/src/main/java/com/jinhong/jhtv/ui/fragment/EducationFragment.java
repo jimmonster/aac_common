@@ -17,7 +17,6 @@ import com.alibaba.android.vlayout.VirtualLayoutAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.blankj.utilcode.util.LogUtils;
-import com.jinhong.jhtv.Constants;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseFragment;
 import com.jinhong.jhtv.model.MainListBean;
@@ -25,7 +24,6 @@ import com.jinhong.jhtv.ui.activity.CategoryActivity;
 import com.jinhong.jhtv.utils.FocusUtils;
 import com.jinhong.jhtv.utils.ImageUtils;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -59,10 +57,9 @@ public class EducationFragment extends BaseFragment {
         if (bundle != null) {
             String data = bundle.getString("DATA");
         }
-        //10010
-        HashMap<String, String> params = new HashMap<>();
-        params.put("columnId", "10014");
-        mMainListBean = mCommonViewModel.getMainListBean(Constants.GET_COLUMN_AND_CONTENT_BY_ID, params);
+
+
+        mMainListBean = mCommonViewModel.getMainListBean("10014");
 
 
     }
