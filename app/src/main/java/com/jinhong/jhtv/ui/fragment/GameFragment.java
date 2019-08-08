@@ -81,6 +81,20 @@ public class GameFragment extends BaseFragment {
             }
         });
 
+
+        mMainListBean.observe(this, new Observer<MainListBean>() {
+            @Override
+            public void onChanged(@Nullable MainListBean mainListBean) {
+                setToyAdapter(layoutManager, mainListBean);
+            }
+        });
+
+
+    }
+
+    private void setToyAdapter(VirtualLayoutManager layoutManager, MainListBean mainListBean) {
+        List<MainListBean.DataBean.PosterVosBean> posterVos = mainListBean.getData().getPosterVos();
+        int size = posterVos.size();
         final List<LayoutHelper> helpers = new LinkedList<>();
 
 //网格布局
@@ -97,20 +111,9 @@ public class GameFragment extends BaseFragment {
         helpers.add(gridLayoutHelper1);
 
         layoutManager.setLayoutHelpers(helpers);
-        mMainListBean.observe(this, new Observer<MainListBean>() {
-            @Override
-            public void onChanged(@Nullable MainListBean mainListBean) {
-                setToyAdapter(layoutManager, mainListBean);
-            }
-        });
 
 
-    }
-
-    private void setToyAdapter(VirtualLayoutManager layoutManager, MainListBean mainListBean) {
-        List<MainListBean.DataBean.PosterVosBean> posterVos = mainListBean.getData().getPosterVos();
-
-            recyclerView.setAdapter(
+        recyclerView.setAdapter(
                     new VirtualLayoutAdapter(layoutManager) {
                         @NonNull
                         @Override

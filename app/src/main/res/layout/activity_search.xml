@@ -36,7 +36,7 @@
     <com.owen.tvrecyclerview.widget.TvRecyclerView
         android:id="@+id/recyclerView_keyboard"
         android:layout_width="670dp"
-        android:layout_height="435dp"
+        android:layout_height="355dp"
         android:layout_below="@id/tv_search_info"
         android:layout_marginTop="25dp"
         android:orientation="vertical"
@@ -44,10 +44,117 @@
         app:tv_horizontalSpacingWithMargins="16dp"
         app:tv_layoutManager="StaggeredGridLayoutManager"
         app:tv_numColumns="8"
-        app:tv_numRows="5"
+        app:tv_numRows="4"
         app:tv_verticalSpacingWithMargins="20dp">
 
     </com.owen.tvrecyclerview.widget.TvRecyclerView>
+
+    <LinearLayout
+        android:id="@+id/ll_keyboard"
+        android:layout_width="670dp"
+        android:layout_height="80dp"
+        android:layout_below="@id/recyclerView_keyboard"
+        android:focusable="false">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="2"
+            android:background="@drawable/selector_search_keyboard"
+            android:ellipsize="none"
+            android:focusable="true"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="删除"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            android:textStyle="bold">
+        </TextView>
+
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_search_keyboard"
+            android:ellipsize="none"
+            android:focusable="true"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="6"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            android:textStyle="bold">
+        </TextView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_search_keyboard"
+            android:ellipsize="none"
+            android:focusable="true"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="7"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            android:textStyle="bold">
+        </TextView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_search_keyboard"
+            android:ellipsize="none"
+            android:focusable="true"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="8"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            android:textStyle="bold">
+        </TextView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_search_keyboard"
+            android:ellipsize="none"
+            android:focusable="true"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="9"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            android:textStyle="bold">
+        </TextView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+
+            android:layout_weight="2"
+            android:background="@drawable/selector_search_keyboard"
+            android:ellipsize="none"
+            android:focusable="true"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="清空"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            android:textStyle="bold">
+        </TextView>
+
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_current_page"
@@ -92,7 +199,7 @@
         android:id="@+id/tv_favorite"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/recyclerView_keyboard"
+        android:layout_below="@id/ll_keyboard"
         android:layout_marginTop="60dp"
         android:text="小朋友们最爱看"
         android:textColor="@color/gray_black"

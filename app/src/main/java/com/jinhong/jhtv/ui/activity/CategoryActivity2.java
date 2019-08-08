@@ -25,6 +25,7 @@ import com.jinhong.jhtv.ui.widgets.bridge.RecyclerViewBridge;
  * @date :  2019-07-01
  * @description :分类页面
  */
+@Deprecated
 public class CategoryActivity2 extends BaseActivity implements RecyclerViewTV.OnItemListener {
 
     private RecyclerViewTV mRecyclerView;

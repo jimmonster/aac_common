@@ -36,7 +36,7 @@ public class ItemSearchInfoAdapter extends BaseQuickAdapter<SearchBean.DataBean.
                 }
             }
         });
-        helper.setText(R.id.tv_item_search_info, item.getHomePosterPath());
+        helper.setText(R.id.tv_item_search_info, item.getMainName());
 
     }
 }

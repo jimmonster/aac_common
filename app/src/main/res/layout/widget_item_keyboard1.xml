@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          android:id="@+id/tv_keycode"
+          android:layout_width="0dp"
+          android:layout_height="70dp"
+          android:layout_weight="1"
+          android:background="@drawable/selector_search_keyboard"
+          android:ellipsize="none"
+          android:focusable="true"
+          android:gravity="center"
+          android:singleLine="true"
+          android:textColor="@color/white"
+          android:textSize="36sp"
+          android:textStyle="bold">
+
+</TextView>

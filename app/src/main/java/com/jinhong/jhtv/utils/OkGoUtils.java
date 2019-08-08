@@ -47,21 +47,22 @@ public class OkGoUtils {
 
 
 
-    //post，需要传递TAG
+       //post，需要传递TAG
     public static void post(String url, Map<String, String> paramMap, Object tag, StringCallback callback) {
         OkGo.<String>post(url).params(paramMap).tag(tag).execute(callback);
     }
 
     //post，不需要传递TAG
     public static void post(String url, Map<String, String> paramMap, StringCallback callback) {
-        OkGo.<String>post(url).headers("Content-Type","application/x-www-form-urlencoded").params(paramMap).execute(callback);
+        OkGo.<String>post(url).params(paramMap).execute(callback);
     }
 
 
     //post，不需要传递TAG
     public static void post(String url, Map<String, String> paramMap, JsonCallback callback) {
-        OkGo.<String>post(url).headers("Content-Type","application/x-www-form-urlencoded").params(paramMap).execute(callback);
+        OkGo.<String>post(url).params(paramMap).execute(callback);
     }
+
 
 
     //post,不需要传参

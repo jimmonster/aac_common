@@ -3,6 +3,7 @@ package com.jinhong.jhtv.ui.activity;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +16,6 @@ import com.jinhong.jhtv.base.BaseActivity;
 import com.jinhong.jhtv.model.RecordListBean;
 import com.jinhong.jhtv.ui.adapter.RecordInfoListAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +35,7 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
      * 我的收藏
      */
     private TextView mTvMineCollection;
+    private MutableLiveData<RecordListBean> mRecordListBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,23 +46,35 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void initData() {
-        mInfoList = new ArrayList<>();
 
-        MutableLiveData<RecordListBean> recordListBean = mCommonViewModel.getRecordListBean("testott11");
-        recordListBean.observe(this, new Observer<RecordListBean>() {
+        mRecordListBean = mCommonViewModel.getRecordListBean("testott11");
+    }
+
+
+    private void initView() {
+
+        mTvMovieRecord = (TextView) findViewById(R.id.tv_movie_record);
+        mTvMovieRecord.setOnClickListener(this);
+        mTvMineCollection = (TextView) findViewById(R.id.tv_mine_collection);
+
+        mTvMineCollection.setOnClickListener(this);
+        //默认选中我的收藏
+        mTvMovieRecord.setSelected(true);
+        mTvMovieRecord.requestFocus();
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecordListBean.observe(this, new Observer<RecordListBean>() {
             @Override
             public void onChanged(@Nullable RecordListBean recordListBean) {
                 if (recordListBean != null) {
-                    mInfoList = recordListBean.getData().getList();
+                    setData2View(recordListBean);
                 }
             }
         });
     }
 
-    private void initView() {
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        RecordInfoListAdapter infoListAdapter = new RecordInfoListAdapter(R.layout.widget_record, mInfoList);
+    public void setData2View(@NonNull RecordListBean recordListBean) {
+        RecordInfoListAdapter infoListAdapter = new RecordInfoListAdapter(R.layout.widget_record, recordListBean.getData().getList());
         mRecyclerView.setAdapter(infoListAdapter);
         infoListAdapter.bindToRecyclerView(mRecyclerView);
         infoListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -70,18 +83,6 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
                 toast("view" + position);
             }
         });
-        mTvMovieRecord = (TextView) findViewById(R.id.tv_movie_record);
-
-
-        mTvMovieRecord.setOnClickListener(this);
-        mTvMineCollection = (TextView) findViewById(R.id.tv_mine_collection);
-
-        mTvMineCollection.setOnClickListener(this);
-        //默认选中我的收藏
-        mTvMovieRecord.setSelected(true);
-        mTvMovieRecord.requestFocus();
-
-
     }
 
     @Override

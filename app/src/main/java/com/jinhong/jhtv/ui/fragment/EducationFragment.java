@@ -81,22 +81,6 @@ public class EducationFragment extends BaseFragment {
             }
         });
 
-        final List<LayoutHelper> helpers = new LinkedList<>();
-
-//网格布局
-        final GridLayoutHelper gridLayoutHelper0 = new GridLayoutHelper(2);
-
-        gridLayoutHelper0.setItemCount(2);
-
-        final GridLayoutHelper gridLayoutHelper1 = new GridLayoutHelper(4);
-
-        gridLayoutHelper1.setItemCount(8);
-
-        helpers.add(gridLayoutHelper0);
-
-        helpers.add(gridLayoutHelper1);
-
-        layoutManager.setLayoutHelpers(helpers);
         mMainListBean.observe(this, new Observer<MainListBean>() {
             @Override
             public void onChanged(@Nullable MainListBean mainListBean) {
@@ -109,21 +93,39 @@ public class EducationFragment extends BaseFragment {
 
     private void setToyAdapter(VirtualLayoutManager layoutManager, MainListBean mainListBean) {
         List<MainListBean.DataBean.PosterVosBean> posterVos = mainListBean.getData().getPosterVos();
+        int size = posterVos.size();
+        final List<LayoutHelper> helpers = new LinkedList<>();
 
-            recyclerView.setAdapter(
-                    new VirtualLayoutAdapter(layoutManager) {
-                        @NonNull
-                        @Override
-                        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                            ImageView imageView = new ImageView(getContext());
-                            //加载参数
-                            return new EducationViewHolder(imageView);
-                        }
+//网格布局
+        final GridLayoutHelper gridLayoutHelper0 = new GridLayoutHelper(2);
 
-                        @Override
-                        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-                            ImageView imageView = (ImageView) holder.itemView;
-                            try {
+        gridLayoutHelper0.setItemCount(size <= 2 ? 2 : size);
+
+        final GridLayoutHelper gridLayoutHelper1 = new GridLayoutHelper(4);
+
+        gridLayoutHelper1.setItemCount(size >= 10 ? 8 : size - 2);
+
+        helpers.add(gridLayoutHelper0);
+
+        helpers.add(gridLayoutHelper1);
+
+        layoutManager.setLayoutHelpers(helpers);
+
+
+        recyclerView.setAdapter(
+                new VirtualLayoutAdapter(layoutManager) {
+                    @NonNull
+                    @Override
+                    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                        ImageView imageView = new ImageView(getContext());
+                        //加载参数
+                        return new EducationViewHolder(imageView);
+                    }
+
+                    @Override
+                    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+                        ImageView imageView = (ImageView) holder.itemView;
+                        try {
                             switch (position) {
                                 default:
                                     ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(416, 318);
@@ -163,24 +165,24 @@ public class EducationFragment extends BaseFragment {
                             LogUtils.e(e);
                         }
 
-                        }
-
-                        @Override
-                        public int getItemCount() {
-                            List<LayoutHelper> helpers = getLayoutHelpers();
-                            if (helpers == null) {
-                                return 0;
-                            }
-                            int count = 0;
-                            for (int i = 0, size = helpers.size(); i < size; i++) {
-                                count += helpers.get(i).getItemCount();
-                            }
-                            return count;
-                        }
-
                     }
 
-            );
+                    @Override
+                    public int getItemCount() {
+                        List<LayoutHelper> helpers = getLayoutHelpers();
+                        if (helpers == null) {
+                            return 0;
+                        }
+                        int count = 0;
+                        for (int i = 0, size = helpers.size(); i < size; i++) {
+                            count += helpers.get(i).getItemCount();
+                        }
+                        return count;
+                    }
+
+                }
+
+        );
 
     }
 

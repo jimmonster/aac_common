@@ -27,8 +27,11 @@ public class KeyBoardAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         switch (position) {
             default:
                 ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
-                params.width = 160;
+                params.width = 70;
                 params.height = 70;
+
+                holder.itemView.setLayoutParams(params);
+
                 holder.itemView.requestLayout();
                 holder.itemView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                     @Override
@@ -49,6 +52,7 @@ public class KeyBoardAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
                 params = holder.itemView.getLayoutParams();
                 params.width = 160;
                 params.height = 70;
+                holder.itemView.setLayoutParams(params);
                 holder.itemView.requestLayout();
                 holder.itemView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                     @Override

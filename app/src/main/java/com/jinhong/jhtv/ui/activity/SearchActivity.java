@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -38,6 +39,8 @@ public class SearchActivity extends BaseActivity {
     private ArrayList<Integer> mFavorite;
     private SearchBean.DataBean mSearchInfoData;
     private ItemSearchInfoAdapter mSearchInfoAdapter;
+    private MutableLiveData<SearchBean> mSearchBeanLiveData;
+    private LinearLayout mLlKeyboard;
 
 
     @Override
@@ -59,11 +62,6 @@ public class SearchActivity extends BaseActivity {
         for (int i = 0; i < 6; i++) {
             mLetters.add("" + i);
         }
-        mLetters.add("删除");
-        for (int i = 6; i < 10; i++) {
-            mLetters.add("" + i);
-        }
-        mLetters.add("清空");
 
 
         mFavorite = new ArrayList<>();
@@ -74,23 +72,9 @@ public class SearchActivity extends BaseActivity {
         mFavorite.add(R.drawable.iv_search_ip05);
         mFavorite.add(R.drawable.iv_search_ip06);
         //requestSearchInfo
-        requestSearchInfo("YX");
 
+        mSearchBeanLiveData = mCommonViewModel.getSearchBean("");
 
-    }
-
-    private void requestSearchInfo(String search) {
-        MutableLiveData<SearchBean> searchBeanLiveData = mCommonViewModel.getSearchBean(search);
-        searchBeanLiveData.observe(this, new Observer<SearchBean>() {
-            @Override
-            public void onChanged(@Nullable SearchBean searchBean) {
-                if (searchBean != null) {
-                    mSearchInfoData = searchBean.getData();
-                    mSearchInfoAdapter.addData(mSearchInfoData.getList());
-                    mSearchInfoAdapter.notifyDataSetChanged();
-                }
-            }
-        });
     }
 
 
@@ -98,12 +82,14 @@ public class SearchActivity extends BaseActivity {
 
         mIvLogo = (ImageView) findViewById(R.id.iv_logo);
         mTvSearchInfo = (TextView) findViewById(R.id.tv_search_info);
+        mLlKeyboard = (LinearLayout) findViewById(R.id.ll_keyboard);
+
         //搜索内容
         mRecyclerViewInfo = (TvRecyclerView) findViewById(R.id.recyclerView_info);
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(this);
         mRecyclerViewInfo.setLayoutManager(linearLayoutManager1);
-        mSearchInfoAdapter = new ItemSearchInfoAdapter(R.layout.widget_item_search_info, mSearchInfoData.getList());
-        mRecyclerViewInfo.setAdapter(mSearchInfoAdapter);
+
+        setInfoAdapterData();
         //推荐收藏
         mRecyclerViewFavorite = (TvRecyclerView) findViewById(R.id.recyclerView_favorite);
         ItemFavoriteAdapter favoriteAdapter = new ItemFavoriteAdapter(R.layout.widget_item_favorite, mFavorite);
@@ -116,7 +102,6 @@ public class SearchActivity extends BaseActivity {
         mRecyclerViewKeyboard.setAdapter(keyBoardAdapter);
         keyBoardAdapter.bindToRecyclerView(mRecyclerViewKeyboard);
 
-
         keyBoardAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -127,7 +112,7 @@ public class SearchActivity extends BaseActivity {
                         mTvSearchInfo.setText(searchInfo);
                         //todo 请求后台
                         //最开始就请求一次热门的ip
-                        requestSearchInfo(searchInfo);
+
 
                         break;
 
@@ -138,7 +123,7 @@ public class SearchActivity extends BaseActivity {
                             searchInfo = searchInfo.substring(0, length);
                             mTvSearchInfo.setText(searchInfo);
                             //todo 请求后台
-                            requestSearchInfo(searchInfo);
+
 
                         } else {
                             toast("搜索内容不能为空");
@@ -155,7 +140,72 @@ public class SearchActivity extends BaseActivity {
 
             }
         });
+        mLlKeyboard.getChildAt(0).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (searchInfo != null && searchInfo.length() > 0) {
+                    int length = searchInfo.length();
+                    length--;
+                    searchInfo = searchInfo.substring(0, length);
+                    mTvSearchInfo.setText(searchInfo);
+                    //todo 请求后台
 
+
+                } else {
+                    toast("搜索内容不能为空");
+                }
+
+            }
+        });
+        mLlKeyboard.getChildAt(1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchInfo += 6;
+                mTvSearchInfo.setText(searchInfo);
+            }
+        });
+        mLlKeyboard.getChildAt(2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchInfo += 7;
+                mTvSearchInfo.setText(searchInfo);
+            }
+        });
+        mLlKeyboard.getChildAt(3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchInfo += 8;
+                mTvSearchInfo.setText(searchInfo);
+            }
+        });
+        mLlKeyboard.getChildAt(4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchInfo += 9;
+                mTvSearchInfo.setText(searchInfo);
+            }
+        });
+        mLlKeyboard.getChildAt(5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchInfo = "";
+                mTvSearchInfo.setText(searchInfo);
+            }
+        });
+
+
+    }
+
+    private void setInfoAdapterData() {
+        mSearchBeanLiveData.observe(this, new Observer<SearchBean>() {
+            @Override
+            public void onChanged(@Nullable SearchBean searchBean) {
+                if (searchBean.getData() != null) {
+                    mSearchInfoAdapter = new ItemSearchInfoAdapter(R.layout.widget_item_search_info, searchBean.getData().getList());
+                    mRecyclerViewInfo.setAdapter(mSearchInfoAdapter);
+                }
+            }
+        });
 
     }
 
@@ -170,7 +220,7 @@ public class SearchActivity extends BaseActivity {
                     searchInfo = searchInfo.substring(0, length);
                     mTvSearchInfo.setText(searchInfo);
                     //todo 请求后台
-                    requestSearchInfo(searchInfo);
+
                 } else {
                     toast("搜索内容不能为空");
                 }

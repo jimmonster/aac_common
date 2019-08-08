@@ -85,16 +85,31 @@ public class ManualFragment extends BaseFragment {
             }
         });
 
+
+
+        mMainListBean.observe(getActivity(), new Observer<MainListBean>() {
+            @Override
+            public void onChanged(@Nullable MainListBean mainListBean) {
+                setManualAdapter(layoutManager, mainListBean);
+            }
+        });
+
+
+    }
+
+    private void setManualAdapter(VirtualLayoutManager layoutManager, MainListBean mainListBean) {
+        List<MainListBean.DataBean.PosterVosBean> posterVos = mainListBean.getData().getPosterVos();
+        int size = posterVos.size();
         final List<LayoutHelper> helpers = new LinkedList<>();
 
 //网格布局
         final GridLayoutHelper gridLayoutHelper0 = new GridLayoutHelper(2);
 
-        gridLayoutHelper0.setItemCount(2);
+        gridLayoutHelper0.setItemCount(size <= 2 ? 2 : size);
 
         final GridLayoutHelper gridLayoutHelper1 = new GridLayoutHelper(4);
 
-        gridLayoutHelper1.setItemCount(8);
+        gridLayoutHelper1.setItemCount(size >= 10 ? 8 : size - 2);
 
         helpers.add(gridLayoutHelper0);
 
@@ -102,19 +117,6 @@ public class ManualFragment extends BaseFragment {
 
         layoutManager.setLayoutHelpers(helpers);
 
-        mMainListBean.observe(getActivity(), new Observer<MainListBean>() {
-            @Override
-            public void onChanged(@Nullable MainListBean mainListBean) {
-                mPosterVos = mainListBean.getData().getPosterVos();
-                log("mPosterVos:" + mPosterVos);
-                setManualAdapter(layoutManager, mPosterVos);
-            }
-        });
-
-
-    }
-
-    private void setManualAdapter(VirtualLayoutManager layoutManager, List<MainListBean.DataBean.PosterVosBean> posterVos) {
 
 
         recyclerView.setAdapter(

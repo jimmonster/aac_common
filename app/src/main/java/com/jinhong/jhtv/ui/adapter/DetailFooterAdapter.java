@@ -1,11 +1,13 @@
 package com.jinhong.jhtv.ui.adapter;
 
 import android.support.annotation.Nullable;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.utils.FocusUtils;
+import com.jinhong.jhtv.utils.ImageUtils;
 
 import java.util.List;
 
@@ -26,7 +28,8 @@ public class DetailFooterAdapter extends BaseQuickAdapter<String, BaseViewHolder
         // 加载网络图片
 //        Glide.with(mContext).load(item).into((ImageView) helper.getView(R.id.iv_pics));
 //        Glide.with(mContext).load(R.drawable.iv_poster_0).into((ImageView) helper.getView(R.id.iv_pics));
-        helper.setImageResource(R.id.iv_pics, R.drawable.iv_poster_0);
+        //  helper.setImageResource(R.id.iv_pics, R.drawable.iv_poster_0);
+        ImageUtils.load(R.id.iv_pics, (ImageView) helper.getView(R.id.iv_pics));
 
     }
 

@@ -47,22 +47,22 @@ public class CollectListBean extends BaseBean {
 
     public static class DataBean {
         /**
-         * startRow : 1
-         * pageSize : 10
-         * total : 3
-         * pages : 1
-         * endRow : 3
+         * startRow : 1 /第几条
+         * pageSize : 10 每页最多能显示10条
+         * total : 3  总条数
+         * pages : 1  总页数
+         * endRow : 3 /最后一条
          * isFirstPage : true
-         * firstPage : 1
-         * prePage : 0
-         * lastPage : 1
-         * hasPreviousPage : false
-         * size : 3
-         * navigatePages : 8
+         * firstPage : 1 /
+         * prePage : 0 /
+         * lastPage : 1 /
+         * hasPreviousPage : false /
+         * size : 3 /
+         * navigatePages : 8 /
          * list : [{"id":1,"fatherId":111,"mainName":"小组佩奇儿歌","userId":"testott11","dramaType":"儿歌","createtime":1563528749000},{"id":2,"fatherId":112,"mainName":"小组佩奇儿歌","userId":"testott11","dramaType":"儿歌","createtime":1563528749000},{"id":22,"fatherId":100006,"mainName":"奥特曼玩玩具","userId":"testott11","dramaType":"玩具","createtime":null}]
-         * pageNum : 1
-         * orderBy : null
-         * isLastPage : true
+         * pageNum : 1  当前第几页
+         * orderBy : null  /
+         * isLastPage : true 是否是最后一页
          * nextPage : 0
          * hasNextPage : false
          * navigatepageNums : [1]

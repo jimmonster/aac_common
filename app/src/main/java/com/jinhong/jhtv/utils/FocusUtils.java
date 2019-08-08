@@ -40,6 +40,22 @@ public class FocusUtils {
         });
     }
 
+    /**
+     * 焦点监听,不带圆角
+     *
+     * @param view
+     */
+
+    public static void bindFocus(View view) {
+        view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                view.setSelected(hasFocus);
+            }
+        });
+    }
+
 
     public static void onFocusChange(View view, int selected, int unselected) {
         unselected(view, unselected);
@@ -75,8 +91,6 @@ public class FocusUtils {
             }
         });
     }
-
-
 
 
     public static void unselected(View v) {

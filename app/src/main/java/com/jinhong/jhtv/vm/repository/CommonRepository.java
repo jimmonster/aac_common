@@ -32,23 +32,22 @@ import java.util.HashMap;
  * @description :共同的处理数据请求的仓库
  */
 public class CommonRepository {
-    MutableLiveData<Test1Bean> mTest1BeanMutableLiveData = new MutableLiveData<>();
-    MutableLiveData<TestBean> mTestBeanMutableLiveData = new MutableLiveData<>();
-
-    MutableLiveData<MainListBean> mainListLiveData = new MutableLiveData<>();
-    MutableLiveData<CollectListBean> collectLiveData = new MutableLiveData<>();
-    MutableLiveData<CategoryLeftBean> categoryLeftLiveData = new MutableLiveData<>();
-    MutableLiveData<DetailBean> detailBeanLiveData = new MutableLiveData<>();
-    MutableLiveData<IsCollectBean> isCollectBeanLiveData = new MutableLiveData<>();
-    MutableLiveData<UpdateCollectBean> updateCollectBeanLiveData = new MutableLiveData<>();
-    MutableLiveData<ProgrammeBean> programmeBeanLiveData = new MutableLiveData<>();
-    MutableLiveData<SearchBean> searchBeanLiveData = new MutableLiveData<>();
-    MutableLiveData<RecordListBean> recordListBeanLiveData = new MutableLiveData<>();
-    MutableLiveData<RecordLocalBean> recordLocalBeanLiveData = new MutableLiveData<>();
-    MutableLiveData<UpdateBookmarkBean> updateBookmarkBeanLiveData = new MutableLiveData<>();
-    MutableLiveData<DeleteRecordBean> deleteRecordBeanLiveData = new MutableLiveData<>();
-    MutableLiveData<SingleCollectBean> singleCollectBeanLiveData = new MutableLiveData<>();
-    MutableLiveData<MultipleCollectBean> multipleCollectBeanLiveData = new MutableLiveData<>();
+    private MutableLiveData<Test1Bean> mTest1BeanMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<TestBean> mTestBeanMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<MainListBean> mainListLiveData = new MutableLiveData<>();
+    private MutableLiveData<CollectListBean> collectLiveData = new MutableLiveData<>();
+    private MutableLiveData<CategoryLeftBean> categoryLeftLiveData = new MutableLiveData<>();
+    private MutableLiveData<DetailBean> detailBeanLiveData = new MutableLiveData<>();
+    private MutableLiveData<IsCollectBean> isCollectBeanLiveData = new MutableLiveData<>();
+    private MutableLiveData<UpdateCollectBean> updateCollectBeanLiveData = new MutableLiveData<>();
+    private MutableLiveData<ProgrammeBean> programmeBeanLiveData = new MutableLiveData<>();
+    private MutableLiveData<SearchBean> searchBeanLiveData = new MutableLiveData<>();
+    private MutableLiveData<RecordListBean> recordListBeanLiveData = new MutableLiveData<>();
+    private MutableLiveData<RecordLocalBean> recordLocalBeanLiveData = new MutableLiveData<>();
+    private MutableLiveData<UpdateBookmarkBean> updateBookmarkBeanLiveData = new MutableLiveData<>();
+    private MutableLiveData<DeleteRecordBean> deleteRecordBeanLiveData = new MutableLiveData<>();
+    private MutableLiveData<SingleCollectBean> singleCollectBeanLiveData = new MutableLiveData<>();
+    private MutableLiveData<MultipleCollectBean> multipleCollectBeanLiveData = new MutableLiveData<>();
 
 
     public MutableLiveData<Test1Bean> requestgetTest1Data(String url) {
@@ -76,6 +75,7 @@ public class CommonRepository {
                 }
             }
         });
+
         return mTestBeanMutableLiveData;
     }
 
@@ -98,12 +98,12 @@ public class CommonRepository {
 
     //查询收藏列表
     public MutableLiveData<CollectListBean> requestCollectListData(String url, HashMap<String, String> params) {
-        OkGoUtils.post(url, params, new StringCallback() {
+        OkGoUtils.post(url, params, new JsonCallback<CollectListBean>() {
+
                     @Override
-                    public void onSuccess(Response<String> response) {
+                    public void onSuccess(Response<CollectListBean> response) {
                         if (response != null) {
-                            CollectListBean collectLiveData = GsonUtil.GsonToBean(response.body(), CollectListBean.class);
-                            CommonRepository.this.collectLiveData.setValue(collectLiveData);
+                            collectLiveData.setValue(response.body());
                         }
                     }
                 }
@@ -114,29 +114,26 @@ public class CommonRepository {
 
     //获取分类界面左边标题的数据
     public MutableLiveData<CategoryLeftBean> requestCategoryLeftData(String url, HashMap<String, String> params) {
-        OkGoUtils.post(url, params, new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        if (response != null) {
-                            CategoryLeftBean categoryLeftBean = GsonUtil.GsonToBean(response.body(), CategoryLeftBean.class);
-                            categoryLeftLiveData.setValue(categoryLeftBean);
-                        }
-                    }
+        OkGoUtils.post(url, params, new JsonCallback<CategoryLeftBean>() {
+            @Override
+            public void onSuccess(Response<CategoryLeftBean> response) {
+                if (response != null) {
+                    categoryLeftLiveData.setValue(response.body());
                 }
 
-        );
+            }
+        });
         return categoryLeftLiveData;
     }
 
 
     //根据剧集id查询剧集详情，及子集列表和推荐位海报
     public MutableLiveData<DetailBean> requestDetailData(String url, HashMap<String, String> params) {
-        OkGoUtils.post(url, params, new StringCallback() {
+        OkGoUtils.post(url, params, new JsonCallback<DetailBean>() {
                     @Override
-                    public void onSuccess(Response<String> response) {
+                    public void onSuccess(Response<DetailBean> response) {
                         if (response != null) {
-                            DetailBean detailBean = GsonUtil.GsonToBean(response.body(), DetailBean.class);
-                            detailBeanLiveData.setValue(detailBean);
+                            detailBeanLiveData.setValue(response.body());
                         }
                     }
                 }
@@ -147,12 +144,12 @@ public class CommonRepository {
 
 
     public MutableLiveData<IsCollectBean> requestIsCollectData(String url, HashMap<String, String> params) {
-        OkGoUtils.post(url, params, new StringCallback() {
+        OkGoUtils.post(url, params, new JsonCallback<IsCollectBean>() {
+
                     @Override
-                    public void onSuccess(Response<String> response) {
+                    public void onSuccess(Response<IsCollectBean> response) {
                         if (response != null) {
-                            IsCollectBean isCollectBean = GsonUtil.GsonToBean(response.body(), IsCollectBean.class);
-                            isCollectBeanLiveData.setValue(isCollectBean);
+                            isCollectBeanLiveData.setValue(response.body());
                         }
                     }
                 }
@@ -161,12 +158,13 @@ public class CommonRepository {
     }
 
     public MutableLiveData<UpdateCollectBean> requestUpdateCollectData(String url, HashMap<String, String> params) {
-        OkGoUtils.post(url, params, new StringCallback() {
+        OkGoUtils.post(url, params, new JsonCallback<UpdateCollectBean>() {
+
                     @Override
-                    public void onSuccess(Response<String> response) {
+                    public void onSuccess(Response<UpdateCollectBean> response) {
                         if (response != null) {
-                            UpdateCollectBean updateCollectBean = GsonUtil.GsonToBean(response.body(), UpdateCollectBean.class);
-                            updateCollectBeanLiveData.setValue(updateCollectBean);
+
+                            updateCollectBeanLiveData.setValue(response.body());
                         }
                     }
                 }
@@ -175,12 +173,13 @@ public class CommonRepository {
     }
 
     public MutableLiveData<ProgrammeBean> requestProgrammeListData(String url, HashMap<String, String> params) {
-        OkGoUtils.post(url, params, new StringCallback() {
+        OkGoUtils.post(url, params, new JsonCallback<ProgrammeBean>() {
+
                     @Override
-                    public void onSuccess(Response<String> response) {
+                    public void onSuccess(Response<ProgrammeBean> response) {
                         if (response != null) {
-                            ProgrammeBean programmeBean = GsonUtil.GsonToBean(response.body(), ProgrammeBean.class);
-                            programmeBeanLiveData.setValue(programmeBean);
+
+                            programmeBeanLiveData.setValue(response.body());
                         }
                     }
                 }
@@ -188,14 +187,14 @@ public class CommonRepository {
         return programmeBeanLiveData;
     }
 
-
     public MutableLiveData<SearchBean> requestSearchData(String url, HashMap<String, String> params) {
-        OkGoUtils.post(url, params, new StringCallback() {
+        OkGoUtils.post(url, params, new JsonCallback<SearchBean>() {
+
                     @Override
-                    public void onSuccess(Response<String> response) {
+                    public void onSuccess(Response<SearchBean> response) {
                         if (response != null) {
-                            SearchBean searchBean = GsonUtil.GsonToBean(response.body(), SearchBean.class);
-                            searchBeanLiveData.setValue(searchBean);
+
+                            searchBeanLiveData.setValue(response.body());
                         }
                     }
                 }
@@ -204,12 +203,12 @@ public class CommonRepository {
     }
 
     public MutableLiveData<RecordListBean> requestRecordListData(String url, HashMap<String, String> params) {
-        OkGoUtils.post(url, params, new StringCallback() {
+        OkGoUtils.post(url, params, new JsonCallback<RecordListBean>() {
                     @Override
-                    public void onSuccess(Response<String> response) {
+                    public void onSuccess(Response<RecordListBean> response) {
+
                         if (response != null) {
-                            RecordListBean recordListBean = GsonUtil.GsonToBean(response.body(), RecordListBean.class);
-                            recordListBeanLiveData.setValue(recordListBean);
+                            recordListBeanLiveData.setValue(response.body());
                         }
                     }
                 }
@@ -218,13 +217,11 @@ public class CommonRepository {
     }
 
     public MutableLiveData<RecordLocalBean> requestRecordLocalData(String url, HashMap<String, String> params) {
-        OkGoUtils.post(url, params, new StringCallback() {
+        OkGoUtils.post(url, params, new JsonCallback<RecordLocalBean>() {
+
                     @Override
-                    public void onSuccess(Response<String> response) {
-                        if (response != null) {
-                            RecordLocalBean recordLocalBean = GsonUtil.GsonToBean(response.body(), RecordLocalBean.class);
-                            recordLocalBeanLiveData.setValue(recordLocalBean);
-                        }
+                    public void onSuccess(Response<RecordLocalBean> response) {
+                        recordLocalBeanLiveData.setValue(response.body());
                     }
                 }
         );
@@ -232,12 +229,13 @@ public class CommonRepository {
     }
 
     public MutableLiveData<UpdateBookmarkBean> requestUpdateBookmarkData(String url, HashMap<String, String> params) {
-        OkGoUtils.post(url, params, new StringCallback() {
+        OkGoUtils.post(url, params, new JsonCallback<UpdateBookmarkBean>() {
+
                     @Override
-                    public void onSuccess(Response<String> response) {
+                    public void onSuccess(Response<UpdateBookmarkBean> response) {
                         if (response != null) {
-                            UpdateBookmarkBean recordLocalBean = GsonUtil.GsonToBean(response.body(), UpdateBookmarkBean.class);
-                            updateBookmarkBeanLiveData.setValue(recordLocalBean);
+
+                            updateBookmarkBeanLiveData.setValue(response.body());
                         }
                     }
                 }
@@ -246,12 +244,12 @@ public class CommonRepository {
     }
 
     public MutableLiveData<DeleteRecordBean> requestDeleteRecordData(String url, HashMap<String, String> params) {
-        OkGoUtils.post(url, params, new StringCallback() {
+        OkGoUtils.post(url, params, new JsonCallback<DeleteRecordBean>() {
+
                     @Override
-                    public void onSuccess(Response<String> response) {
+                    public void onSuccess(Response<DeleteRecordBean> response) {
                         if (response != null) {
-                            DeleteRecordBean deleteRecordBean = GsonUtil.GsonToBean(response.body(), DeleteRecordBean.class);
-                            deleteRecordBeanLiveData.setValue(deleteRecordBean);
+                            deleteRecordBeanLiveData.setValue(response.body());
                         }
                     }
                 }
@@ -260,12 +258,13 @@ public class CommonRepository {
     }
 
     public MutableLiveData<SingleCollectBean> requestSingleCollectData(String url, HashMap<String, String> params) {
-        OkGoUtils.post(url, params, new StringCallback() {
+        OkGoUtils.post(url, params, new JsonCallback<SingleCollectBean>() {
+
                     @Override
-                    public void onSuccess(Response<String> response) {
+                    public void onSuccess(Response<SingleCollectBean> response) {
                         if (response != null) {
-                            SingleCollectBean singleCollectBean = GsonUtil.GsonToBean(response.body(), SingleCollectBean.class);
-                            singleCollectBeanLiveData.setValue(singleCollectBean);
+
+                            singleCollectBeanLiveData.setValue(response.body());
                         }
                     }
                 }
@@ -274,12 +273,12 @@ public class CommonRepository {
     }
 
     public MutableLiveData<MultipleCollectBean> requestMultipleCollectData(String url, HashMap<String, String> params) {
-        OkGoUtils.post(url, params, new StringCallback() {
+        OkGoUtils.post(url, params, new JsonCallback<MultipleCollectBean>() {
+
                     @Override
-                    public void onSuccess(Response<String> response) {
+                    public void onSuccess(Response<MultipleCollectBean> response) {
                         if (response != null) {
-                            MultipleCollectBean multipleCollectBean = GsonUtil.GsonToBean(response.body(), MultipleCollectBean.class);
-                            multipleCollectBeanLiveData.setValue(multipleCollectBean);
+                            multipleCollectBeanLiveData.setValue(response.body());
                         }
                     }
                 }

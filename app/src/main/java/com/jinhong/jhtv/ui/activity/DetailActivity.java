@@ -1,5 +1,6 @@
 package com.jinhong.jhtv.ui.activity;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
+import com.jinhong.jhtv.model.DetailBean;
 import com.jinhong.jhtv.model.DetailedCard;
 import com.jinhong.jhtv.ui.adapter.DetailCountAdapter;
 import com.jinhong.jhtv.ui.adapter.DetailFooterAdapter;
@@ -28,7 +30,7 @@ import java.util.ArrayList;
  * @date :  2019-07-01
  * @description :详情页面
  */
-public class DetailActivity extends BaseActivity implements  RecyclerViewTV.OnItemClickListener {
+public class DetailActivity extends BaseActivity implements RecyclerViewTV.OnItemClickListener {
 
     private ImageView mIvPoster;
     /**
@@ -69,6 +71,8 @@ public class DetailActivity extends BaseActivity implements  RecyclerViewTV.OnIt
     private RecyclerViewTV mRecyclerViewTabs;
     private ArrayList<String> mTabs;
     private DetailTabAdapter mDetailTabAdapter;
+    private TextView mTvIsCollection;
+    private LinearLayout mLlDiv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +99,10 @@ public class DetailActivity extends BaseActivity implements  RecyclerViewTV.OnIt
         for (int i = 0; i < 4; i++) {
             mPosters.add("http://img.ewebweb.com/uploads/20190403/14/1554273928-MGSPXDUfBJ.jpg");
         }
+        //todo 根据ID加载当前的电视剧
+        MutableLiveData<DetailBean> detailBean = mCommonViewModel.getDetailBean("100006");
+
+
     }
 
     private void initView() {
@@ -111,7 +119,11 @@ public class DetailActivity extends BaseActivity implements  RecyclerViewTV.OnIt
         mRecyclerViewRecommend = (TvRecyclerView) findViewById(R.id.recyclerView_recommend);
 
         mRecyclerViewTabs = (RecyclerViewTV) findViewById(R.id.recyclerView_tabs);
+        mTvIsCollection = (TextView) findViewById(R.id.tv_isCollection);
+        mLlDiv = (LinearLayout) findViewById(R.id.ll_div);
+
         initEvent();
+
     }
 
     private void initEvent() {
@@ -157,7 +169,4 @@ public class DetailActivity extends BaseActivity implements  RecyclerViewTV.OnIt
         toast(position + "位置");
 
     }
-
-
-
 }

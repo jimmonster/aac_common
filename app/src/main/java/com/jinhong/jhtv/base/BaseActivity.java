@@ -7,15 +7,20 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.ui.widgets.BorderView;
 import com.jinhong.jhtv.ui.widgets.LoadingFrame;
 import com.jinhong.jhtv.vm.viewmodel.CommonViewModel;
+
+import java.util.HashMap;
 
 /**
  * @author :  Jim
@@ -40,7 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
-        mCommonViewModel = ViewModelProviders.of(this).get(CommonViewModel.class);
+
     }
 
     public void baseHandler(Message msg) {
@@ -54,6 +59,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (ScreenUtils.isPortrait()) {
             ScreenUtils.setLandscape(this);//设置横屏
         }
+        mCommonViewModel = ViewModelProviders.of(this).get(CommonViewModel.class);
         //添加选中焦点边框
         mBorder = new BorderView(this);
         mBorder.setBackgroundResource(R.drawable.iv_focus);
@@ -104,7 +110,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      *
      * @param str
      */
-    public void log(String str) {
+    public void log(Object str) {
         String clazz = this.getClass().getSimpleName();
         String method = Thread.currentThread().getStackTrace()[1].getMethodName();
         LogUtils.e("jim:" + clazz + "******" + method, "\n                        " + str + "                    \n");
@@ -201,6 +207,53 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    /**
+     * 监听app 的点击事件
+     *
+     * @param ev
+     * @return
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                //有按下动作时取消定时
+                //todo 请求上传数据接口，并且上传
+                //单条日志上传接口
+                //{
+                //"clickTime":”20190303101010”,
+                //    "clientIp":"1.1.1.1",
+                //    "productName":"qhz",
+                //"productPage":"category",
+                //"area":”1”,
+                //    "sort":"3",
+                //    "options":"0",
+                //"contentId":"100010",
+                //“contentName”:”小猪佩奇”
+                //
+                //}
+                String nowString = TimeUtils.getNowString();
+                HashMap<String, String> params = new HashMap<>();
+
+                params.put("clickTime",nowString);
+                params.put("clientIp", NetworkUtils.getIPAddress(true));
+                params.put("productName","qhz");
+                params.put("productPage","category");
+                params.put("area","1");
+                params.put("sort","3");
+                params.put("options","0");
+                params.put("contentId","100010");
+                params.put("contentName","小猪佩奇");
+                mCommonViewModel.updateSingleCollectBean(params);
+                break;
+            default:
+                break;
+
+        }
+        return super.dispatchTouchEvent(ev);
+
     }
 
 

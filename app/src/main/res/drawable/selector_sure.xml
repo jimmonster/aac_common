@@ -1,5 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/iv_btn" android:state_focused="false" android:state_pressed="false"></item>
-    <item android:drawable="@drawable/iv_btn_f" android:state_focused="true" android:state_pressed="true"></item>
+
+
+    <!-- 非触摸模式下获得焦点并单击时的背景图片-->
+    <item android:state_checkable="true" android:state_checked="true" android:state_pressed="true" android:state_selected="true">
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="@android:color/transparent"/>
+                </shape>
+            </item>
+            <item android:drawable="@drawable/iv_detail_play_f" >
+            </item>
+        </layer-list>
+    </item>
+    <!-- 没有焦点时的背景图片 -->
+    <item android:state_window_focused="false">
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="@android:color/transparent"/>
+                </shape>
+            </item>
+            <item android:drawable="@drawable/iv_detail_play" >
+            </item>
+        </layer-list>
+    </item>
+
+
+    <!--获得焦点时的图片背景-->
+    <item android:state_focused="true">
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="@android:color/transparent"/>
+                </shape>
+            </item>
+            <item android:drawable="@drawable/iv_detail_play_f" >
+            </item>
+        </layer-list>
+    </item>
 </selector>
+
+
+
+
+
+
+

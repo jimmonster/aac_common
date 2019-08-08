@@ -15,8 +15,8 @@
  */
 package com.jinhong.jhtv.callback;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.stream.JsonReader;
-
 import com.lzy.okgo.convert.Converter;
 
 import org.json.JSONArray;
@@ -89,6 +89,11 @@ public class JsonConvert<T> implements Converter<T> {
     }
 
     private T parseClass(Response response, Class<?> rawType) throws Exception {
+        if (response.code() != 200) {
+            ToastUtils.showShort("解析数据出错!");
+            return null;
+        }
+
         if (rawType == null) {
             return null;
         }
@@ -131,6 +136,7 @@ public class JsonConvert<T> implements Converter<T> {
     }
 
     private T parseParameterizedType(Response response, ParameterizedType type) throws Exception {
+
         if (type == null) {
             return null;
         }

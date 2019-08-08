@@ -66,6 +66,9 @@ public class CategoryActivity extends BaseActivity {
             pics.add(categoryItemBean);
         }
         mCategoryBean.setItems(pics);
+        //todo 返回左侧的标题栏
+        mCommonViewModel.getCategoryLeftListBean("10007");
+
 
     }
 

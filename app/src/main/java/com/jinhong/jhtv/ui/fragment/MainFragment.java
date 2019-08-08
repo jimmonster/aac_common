@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.VirtualLayoutAdapter;
@@ -22,6 +21,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseFragment;
 import com.jinhong.jhtv.model.MainListBean;
+import com.jinhong.jhtv.ui.activity.DetailActivity;
 import com.jinhong.jhtv.utils.FocusUtils;
 import com.jinhong.jhtv.utils.ImageUtils;
 
@@ -73,7 +73,7 @@ public class MainFragment extends BaseFragment {
     protected void initView(View inflate) {
 
 
-/**************/
+        /**************/
         recyclerView = (RecyclerView) inflate.findViewById(R.id.recyclerView);
 
         VirtualLayoutManager layoutManager = new VirtualLayoutManager(getContext());
@@ -89,6 +89,26 @@ public class MainFragment extends BaseFragment {
             }
         });
 
+
+        mMainListBean.observe(this, new Observer<MainListBean>() {
+            @Override
+            public void onChanged(@Nullable MainListBean mainListBean) {
+                if (mainListBean != null) {
+                    log(mainListBean.getMsg());
+
+                    setMainAdapter(layoutManager, mainListBean);
+                }
+            }
+        });
+
+
+/**************/
+
+
+    }
+
+    private void setMainAdapter(VirtualLayoutManager layoutManager, MainListBean mainListBean) {
+        int size = mainListBean.getData().getPosterVos().size();
         final List<LayoutHelper> helpers = new LinkedList<>();
 
 //网格布局
@@ -109,7 +129,7 @@ public class MainFragment extends BaseFragment {
 //网格布局
         final GridLayoutHelper gridLayoutHelper2 = new GridLayoutHelper(4);
         gridLayoutHelper2.setItemCount(4);
-//悬浮布局
+//悬浮布
 //        FixLayoutHelper layoutHelper = new FixLayoutHelper(80, 80);
         //流式布局
         StaggeredGridLayoutHelper staggeredGridLayoutHelper = new StaggeredGridLayoutHelper(4);
@@ -123,28 +143,9 @@ public class MainFragment extends BaseFragment {
         helpers.add(linearLayoutHelper);
         helpers.add(staggeredGridLayoutHelper);
         helpers.add(gridLayoutHelper2);
-
-
         layoutManager.setLayoutHelpers(helpers);
 
-        mMainListBean.observe(this, new Observer<MainListBean>() {
-            @Override
-            public void onChanged(@Nullable MainListBean mainListBean) {
-                if (mainListBean != null) {
-                    log(mainListBean.getMsg());
 
-                    setMainAdapter(layoutManager, mainListBean);
-                }
-            }
-        });
-
-
-/**************/
-
-
-    }
-
-    private void setMainAdapter(VirtualLayoutManager layoutManager, MainListBean mainListBean) {
         List<MainListBean.DataBean.PosterVosBean> posterVos = mainListBean.getData().getPosterVos();
         recyclerView.setAdapter(
                 new VirtualLayoutAdapter(layoutManager) {
@@ -249,12 +250,11 @@ public class MainFragment extends BaseFragment {
             itemView.setFocusable(true);
 
             FocusUtils.onFocusChange(itemView, R.drawable.shape_selector_border_corner_press, R.drawable.shape_selector_border_normal);
-
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), "v:" + v, Toast.LENGTH_SHORT).show();
+                    //todo 跳转到相应的详情页面
+                    startActivity(DetailActivity.class);
                 }
             });
 

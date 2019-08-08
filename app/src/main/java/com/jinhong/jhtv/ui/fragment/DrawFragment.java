@@ -80,22 +80,7 @@ public class DrawFragment extends BaseFragment {
             }
         });
 
-        final List<LayoutHelper> helpers = new LinkedList<>();
 
-//网格布局
-        final GridLayoutHelper gridLayoutHelper0 = new GridLayoutHelper(2);
-
-        gridLayoutHelper0.setItemCount(2);
-
-        final GridLayoutHelper gridLayoutHelper1 = new GridLayoutHelper(4);
-
-        gridLayoutHelper1.setItemCount(8);
-
-        helpers.add(gridLayoutHelper0);
-
-        helpers.add(gridLayoutHelper1);
-
-        layoutManager.setLayoutHelpers(helpers);
         mMainListBean.observe(this, new Observer<MainListBean>() {
             @Override
             public void onChanged(@Nullable MainListBean mainListBean) {
@@ -108,6 +93,24 @@ public class DrawFragment extends BaseFragment {
 
     private void setToyAdapter(VirtualLayoutManager layoutManager, MainListBean mainListBean) {
         List<MainListBean.DataBean.PosterVosBean> posterVos = mainListBean.getData().getPosterVos();
+        int size = posterVos.size();
+        final List<LayoutHelper> helpers = new LinkedList<>();
+
+//网格布局
+        final GridLayoutHelper gridLayoutHelper0 = new GridLayoutHelper(2);
+
+        gridLayoutHelper0.setItemCount(size<=2?2:size);
+
+        final GridLayoutHelper gridLayoutHelper1 = new GridLayoutHelper(4);
+
+        gridLayoutHelper1.setItemCount(size>=10?8:size-2);
+
+        helpers.add(gridLayoutHelper0);
+
+        helpers.add(gridLayoutHelper1);
+
+        layoutManager.setLayoutHelpers(helpers);
+
 
         recyclerView.setAdapter(
                 new VirtualLayoutAdapter(layoutManager) {

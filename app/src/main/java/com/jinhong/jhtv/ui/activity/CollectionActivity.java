@@ -1,16 +1,19 @@
 package com.jinhong.jhtv.ui.activity;
 
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
-import com.jinhong.jhtv.model.CollectionBean;
+import com.jinhong.jhtv.model.CollectListBean;
 import com.jinhong.jhtv.ui.adapter.InfoListAdapter;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author :  Jim
@@ -19,7 +22,7 @@ import java.util.ArrayList;
  */
 public class CollectionActivity extends BaseActivity implements View.OnClickListener {
     private TvRecyclerView mRecyclerView;
-    private ArrayList<CollectionBean> mInfoList;
+
     /**
      * 观影记录
      */
@@ -28,6 +31,11 @@ public class CollectionActivity extends BaseActivity implements View.OnClickList
      * 我的收藏
      */
     private TextView mTvMineCollection;
+    private MutableLiveData<CollectListBean> mCollectListBean;
+    /**
+     * (当前2/5页)
+     */
+    private TextView mTvCurrentPage;
 
 
     @Override
@@ -39,32 +47,67 @@ public class CollectionActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initData() {
-        mInfoList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            CollectionBean collectionBean = new CollectionBean();
-            collectionBean.setName("标题" + i);
-            collectionBean.setType("类型" + i);
-            collectionBean.setIsCollect("收藏" + i);
-            mInfoList.add(collectionBean);
-        }
+
+
+        mCollectListBean = mCommonViewModel.getCollectListBean("testott11", "1", "200");
     }
 
     private void initView() {
-        mRecyclerView = (TvRecyclerView) findViewById(R.id.recyclerView);
-        InfoListAdapter infoListAdapter = new InfoListAdapter(R.layout.widget_collection, mInfoList);
-        mRecyclerView.setAdapter(infoListAdapter);
-        infoListAdapter.bindToRecyclerView(mRecyclerView);
-
         mTvMovieRecord = (TextView) findViewById(R.id.tv_movie_record);
         mTvMovieRecord.setOnClickListener(this);
         mTvMineCollection = (TextView) findViewById(R.id.tv_mine_collection);
-
+        mTvCurrentPage = (TextView) findViewById(R.id.tv_current_page);
         mTvMineCollection.setOnClickListener(this);
         mTvMineCollection.setSelected(true);
         mTvMineCollection.requestFocus();
+        mRecyclerView = (TvRecyclerView) findViewById(R.id.recyclerView);
+        mCollectListBean.observe(this, new Observer<CollectListBean>() {
+            @Override
+            public void onChanged(@Nullable CollectListBean collectListBean) {
+                if (collectListBean != null) {
+                    List<CollectListBean.DataBean.ListBean> listBeans = collectListBean.getData().getList();
+                    int pageNum = collectListBean.getData().getPageNum();
+                    int pages = collectListBean.getData().getPages();
 
 
+                    InfoListAdapter infoListAdapter = new InfoListAdapter(R.layout.widget_collection, listBeans);
+                    mRecyclerView.setAdapter(infoListAdapter);
+                    infoListAdapter.bindToRecyclerView(mRecyclerView);
+               /*     infoListAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+                        @Override
+                        public void onLoadMoreRequested() {
+                            mRecyclerView.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (pageNum >= pages) {
+                                        //数据全部加载完毕
+                                        infoListAdapter.loadMoreEnd();
+                                        toast("数据全部加载完毕");
+                                    } else {
+                                            //成功获取更多数据
+                                        mCommonViewModel.getCollectListBean("testott11", ""+pageNum, ""+pages).observe(CollectionActivity.this, new Observer<CollectListBean>() {
+                                            @Override
+                                            public void onChanged(@Nullable CollectListBean collectListBean) {
+                                                infoListAdapter.addData(collectListBean.getData().getList());
+                                                infoListAdapter.loadMoreComplete();
+                                                toast("成功获取更多数据");
+                                            }
+                                        });
 
+
+                                    }
+                                }
+
+                            }, 1000);
+                        }
+                    }, mRecyclerView);*/
+
+                    //当前页数/总页数
+                    String format = String.format("(当前%s/%s页)", pageNum, pages);
+                    mTvCurrentPage.setText(format);
+                }
+            }
+        });
 
     }
 

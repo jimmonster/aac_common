@@ -2,7 +2,6 @@ package com.jinhong.jhtv.test;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -12,9 +11,7 @@ import android.widget.TextView;
 import com.jinhong.jhtv.Constants;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
-import com.jinhong.jhtv.model.MainListBean;
 import com.jinhong.jhtv.model.Test1Bean;
-import com.jinhong.jhtv.vm.viewmodel.CommonViewModel;
 
 /**
  * @author :  Jim
@@ -23,7 +20,6 @@ import com.jinhong.jhtv.vm.viewmodel.CommonViewModel;
  */
 public class ViewModelActivity extends BaseActivity implements View.OnClickListener {
 
-    private MutableLiveData<MainListBean> mMainListBean;
     /**
      * 发送请求
      */
@@ -39,10 +35,9 @@ public class ViewModelActivity extends BaseActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewmodel);
         initView();
-        CommonViewModel commonViewModel = ViewModelProviders.of(this).get(CommonViewModel.class);
+        //CommonViewModel commonViewModel = ViewModelProviders.of(this).get(CommonViewModel.class);
 
-        mMainListBean = commonViewModel.getMainListBean("10007");
-        mTest1Bean = commonViewModel.getTest1Bean(Constants.TEST_URL1);
+        mTest1Bean = mCommonViewModel.getTest1Bean(Constants.TEST_URL1);
 
 
 

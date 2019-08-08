@@ -3,7 +3,6 @@ package com.jinhong.jhtv.ui.activity;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,9 +19,9 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jinhong.jhtv.CustomMedia.BaseGSYVideoPlayer;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
-import com.jinhong.jhtv.ui.views.BaseGSYVideoPlayer;
 import com.jinhong.jhtv.ui.widgets.GSYPlayView;
 import com.jinhong.jhtv.utils.FocusUtils;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
@@ -44,21 +43,14 @@ public class VideoActivity1 extends BaseActivity {
 
     //    String url = "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8";
 //    String url = "http://ivi.bupt.edu.cn/hls/hunantv.m3u8";
-//    String url = "http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4";
+//        String url = "http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4";
     String url = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
     private GSYVideoViewBridge mGsyVideoManager;//视频管理
     private GSYVideoOptionBuilder mGsyVideoOption;//配置工具
     private RelativeLayout mRlVideoTip;
     private TvRecyclerView mRecyclerViewMenu;
     private ArrayList mTvCounts;
-    /**
-     * 上一页
-     */
-    private TextView mTvUpPage;
-    /**
-     * 下一页
-     */
-    private TextView mTvNextPage;
+
     private LinearLayout mLlMenuContainer;
     @SuppressLint("HandlerLeak")
     Handler mHandler = new Handler() {
@@ -94,12 +86,12 @@ public class VideoActivity1 extends BaseActivity {
         }
     }
 
+
     private void initView() {
 
         mRlVideoTip = (RelativeLayout) findViewById(R.id.rl_video_tip);
         mRecyclerViewMenu = (TvRecyclerView) findViewById(R.id.recyclerView_menu);
-        mTvUpPage = (TextView) findViewById(R.id.tv_up_page);
-        mTvNextPage = (TextView) findViewById(R.id.tv_next_page);
+
         mLlMenuContainer = (LinearLayout) findViewById(R.id.ll_menu_container);
 
         mGsyPlayer = (BaseGSYVideoPlayer) findViewById(R.id.gsy_player);
@@ -351,18 +343,7 @@ public class VideoActivity1 extends BaseActivity {
         @Override
         protected void convert(BaseViewHolder helper, String item) {
             TextView view = (TextView) helper.getView(R.id.tv_tvcount);
-            helper.itemView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
-                        view.setTextColor(Color.WHITE);
-                        FocusUtils.selected(v, R.drawable.iv_player_circle_f);
-                    } else {
-                        view.setTextColor(Color.BLACK);
-                        FocusUtils.unselected(v, R.drawable.iv_player_circle);
-                    }
-                }
-            });
+            FocusUtils.onFocusChange(helper.itemView, R.drawable.selector_video_menu);
             helper.setText(R.id.tv_tvcount, item);
 
         }
