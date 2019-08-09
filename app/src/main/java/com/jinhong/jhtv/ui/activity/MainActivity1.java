@@ -117,7 +117,6 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
         mViewPager.setOffscreenPageLimit(-1);
         mTabLayout.setupWithViewPager(mViewPager);
 
-
     }
 
 

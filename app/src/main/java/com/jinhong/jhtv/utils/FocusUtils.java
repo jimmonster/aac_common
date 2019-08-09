@@ -77,20 +77,22 @@ public class FocusUtils {
 
     public static void onFocusChange(View view, int selected) {
         unselected(view, selected);
-        view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (v != null) {
-                    if (hasFocus) {
-                        selected(v, selected);
-                    } else {
-                        unselected(v, selected);
-                    }
-                }
-            }
-        });
+
+//        view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @RequiresApi(api = Build.VERSION_CODES.M)
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (v != null) {
+//                    if (hasFocus) {
+//                        selected(v, selected);
+//                    } else {
+//                        unselected(v, selected);
+//                    }
+//                }
+//            }
+//        });
     }
+
 
 
     public static void unselected(View v) {
