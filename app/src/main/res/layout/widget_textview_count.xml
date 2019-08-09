@@ -10,7 +10,7 @@
     android:gravity="center"
     android:singleLine="true"
     android:clickable="true"
-    android:textColor="@color/color_08285f"
+    android:textColor="@color/color_selector_black2white"
     android:textSize="18sp"
     android:textStyle="bold">
 
