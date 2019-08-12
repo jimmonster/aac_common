@@ -8,7 +8,7 @@ import android.support.multidex.MultiDex;
 
 import com.blankj.utilcode.util.CrashUtils;
 import com.squareup.leakcanary.LeakCanary;
-import com.tencent.bugly.crashreport.CrashReport;
+import com.tencent.bugly.Bugly;
 
 /**
  * @author :  Jim
@@ -25,7 +25,9 @@ public class App extends Application implements Application.ActivityLifecycleCal
 
 
     private void initBugly() {
-        CrashReport.initCrashReport(getApplicationContext(), Constants.BUGLYID, false);
+
+        // CrashReport.initCrashReport(getApplicationContext(), Constants.BUGLYID, false);
+        Bugly.init(getApplicationContext(), Constants.BUGLYID, false);
         //本地崩溃检测
         CrashUtils.init();
     }
@@ -46,6 +48,7 @@ public class App extends Application implements Application.ActivityLifecycleCal
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.jinhong.jhtv.ui.activity;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -7,9 +8,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
 import com.jinhong.jhtv.model.MainIdBean;
@@ -137,6 +141,36 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
                 break;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+
+        Dialog mDialog = new Dialog(this, R.style.video_style_dialog_progress);
+        mDialog.setContentView(R.layout.dialog_common);
+        TextView mTvMessage = mDialog.findViewById(R.id.tv_message);
+        mTvMessage.setText("确定退出当前应用？");
+        Button mBtnSure = mDialog.findViewById(R.id.btn_sure);
+        Button mBtnCancel = mDialog.findViewById(R.id.btn_cancel);
+        mBtnCancel.requestFocus();
+        mBtnSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppUtils.exitApp();
+
+            }
+        });
+        mBtnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mDialog.dismiss();
+            }
+        });
+        mDialog.create();
+        mDialog.show();
+
+    }
+
 
 }
 
