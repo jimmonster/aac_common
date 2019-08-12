@@ -107,7 +107,7 @@ public class MainVirtualAdapter extends VirtualLayoutAdapter {
                 case 14:
                 case 17:
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    layoutParams = new ViewGroup.LayoutParams(416, 520);
+                    layoutParams = new ViewGroup.LayoutParams(440, 520);
                     holder.itemView.setLayoutParams(layoutParams);
                     ImageUtils.load(mPosterVos.get(position ).getPosterPath(), (ImageView) holder.itemView);
                     break;
@@ -118,7 +118,7 @@ public class MainVirtualAdapter extends VirtualLayoutAdapter {
                 case 19:
 
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    layoutParams = new ViewGroup.LayoutParams(416, 248);
+                    layoutParams = new ViewGroup.LayoutParams(440, 248);
                     holder.itemView.setLayoutParams(layoutParams);
                     ImageUtils.load(mPosterVos.get(position ).getPosterPath(), (ImageView) holder.itemView);
 

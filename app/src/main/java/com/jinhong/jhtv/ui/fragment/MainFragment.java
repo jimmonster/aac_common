@@ -129,14 +129,14 @@ public class MainFragment extends BaseFragment {
 //        FixLayoutHelper layoutHelper = new FixLayoutHelper(80, 80);
         //流式布局
         StaggeredGridLayoutHelper staggeredGridLayoutHelper = new StaggeredGridLayoutHelper(4);
-        staggeredGridLayoutHelper.setHGap(0);
-        staggeredGridLayoutHelper.setVGap(0);
+        staggeredGridLayoutHelper.setPadding(0, 0, 0, 0);
+        staggeredGridLayoutHelper.setGap(0);
         staggeredGridLayoutHelper.setItemCount(6);
 
 //按照顺序添加类型条目布局
         helpers.add(gridLayoutHelper0);
         helpers.add(gridLayoutHelper1);
-      //  helpers.add(linearLayoutHelper);
+        //  helpers.add(linearLayoutHelper);
         helpers.add(staggeredGridLayoutHelper);
         helpers.add(gridLayoutHelper2);
         layoutManager.setLayoutHelpers(helpers);
@@ -149,20 +149,11 @@ public class MainFragment extends BaseFragment {
         mainVirtualAdapter.setOnItemClickLitener(new MainVirtualAdapter.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
-                if (position<=14) {
-                    MainListBean.DataBean.PosterVosBean posterVosBean = mainListBean.getData().getPosterVos().get(position);
-                    toast(posterVosBean.getFatherId());
-                    Bundle bundle = new Bundle();
-                    bundle.putString("fatherId", ""+posterVosBean.getFatherId());
-                    startActivity(DetailActivity.class, bundle);
-                }else {
-                    MainListBean.DataBean.PosterVosBean posterVosBean = mainListBean.getData().getPosterVos().get(position-1);
-                    toast(posterVosBean.getFatherId());
-                    Bundle bundle = new Bundle();
-                    bundle.putString("fatherId", ""+posterVosBean.getFatherId());
-                    startActivity(DetailActivity.class, bundle);
-                }
-
+                MainListBean.DataBean.PosterVosBean posterVosBean = mainListBean.getData().getPosterVos().get(position);
+                toast(posterVosBean.getFatherId());
+                Bundle bundle = new Bundle();
+                bundle.putString("fatherId", "" + posterVosBean.getFatherId());
+                startActivity(DetailActivity.class, bundle);
 //                toast(position+"posterVosBean.getPosterId():"+posterVosBean.getPosterId());
             }
         });
