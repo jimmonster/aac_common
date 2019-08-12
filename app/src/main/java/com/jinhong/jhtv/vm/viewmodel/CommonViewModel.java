@@ -64,11 +64,11 @@ public class CommonViewModel extends ViewModel {
     //columnId - 栏目id
     //pageNum - 当前第几页 默认1
     //pageSize - 每页的数量，默认为6
-    public MutableLiveData<ProgrammeBean> getProgrammeBean(String columnId, String pageNum, String pageSize) {
+    public MutableLiveData<ProgrammeBean> getProgrammeBean(String columnId) {
         HashMap<String, String> params = new HashMap<>();
         params.put("columnId", columnId);
-        params.put("pageNum", pageNum);
-        params.put("pageSize", pageSize);
+        params.put("pageNum", "1");
+        params.put("pageSize", "200");
         //数据请求建议放在Repository，viewModel主攻业务
         return mRepository.requestProgrammeListData(Constants.GET_CONTENTS_BY_ID, params);
     }
@@ -96,11 +96,11 @@ public class CommonViewModel extends ViewModel {
     //pageNum - 当前第几页，默认为1
     //pageSize - 每页的数量，默认为6
 
-    public MutableLiveData<SearchBean> getSearchBean(String key) {
+    public MutableLiveData<SearchBean> getSearchBean(String keyword) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("keyword", key);
+        params.put("keyword", keyword);
         params.put("pageNum", "1");
-        params.put("pageSize", "6");
+        params.put("pageSize", "100");
 
 
         //数据请求建议放在Repository，viewModel主攻业务

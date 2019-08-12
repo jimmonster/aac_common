@@ -4,16 +4,11 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.alibaba.android.vlayout.LayoutHelper;
-import com.alibaba.android.vlayout.VirtualLayoutAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.blankj.utilcode.util.LogUtils;
@@ -21,9 +16,10 @@ import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseFragment;
 import com.jinhong.jhtv.model.MainListBean;
 import com.jinhong.jhtv.ui.activity.CategoryActivity;
-import com.jinhong.jhtv.utils.FocusUtils;
-import com.jinhong.jhtv.utils.ImageUtils;
+import com.jinhong.jhtv.ui.activity.DetailActivity;
+import com.jinhong.jhtv.ui.adapter.ToyVirtualAdapter;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,6 +33,7 @@ public class ToyFragment extends BaseFragment {
     private String dataType;//activity传递过来的分类数据
     private RecyclerView recyclerView;
     private MutableLiveData<MainListBean> mMainListBean;
+    private String mColumnId;
 
 
     public ToyFragment getInstance(String s) {
@@ -56,11 +53,10 @@ public class ToyFragment extends BaseFragment {
         //获取到activity传递过来的数据
         Bundle bundle = getArguments();
         if (bundle != null) {
-            String data = bundle.getString("DATA");
+            mColumnId = bundle.getString("DATA");
+            mMainListBean = mCommonViewModel.getMainListBean(mColumnId);
         }
         //10010
-
-        mMainListBean = mCommonViewModel.getMainListBean("10010");
 
 
     }
@@ -116,105 +112,38 @@ public class ToyFragment extends BaseFragment {
         helpers.add(gridLayoutHelper1);
 
         layoutManager.setLayoutHelpers(helpers);
+        Collections.sort(posterVos, (o1, o2) -> Integer.parseInt(o1.getPosterId().substring(3)) - Integer.parseInt(o2.getPosterId().substring(3)));
+        ToyVirtualAdapter toyVirtualAdapter = new ToyVirtualAdapter(getContext(), layoutManager, mainListBean);
+        recyclerView.setAdapter(toyVirtualAdapter);
 
+        toyVirtualAdapter.setOnItemClickLitener(new ToyVirtualAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
 
-        recyclerView.setAdapter(
-                new VirtualLayoutAdapter(layoutManager) {
-                    @NonNull
-                    @Override
-                    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                        ImageView imageView = new ImageView(getContext());
-                        //加载参数
-                        return new ToyViewHolder(imageView);
-                    }
+                try {
+                    switch (position) {
+                        default:
+                            Bundle bundle1 = new Bundle();
+                            bundle1.putString("fatherId", "" + posterVos.get(position).getFatherId());
+                            startActivity(DetailActivity.class, bundle1);
+                            break;
+                        case 9:
+                            Bundle bundle = new Bundle();
+                            bundle.putString("columnId", "10037");
+                            startActivity(CategoryActivity.class, bundle);
+                            break;
 
-                    @Override
-                    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-                        ImageView imageView = (ImageView) holder.itemView;
-                        try {
-
-
-                            switch (position) {
-                                default:
-                                    ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(416, 318);
-                                    holder.itemView.setLayoutParams(layoutParams);
-                                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                                    ImageUtils.load(posterVos.get(position).getHomePosterPath(), (ImageView) holder.itemView);
-                                    break;
-
-                                case 0:
-                                case 1:
-                                    layoutParams = new ViewGroup.LayoutParams(858, 318);
-                                    holder.itemView.setLayoutParams(layoutParams);
-                                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                                    ImageUtils.load(posterVos.get(position).getHomePosterPath(), (ImageView) holder.itemView);
-                                    break;
-
-
-                                case 9:
-                                    layoutParams = new ViewGroup.LayoutParams(416, 318);
-                                    holder.itemView.setLayoutParams(layoutParams);
-                                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                                    ImageUtils.load(R.drawable.iv_qinzi_more, (ImageView) holder.itemView);
-                                    imageView.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            Bundle bundle = new Bundle();
-                                            bundle.putInt("type", 1);
-                                            startActivity(CategoryActivity.class, bundle);
-                                        }
-                                    });
-
-                                    break;
-
-
-                            }
-                        } catch (
-                                Exception e
-                        ) {
-                            LogUtils.e(e);
-                        }
 
                     }
-
-                    @Override
-                    public int getItemCount() {
-                        List<LayoutHelper> helpers = getLayoutHelpers();
-                        if (helpers == null) {
-                            return 0;
-                        }
-                        int count = 0;
-                        for (int i = 0, size = helpers.size(); i < size; i++) {
-                            count += helpers.get(i).getItemCount();
-                        }
-                        return count;
-                    }
-
+                } catch (Exception e) {
+                    LogUtils.e(e);
                 }
-
-        );
+            }
+        });
 
     }
 
 
-    class ToyViewHolder extends RecyclerView.ViewHolder {
-
-        public ToyViewHolder(ImageView itemView) {
-            super(itemView);
-            //传入item对应的view
-            itemView.setFocusable(true);
-
-            FocusUtils.onFocusChange(itemView, R.drawable.shape_selector_border_corner_press, R.drawable.shape_selector_border_normal);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), "v:" + v, Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        }
-    }
 }
 
 

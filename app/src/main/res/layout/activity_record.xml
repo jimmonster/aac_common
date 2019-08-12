@@ -142,7 +142,7 @@
             android:layout_width="160dp"
             android:layout_height="35dp"
             android:layout_alignParentEnd="true"
-            android:text="(当前2/5页)"
+            android:text="(总共1页)"
             android:textColor="@color/white"
             android:textSize="28sp"/>
 

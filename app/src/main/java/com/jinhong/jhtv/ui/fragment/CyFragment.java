@@ -1,17 +1,17 @@
 package com.jinhong.jhtv.ui.fragment;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
+import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.Toast;
 
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseFragment;
 import com.jinhong.jhtv.listener.AbstractOnItemListener;
-import com.jinhong.jhtv.model.CategoryItemBean;
+import com.jinhong.jhtv.model.ProgrammeBean;
 import com.jinhong.jhtv.ui.adapter.CyRightAdapter;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
-
-import java.util.List;
 
 /**
  * @author :  Jim
@@ -21,12 +21,13 @@ import java.util.List;
 @SuppressLint("ValidFragment")
 public class CyFragment extends BaseFragment {
 
-    List<CategoryItemBean> items;
+    int  columnId;
     private TvRecyclerView mRecyclerView;
     private CyRightAdapter mCyRightAdapter;
+    private MutableLiveData<ProgrammeBean> mProgrammeBean;
 
-    public CyFragment(List<CategoryItemBean> data) {
-        items = data;
+    public CyFragment(int data) {
+        columnId = data;
     }
 
 
@@ -38,27 +39,38 @@ public class CyFragment extends BaseFragment {
     }
 
     @Override
+    protected void initData() {
+        super.initData();
+
+        mProgrammeBean = mCommonViewModel.getProgrammeBean("" + columnId);
+
+    }
+
+    @Override
     protected void initView(View view) {
 
         //右边内容
         mRecyclerView = (TvRecyclerView) view.findViewById(R.id.recyclerView_right);
 //        mRecyclerView.addItemDecoration(new GridItemDecoration(0,0));
-        mCyRightAdapter = new CyRightAdapter(R.layout.widget_cy_poster, items);
-        mRecyclerView.setAdapter(mCyRightAdapter);
-        initEvent();
-
-
-    }
-
-    @Override
-    protected void initEvent() {
-        mRecyclerView.setOnItemListener(new AbstractOnItemListener() {
+        mProgrammeBean.observe(getActivity(), new Observer<ProgrammeBean>() {
             @Override
-            public void onItemClick(TvRecyclerView parent, View itemView, int position) {
+            public void onChanged(@Nullable ProgrammeBean programmeBean) {
+                mCyRightAdapter = new CyRightAdapter(R.layout.widget_cy_poster, programmeBean.getData().getList());
+                mRecyclerView.setAdapter(mCyRightAdapter);
 
-                Toast.makeText(getActivity(), "itemView" + position, Toast.LENGTH_SHORT).show();
+                mRecyclerView.setOnItemListener(new AbstractOnItemListener() {
+                    @Override
+                    public void onItemClick(TvRecyclerView parent, View itemView, int position) {
+
+
+                    }
+                });
             }
         });
 
+
+
     }
+
+
 }

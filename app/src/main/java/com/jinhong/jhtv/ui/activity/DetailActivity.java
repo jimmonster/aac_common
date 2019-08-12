@@ -1,14 +1,15 @@
 package com.jinhong.jhtv.ui.activity;
 
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
 import com.jinhong.jhtv.model.DetailBean;
@@ -20,7 +21,7 @@ import com.jinhong.jhtv.ui.leanback.GridLayoutManagerTV;
 import com.jinhong.jhtv.ui.leanback.LinearLayoutManagerTV;
 import com.jinhong.jhtv.ui.leanback.RecyclerViewTV;
 import com.jinhong.jhtv.utils.FocusUtils;
-import com.jinhong.jhtv.utils.IoUtils;
+import com.jinhong.jhtv.utils.ImageUtils;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
 import java.util.ArrayList;
@@ -73,19 +74,25 @@ public class DetailActivity extends BaseActivity implements RecyclerViewTV.OnIte
     private DetailTabAdapter mDetailTabAdapter;
     private TextView mTvIsCollection;
     private LinearLayout mLlDiv;
+    private String fatherId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail1);
         initData();
-        initView();
     }
 
     private void initData() {
-        String json = IoUtils
-                .inputStreamToString(getResources().openRawResource(R.raw.data_detail));
-        mDetailedCard = new Gson().fromJson(json, DetailedCard.class);
+        Bundle bundleExtra = getIntent().getBundleExtra(extraBundle);
+        if (bundleExtra != null) {
+            fatherId = bundleExtra.getString("fatherId", "100673");
+        } else {
+            fatherId = "100673";
+        }
+
+        //todo 根据ID加载当前的电视剧
+
         mTabs = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             mTabs.add(i * 10 + "-" + (i + 1) * 10);
@@ -99,13 +106,26 @@ public class DetailActivity extends BaseActivity implements RecyclerViewTV.OnIte
         for (int i = 0; i < 4; i++) {
             mPosters.add("http://img.ewebweb.com/uploads/20190403/14/1554273928-MGSPXDUfBJ.jpg");
         }
-        //todo 根据ID加载当前的电视剧
-        MutableLiveData<DetailBean> detailBean = mCommonViewModel.getDetailBean("100006");
+
+
+        MutableLiveData<DetailBean> detailBean = mCommonViewModel.getDetailBean(fatherId);
+        detailBean.observe(this, new Observer<DetailBean>() {
+            @Override
+            public void onChanged(@Nullable DetailBean detailBean) {
+                if (detailBean != null) {
+
+                    log(detailBean.getMsg());
+
+                    initView(detailBean);
+                }
+            }
+        });
 
 
     }
 
-    private void initView() {
+
+    private void initView(DetailBean detailBean) {
         mIvPoster = (ImageView) findViewById(R.id.iv_poster);
         mTvTitle = (TextView) findViewById(R.id.tv_title);
         mTvType = (TextView) findViewById(R.id.tv_type);
@@ -122,18 +142,22 @@ public class DetailActivity extends BaseActivity implements RecyclerViewTV.OnIte
         mTvIsCollection = (TextView) findViewById(R.id.tv_isCollection);
         mLlDiv = (LinearLayout) findViewById(R.id.ll_div);
 
-        initEvent();
+        ImageUtils.load(detailBean.getData().getPosterPath()!=null?detailBean.getData().getPosterPath():"", mIvPoster);
+        mTvTitle.setText(detailBean.getData().getMainName());
+        mTvInfo0.setText(detailBean.getData().getMainDesc());
+        mTvType.setText(detailBean.getData().getContentType());
+        mTvUpdate.setText(detailBean.getData().getReleaseTime());
+        //  mTvCount.setText(detailBean.getData().getSitnums());
 
-    }
 
-    private void initEvent() {
+        DetailBean.DataBean data = detailBean.getData();
         //集数
         mRecyclerViewCount.setLayoutManager(new GridLayoutManagerTV(this, 10));
         mDetailCountAdapter = new DetailCountAdapter(R.layout.widget_textview_count, mCount);
         mRecyclerViewCount.setAdapter(mDetailCountAdapter);
         mRecyclerViewCount.setOnItemClickListener(this);
         //推荐海报
-        mDetailFooterAdapter = new DetailFooterAdapter(R.layout.widget_item_detail, mPosters);
+        mDetailFooterAdapter = new DetailFooterAdapter(R.layout.widget_item_detail, data.getPosterVoList());
         mRecyclerViewRecommend.setAdapter(mDetailFooterAdapter);
 //        mRecyclerViewCount.setDefaultSelect(0);
         mRecyclerViewRecommend.setOnItemListener(new TvRecyclerView.OnItemListener() {
@@ -160,8 +184,8 @@ public class DetailActivity extends BaseActivity implements RecyclerViewTV.OnIte
 //        mRecyclerViewCount.setDefaultSelect(0);
         mRecyclerViewTabs.setOnItemClickListener(this);
 
-
     }
+
 
     @Override
     public void onItemClick(RecyclerViewTV parent, View itemView, int position) {

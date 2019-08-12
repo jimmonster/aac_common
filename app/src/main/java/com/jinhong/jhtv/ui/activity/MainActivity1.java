@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
+import com.jinhong.jhtv.model.MainIdBean;
 import com.jinhong.jhtv.ui.fragment.DrawFragment;
 import com.jinhong.jhtv.ui.fragment.EducationFragment;
 import com.jinhong.jhtv.ui.fragment.GameFragment;
@@ -20,6 +21,8 @@ import com.jinhong.jhtv.ui.fragment.ManualFragment;
 import com.jinhong.jhtv.ui.fragment.ToyFragment;
 import com.jinhong.jhtv.ui.views.AutoHorizontalScrollTextView;
 import com.jinhong.jhtv.utils.FocusUtils;
+import com.jinhong.jhtv.utils.GsonUtil;
+import com.jinhong.jhtv.utils.IoUtils;
 
 import java.util.ArrayList;
 
@@ -56,16 +59,18 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
 
 
     private void initData() {
-
-
+        //获取到标题栏id
+        String json = IoUtils.inputStreamToString(getResources().openRawResource(R.raw.data_main_id));
+        MainIdBean mainIdBean = GsonUtil.GsonToBean(json, MainIdBean.class);
+        MainIdBean.DataBean data = mainIdBean.getData();
         //添加页面
         mFragments = new ArrayList<>();
-        mFragments.add(new MainFragment().getInstance("MainFragment"));
-        mFragments.add(new ToyFragment().getInstance("ToyFragment"));
-        mFragments.add(new GameFragment().getInstance("GameFragment"));
-        mFragments.add(new ManualFragment().getInstance("ManualFragment"));
-        mFragments.add(new EducationFragment().getInstance("EducationFragment"));
-        mFragments.add(new DrawFragment().getInstance("DrawFragment"));
+        mFragments.add(new MainFragment().getInstance(data.getMain()));
+        mFragments.add(new ToyFragment().getInstance(data.getToy()));
+        mFragments.add(new GameFragment().getInstance(data.getGame()));
+        mFragments.add(new ManualFragment().getInstance(data.getManual()));
+        mFragments.add(new EducationFragment().getInstance(data.getEducation()));
+        mFragments.add(new DrawFragment().getInstance(data.getDraw()));
     }
 
     private void initView() {

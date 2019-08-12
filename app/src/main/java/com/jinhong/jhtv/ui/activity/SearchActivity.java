@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
@@ -41,6 +42,14 @@ public class SearchActivity extends BaseActivity {
     private ItemSearchInfoAdapter mSearchInfoAdapter;
     private MutableLiveData<SearchBean> mSearchBeanLiveData;
     private LinearLayout mLlKeyboard;
+    /**
+     * (共1条搜索记录）
+     */
+    private TextView mTvCurrentPage;
+    /**
+     * 小朋友们最爱看
+     */
+    private TextView mTvFavorite;
 
 
     @Override
@@ -73,13 +82,14 @@ public class SearchActivity extends BaseActivity {
         mFavorite.add(R.drawable.iv_search_ip06);
         //requestSearchInfo
 
-        mSearchBeanLiveData = mCommonViewModel.getSearchBean("");
 
     }
 
 
     private void initView() {
 
+        mTvCurrentPage = (TextView) findViewById(R.id.tv_current_page);
+        mTvFavorite = (TextView) findViewById(R.id.tv_favorite);
         mIvLogo = (ImageView) findViewById(R.id.iv_logo);
         mTvSearchInfo = (TextView) findViewById(R.id.tv_search_info);
         mLlKeyboard = (LinearLayout) findViewById(R.id.ll_keyboard);
@@ -89,7 +99,7 @@ public class SearchActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(this);
         mRecyclerViewInfo.setLayoutManager(linearLayoutManager1);
 
-        setInfoAdapterData();
+
         //推荐收藏
         mRecyclerViewFavorite = (TvRecyclerView) findViewById(R.id.recyclerView_favorite);
         ItemFavoriteAdapter favoriteAdapter = new ItemFavoriteAdapter(R.layout.widget_item_favorite, mFavorite);
@@ -107,12 +117,13 @@ public class SearchActivity extends BaseActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (position) {
                     default:
-                        toast("position:" + position);
                         searchInfo += mLetters.get(position);
                         mTvSearchInfo.setText(searchInfo);
                         //todo 请求后台
                         //最开始就请求一次热门的ip
 
+                        mSearchBeanLiveData = mCommonViewModel.getSearchBean(searchInfo);
+                        setData2Adapter();
 
                         break;
 
@@ -123,7 +134,8 @@ public class SearchActivity extends BaseActivity {
                             searchInfo = searchInfo.substring(0, length);
                             mTvSearchInfo.setText(searchInfo);
                             //todo 请求后台
-
+                            mSearchBeanLiveData = mCommonViewModel.getSearchBean(searchInfo);
+                            setData2Adapter();
 
                         } else {
                             toast("搜索内容不能为空");
@@ -149,7 +161,8 @@ public class SearchActivity extends BaseActivity {
                     searchInfo = searchInfo.substring(0, length);
                     mTvSearchInfo.setText(searchInfo);
                     //todo 请求后台
-
+                    mSearchBeanLiveData = mCommonViewModel.getSearchBean(searchInfo);
+                    setData2Adapter();
 
                 } else {
                     toast("搜索内容不能为空");
@@ -196,18 +209,34 @@ public class SearchActivity extends BaseActivity {
 
     }
 
-    private void setInfoAdapterData() {
+    public void setData2Adapter() {
         mSearchBeanLiveData.observe(this, new Observer<SearchBean>() {
             @Override
             public void onChanged(@Nullable SearchBean searchBean) {
-                if (searchBean.getData() != null) {
-                    mSearchInfoAdapter = new ItemSearchInfoAdapter(R.layout.widget_item_search_info, searchBean.getData().getList());
-                    mRecyclerViewInfo.setAdapter(mSearchInfoAdapter);
+                try {
+                    if (searchBean.getData() != null) {
+                        mTvCurrentPage.setText(String.format("(共%d条搜索记录）", searchBean.getData().getSize()));
+                        mSearchInfoAdapter = new ItemSearchInfoAdapter(R.layout.widget_item_search_info, searchBean.getData().getList());
+                        mRecyclerViewInfo.setAdapter(mSearchInfoAdapter);
+                        mSearchInfoAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                //todo 跳转到详情页面
+                                Bundle bundle = new Bundle();
+                                bundle.putString("fatherId", "" + searchBean.getData().getList().get(position).getFatherId());
+                                startActivity(DetailActivity.class);
+                            }
+                        });
+                    }
+                } catch (Exception e) {
+                    LogUtils.e(e);
                 }
+
             }
         });
 
     }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -220,7 +249,8 @@ public class SearchActivity extends BaseActivity {
                     searchInfo = searchInfo.substring(0, length);
                     mTvSearchInfo.setText(searchInfo);
                     //todo 请求后台
-
+                    mSearchBeanLiveData = mCommonViewModel.getSearchBean(searchInfo);
+                    setData2Adapter();
                 } else {
                     toast("搜索内容不能为空");
                 }

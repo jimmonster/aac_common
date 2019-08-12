@@ -58,11 +58,11 @@ public abstract class BaseFragment extends Fragment {
     }
 
 
-    public void toast(String s) {
-        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+    public void toast(Object s) {
+        Toast.makeText(getActivity(), ""+s, Toast.LENGTH_SHORT).show();
     }
 
-    public void log(String s) {
+    public void log(Object s) {
         Log.d("jim:" + getClass().getSimpleName(), "\n     " + s + "     ");
     }
 

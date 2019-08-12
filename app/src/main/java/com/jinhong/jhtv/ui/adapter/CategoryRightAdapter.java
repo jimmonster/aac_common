@@ -24,7 +24,7 @@ public class CategoryRightAdapter extends BaseQuickAdapter<CategoryItemBean, Bas
 
     @Override
     protected void convert(BaseViewHolder helper, CategoryItemBean item) {
-        helper.setText(R.id.tv_title,item.getTitle());
+        helper.setText(R.id.tv_title,item.getMsg());
         helper.itemView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {

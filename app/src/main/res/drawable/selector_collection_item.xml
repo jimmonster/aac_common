@@ -12,7 +12,7 @@
                     <solid android:color="@android:color/transparent"/>
                 </shape>
             </item>
-            <item android:drawable="@drawable/iv_watch_btn_f" >
+            <item android:drawable="@drawable/iv_collection_co_f" >
             </item>
         </layer-list>
     </item>
@@ -23,6 +23,8 @@
                 <shape>
                     <solid android:color="@android:color/transparent"/>
                 </shape>
+            </item>
+            <item android:drawable="@drawable/iv_collection_co" >
             </item>
         </layer-list>
     </item>
@@ -36,8 +38,15 @@
                     <solid android:color="@android:color/transparent"/>
                 </shape>
             </item>
-            <item android:drawable="@drawable/iv_watch_btn_f" >
+            <item android:drawable="@drawable/iv_collection_co_f" >
             </item>
         </layer-list>
     </item>
 </selector>
+
+
+
+
+
+
+

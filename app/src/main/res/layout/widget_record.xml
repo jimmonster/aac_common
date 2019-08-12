@@ -50,7 +50,7 @@
         android:layout_width="200dp"
         android:layout_height="match_parent"
         android:layout_marginEnd="90dp"
-        android:background="@drawable/iv_collection_co"
+        android:background="@drawable/selector_collection_item"
         android:focusable="true"
         android:gravity="center_vertical"
         android:text="播放"

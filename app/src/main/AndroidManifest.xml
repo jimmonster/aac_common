@@ -39,7 +39,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activity.MainActivity">
+        <activity android:name=".ui.activity.MainActivity1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -79,9 +79,10 @@
         <activity android:name=".ui.activity.RecordActivity"/>
         <activity android:name=".ui.activity.CollectionActivity"/>
         <activity android:name=".test.TabLayoutTest"/>
-        <activity android:name=".ui.activity.MainActivity1"/>
+        <activity android:name=".ui.activity.MainActivity"/>
         <activity android:name=".test.ViewTestActivity" />
         <activity android:name=".test.ViewModelActivity"/>
+        <activity android:name=".ui.activity.AnimationActivity"/>
 
         <!--适配基准-->
         <meta-data

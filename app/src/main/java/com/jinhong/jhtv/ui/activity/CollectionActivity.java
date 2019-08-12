@@ -73,37 +73,9 @@ public class CollectionActivity extends BaseActivity implements View.OnClickList
                     InfoListAdapter infoListAdapter = new InfoListAdapter(R.layout.widget_collection, listBeans);
                     mRecyclerView.setAdapter(infoListAdapter);
                     infoListAdapter.bindToRecyclerView(mRecyclerView);
-               /*     infoListAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-                        @Override
-                        public void onLoadMoreRequested() {
-                            mRecyclerView.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (pageNum >= pages) {
-                                        //数据全部加载完毕
-                                        infoListAdapter.loadMoreEnd();
-                                        toast("数据全部加载完毕");
-                                    } else {
-                                            //成功获取更多数据
-                                        mCommonViewModel.getCollectListBean("testott11", ""+pageNum, ""+pages).observe(CollectionActivity.this, new Observer<CollectListBean>() {
-                                            @Override
-                                            public void onChanged(@Nullable CollectListBean collectListBean) {
-                                                infoListAdapter.addData(collectListBean.getData().getList());
-                                                infoListAdapter.loadMoreComplete();
-                                                toast("成功获取更多数据");
-                                            }
-                                        });
-
-
-                                    }
-                                }
-
-                            }, 1000);
-                        }
-                    }, mRecyclerView);*/
 
                     //当前页数/总页数
-                    String format = String.format("(当前%s/%s页)", pageNum, pages);
+                    String format = String.format("(总共%s页)", pages);
                     mTvCurrentPage.setText(format);
                 }
             }

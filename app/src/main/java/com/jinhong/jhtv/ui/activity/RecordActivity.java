@@ -10,11 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
 import com.jinhong.jhtv.model.RecordListBean;
 import com.jinhong.jhtv.ui.adapter.RecordInfoListAdapter;
+import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
 import java.util.List;
 
@@ -36,6 +36,11 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
      */
     private TextView mTvMineCollection;
     private MutableLiveData<RecordListBean> mRecordListBean;
+    private TextView mView;
+    /**
+     * (总共1页)
+     */
+    private TextView mTvCurrentPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,19 +51,20 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void initData() {
-
         mRecordListBean = mCommonViewModel.getRecordListBean("testott11");
     }
 
 
     private void initView() {
-
+        mView = (TextView) findViewById(R.id.view);
+        mRecyclerView = (TvRecyclerView) findViewById(R.id.recyclerView);
+        mTvCurrentPage = (TextView) findViewById(R.id.tv_current_page);
         mTvMovieRecord = (TextView) findViewById(R.id.tv_movie_record);
         mTvMovieRecord.setOnClickListener(this);
         mTvMineCollection = (TextView) findViewById(R.id.tv_mine_collection);
 
         mTvMineCollection.setOnClickListener(this);
-        //默认选中我的收藏
+        //默认选中观影记录
         mTvMovieRecord.setSelected(true);
         mTvMovieRecord.requestFocus();
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -71,18 +77,16 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
                 }
             }
         });
+
     }
 
     public void setData2View(@NonNull RecordListBean recordListBean) {
+        int pages = recordListBean.getData().getPages();
+        mTvCurrentPage.setText(String.format("总共%d页", pages));
         RecordInfoListAdapter infoListAdapter = new RecordInfoListAdapter(R.layout.widget_record, recordListBean.getData().getList());
         mRecyclerView.setAdapter(infoListAdapter);
         infoListAdapter.bindToRecyclerView(mRecyclerView);
-        infoListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                toast("view" + position);
-            }
-        });
+
     }
 
     @Override

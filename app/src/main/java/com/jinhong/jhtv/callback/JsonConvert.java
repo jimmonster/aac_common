@@ -101,6 +101,8 @@ public class JsonConvert<T> implements Converter<T> {
         if (body == null) {
             return null;
         }
+
+
         JsonReader jsonReader = new JsonReader(body.charStream());
 
         if (rawType == String.class) {

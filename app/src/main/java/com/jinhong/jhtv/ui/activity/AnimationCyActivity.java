@@ -1,104 +1,72 @@
 package com.jinhong.jhtv.ui.activity;
 
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.FragmentUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
-import com.jinhong.jhtv.model.CategoryBean;
-import com.jinhong.jhtv.model.CategoryItemBean;
-import com.jinhong.jhtv.ui.adapter.CategoryLeftAdapter;
-import com.jinhong.jhtv.ui.fragment.CategoryFragment;
-import com.jinhong.jhtv.ui.leanback.LinearLayoutManagerTV;
-import com.jinhong.jhtv.ui.leanback.RecyclerViewTV;
+import com.jinhong.jhtv.model.CategoryLeftBean;
+import com.jinhong.jhtv.ui.adapter.CyLeftAdapter;
+import com.jinhong.jhtv.ui.fragment.CyFragment;
+import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author :  Jim
- * @date :  2019-07-01
- * @description :动画天地分类页面
+ * @date :  2019-07-11
+ * @description : 二级页面,分类界面
  */
 public class AnimationCyActivity extends BaseActivity {
-    private RecyclerViewTV mRecyclerViewLeft;
-    private LinearLayout mLlContainer;
-    private CategoryLeftAdapter mCategoryLeftAdapter;
-    private CategoryBean mCategoryBean;
 
-    private FrameLayout mFlReplaceFragment;
-    private CategoryFragment mCategoryFragment;
+
+    private ImageView mIvLogo;
+    private TvRecyclerView mRecyclerview;
+    private int mLog;
+    private CyFragment mCyFragment;
+
+    private String columnId;
+
+    private LinearLayout mLlContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cy_animation);
+        setContentView(R.layout.activity_cy_drawing);
+        Bundle bundleExtra = getIntent().getBundleExtra(extraBundle);
+        if (bundleExtra != null) {
+            columnId = bundleExtra.getString("columnId", "");
 
-        initData();
+        }
         initView();
-    }
+        initData();
 
-    private void initData() {
-        mCategoryBean = new CategoryBean();
 
-        ArrayList<String> tabsName = new ArrayList<>();
-        ArrayList<CategoryItemBean> pics = new ArrayList<>();
-
-        for (int i = 0; i < 5; i++) {
-            tabsName.add("标题" + i);
-        }
-        mCategoryBean.setTabsName(tabsName);
-
-        for (int i = 0; i < 20; i++) {
-            CategoryItemBean categoryItemBean = new CategoryItemBean();
-            categoryItemBean.setPic("http://pic2.52pk.com/files/allimg/090626/1553504U2-2.jpg");
-            categoryItemBean.setTitle("内容标题" + i);
-            pics.add(categoryItemBean);
-        }
-        mCategoryBean.setItems(pics);
     }
 
     private void initView() {
-        //左边内容
-        mRecyclerViewLeft = (RecyclerViewTV) findViewById(R.id.recyclerView_left);
-        LinearLayoutManagerTV linearLayoutManager = new LinearLayoutManagerTV(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerViewLeft.setLayoutManager(linearLayoutManager);
-        mCategoryLeftAdapter = new CategoryLeftAdapter(R.layout.widget_button_tab, mCategoryBean.getTabsName());
-        mRecyclerViewLeft.setAdapter(mCategoryLeftAdapter);
-        mCategoryLeftAdapter.bindToRecyclerView(mRecyclerViewLeft);
-
-        //背景图片
         mLlContainer = (LinearLayout) findViewById(R.id.ll_container);
+        mIvLogo = (ImageView) findViewById(R.id.iv_logo);
+        mRecyclerview = (TvRecyclerView) findViewById(R.id.recyclerview);
 
-        mCategoryFragment = new CategoryFragment(mCategoryBean.getItems());
-        FragmentUtils.add(getSupportFragmentManager(), mCategoryFragment,R.id.fl_replace_fragment);
-        initEvent();
     }
 
-    private void initEvent() {
+    private void initData() {
 
-        mCategoryLeftAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        MutableLiveData<CategoryLeftBean> categoryLeftListBean = mCommonViewModel.getCategoryLeftListBean(columnId);
+        categoryLeftListBean.observe(AnimationCyActivity.this, new Observer<CategoryLeftBean>() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                FragmentUtils.replace(getSupportFragmentManager(),mCategoryFragment,R.id.fl_replace_fragment);
+            public void onChanged(@Nullable CategoryLeftBean categoryLeftBean) {
+                if (categoryLeftBean != null) {
 
-            }
-        });
-        mRecyclerViewLeft.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (v != null) {
-                    v.setFocusable(hasFocus);
-                    if (hasFocus) {
-                        v.animate().scaleX(1.05f).scaleY(1.05f).setDuration(200).start();
-                    } else {
-                        v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(200).start();
-                    }
+                    initData2View(categoryLeftBean);
                 }
 
             }
@@ -107,8 +75,28 @@ public class AnimationCyActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+
+    private void initData2View(CategoryLeftBean categoryLeftBean) {
+
+        List<CategoryLeftBean.DataBean> data = categoryLeftBean.getData();
+
+        CyLeftAdapter cyLeftAdapter = new CyLeftAdapter(R.layout.widget_cy_text, data);
+        mRecyclerview.setAdapter(cyLeftAdapter);
+        mCyFragment = new CyFragment(data.get(0).getId());
+        FragmentUtils.add(getSupportFragmentManager(), mCyFragment, R.id.fl_replace_fragment);
+        mLlContainer.setBackgroundResource(R.drawable.iv_category_bg);
+        mIvLogo.setImageResource(R.drawable.iv_log_edt);
+
+        mRecyclerview.setSelection(0);
+        cyLeftAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                mCyFragment = new CyFragment(data.get(position).getId());
+                FragmentUtils.replace(getSupportFragmentManager(), mCyFragment, R.id.fl_replace_fragment);
+            }
+        });
+
     }
+
+
 }
