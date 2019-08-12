@@ -70,7 +70,7 @@ public class CollectionActivity extends BaseActivity implements View.OnClickList
                     int pages = collectListBean.getData().getPages();
 
 
-                    InfoListAdapter infoListAdapter = new InfoListAdapter(R.layout.widget_collection, listBeans);
+                    InfoListAdapter infoListAdapter = new InfoListAdapter(R.layout.widget_collection, listBeans,mCommonViewModel);
                     mRecyclerView.setAdapter(infoListAdapter);
                     infoListAdapter.bindToRecyclerView(mRecyclerView);
 

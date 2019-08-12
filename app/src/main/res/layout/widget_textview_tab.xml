@@ -7,8 +7,8 @@
     android:layout_margin="7dp"
     android:focusable="true"
     android:gravity="center"
+    android:textColor="@color/color_selector_white2orange"
     android:textSize="18sp"
-    android:textColor="@color/white"
     android:textStyle="bold">
 
 </TextView>

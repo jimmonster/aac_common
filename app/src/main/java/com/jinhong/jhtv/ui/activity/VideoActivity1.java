@@ -103,31 +103,6 @@ public class VideoActivity1 extends BaseActivity {
         mGsyPlayer.setBottomShowProgressBarDrawable(progressDrawable, thumb);
         mGsyPlayer.setUp(url, true, null);
 
-//        mGsyVideoOption = new GSYVideoOptionBuilder();
-//        mGsyVideoOption
-////                .setThumbImageView(imageView) //设置封面
-//                .setBottomShowProgressBarDrawable(progressDrawable, thumb)
-//                .setIsTouchWiget(true)
-//                .setRotateViewAuto(false)
-//                .setLockLand(false)
-//                .setAutoFullWithSize(true)
-//                .setShowFullAnimation(true)
-//                .setNeedLockFull(false)
-//                .setUrl(url)
-//                .setPlayTag(url)
-////                .setMapHeadData(header)
-//                .setCacheWithPlay(false)
-//                .setVideoTitle(null)
-////                .setSeekOnStart(0)//从哪里开始播放
-////                .setGSYVideoProgressListener(new GSYVideoProgressListener() {
-////                    @Override
-////                    public void onProgress(int progress, int secProgress, int currentPosition, int duration) {
-////                      //进度条回调
-////                        Debuger.printfLog(" progress " + progress + " secProgress " + secProgress + " currentPosition " + currentPosition + " duration " + duration);
-////                    }
-////                })
-//
-//                .build(mGsyPlayer);
         //自动播放
         mGsyPlayer.startPlayLogic();
 

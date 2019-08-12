@@ -109,7 +109,7 @@ public class MainVirtualAdapter extends VirtualLayoutAdapter {
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                     layoutParams = new ViewGroup.LayoutParams(440, 520);
                     holder.itemView.setLayoutParams(layoutParams);
-                    ImageUtils.load(mPosterVos.get(position ).getPosterPath(), (ImageView) holder.itemView);
+                    ImageUtils.load(mPosterVos.get(position).getPosterPath(), (ImageView) holder.itemView);
                     break;
 
                 case 15:
@@ -120,7 +120,7 @@ public class MainVirtualAdapter extends VirtualLayoutAdapter {
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                     layoutParams = new ViewGroup.LayoutParams(440, 248);
                     holder.itemView.setLayoutParams(layoutParams);
-                    ImageUtils.load(mPosterVos.get(position ).getPosterPath(), (ImageView) holder.itemView);
+                    ImageUtils.load(mPosterVos.get(position).getPosterPath(), (ImageView) holder.itemView);
 
                     break;
 

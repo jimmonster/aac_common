@@ -13,11 +13,7 @@ import android.widget.LinearLayout;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
 import com.jinhong.jhtv.model.MainIdBean;
-import com.jinhong.jhtv.ui.fragment.DrawFragment;
-import com.jinhong.jhtv.ui.fragment.EducationFragment;
-import com.jinhong.jhtv.ui.fragment.GameFragment;
 import com.jinhong.jhtv.ui.fragment.MainFragment;
-import com.jinhong.jhtv.ui.fragment.ManualFragment;
 import com.jinhong.jhtv.ui.fragment.ToyFragment;
 import com.jinhong.jhtv.ui.views.AutoHorizontalScrollTextView;
 import com.jinhong.jhtv.utils.FocusUtils;
@@ -67,10 +63,10 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
         mFragments = new ArrayList<>();
         mFragments.add(new MainFragment().getInstance(data.getMain()));
         mFragments.add(new ToyFragment().getInstance(data.getToy()));
-        mFragments.add(new GameFragment().getInstance(data.getGame()));
-        mFragments.add(new ManualFragment().getInstance(data.getManual()));
-        mFragments.add(new EducationFragment().getInstance(data.getEducation()));
-        mFragments.add(new DrawFragment().getInstance(data.getDraw()));
+        mFragments.add(new ToyFragment().getInstance(data.getGame()));
+        mFragments.add(new ToyFragment().getInstance(data.getManual()));
+        mFragments.add(new ToyFragment().getInstance(data.getEducation()));
+        mFragments.add(new ToyFragment().getInstance(data.getDraw()));
     }
 
     private void initView() {

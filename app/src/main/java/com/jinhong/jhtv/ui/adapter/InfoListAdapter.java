@@ -2,6 +2,9 @@ package com.jinhong.jhtv.ui.adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
@@ -10,13 +13,10 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jinhong.jhtv.Constants;
 import com.jinhong.jhtv.R;
-import com.jinhong.jhtv.callback.JsonCallback;
 import com.jinhong.jhtv.model.CollectListBean;
 import com.jinhong.jhtv.model.IsCollectBean;
-import com.jinhong.jhtv.utils.OkGoUtils;
-import com.lzy.okgo.model.Response;
+import com.jinhong.jhtv.vm.viewmodel.CommonViewModel;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,10 +28,12 @@ import java.util.List;
  */
 public class InfoListAdapter extends BaseQuickAdapter<CollectListBean.DataBean.ListBean, BaseViewHolder> {
     List<CollectListBean.DataBean.ListBean> mListBeans;
+    CommonViewModel mCommonViewModel;
 
-    public InfoListAdapter(int layoutResId, @Nullable List<CollectListBean.DataBean.ListBean> data) {
+    public InfoListAdapter(int layoutResId, @Nullable List<CollectListBean.DataBean.ListBean> data, CommonViewModel commonViewModel) {
         super(layoutResId, data);
         mListBeans = data;
+        mCommonViewModel = commonViewModel;
     }
 
     @Override
@@ -79,20 +81,14 @@ public class InfoListAdapter extends BaseQuickAdapter<CollectListBean.DataBean.L
         mBtnSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                HashMap<String, String> params = new HashMap<>();
-                params.put("fatherId", "" + fatherId);
-                params.put("userId", userId);
-                OkGoUtils.post(Constants.POST_COLLECT_DELETE, params, new JsonCallback<IsCollectBean>() {
+                MutableLiveData<IsCollectBean> isCollectBean = mCommonViewModel.getIsCollectBean("" + fatherId, userId);
+                isCollectBean.observe((LifecycleOwner) mContext, new Observer<IsCollectBean>() {
                     @Override
-                    public void onSuccess(Response<IsCollectBean> response) {
-                        if (response != null) {
-                            IsCollectBean isCollectBean = response.body();
-                            if (isCollectBean.getStatus() == 0) {
-                                mListBeans.remove(layoutPosition);//集合移除该条
-                                notifyItemRemoved(layoutPosition);//通知移除该条
-                                notifyItemRangeChanged(layoutPosition, mListBeans.size() - layoutPosition);//更新适配器这条后面列表的变化
-                            }
+                    public void onChanged(@Nullable IsCollectBean isCollectBean) {
+                        if (isCollectBean.getStatus() == 0) {
+                            mListBeans.remove(layoutPosition);//集合移除该条
+                            notifyItemRemoved(layoutPosition);//通知移除该条
+                            notifyItemRangeChanged(layoutPosition, mListBeans.size() - layoutPosition);//更新适配器这条后面列表的变化
                         }
                     }
                 });

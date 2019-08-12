@@ -209,8 +209,12 @@ public class CommonViewModel extends ViewModel {
     //    "mainName":"奥特曼玩玩具",
     //    "dramaType":"玩具"
     //}
-    public MutableLiveData<UpdateCollectBean> updateCollectBean(HashMap<String, String> params) {
-
+    public MutableLiveData<UpdateCollectBean> updateCollectBean(String fatherId, String userId, String mainName, String dramaType) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("fatherId", fatherId);
+        params.put("userId", userId);
+        params.put("mainName", mainName);
+        params.put("dramaType", dramaType);
         //数据请求建议放在Repository，viewModel主攻业务
         return mRepository.requestUpdateCollectData(Constants.POST_COLLECT_SUBMIT, params);
     }

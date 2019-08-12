@@ -84,6 +84,7 @@ public class CategoryActivity extends BaseActivity {
         mRecyclerview.setAdapter(cyLeftAdapter);
         mCyFragment = new CyFragment(data.get(0).getId());
         FragmentUtils.add(getSupportFragmentManager(), mCyFragment, R.id.fl_replace_fragment);
+
         mLlContainer.setBackgroundResource(R.drawable.iv_category_bg);
         mIvLogo.setImageResource(R.drawable.iv_log_edt);
 
