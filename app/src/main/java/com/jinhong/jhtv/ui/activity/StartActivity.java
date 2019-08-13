@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
+import com.jinhong.jhtv.test.TestActivity1;
 
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnPermissionDenied;

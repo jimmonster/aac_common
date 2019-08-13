@@ -97,6 +97,7 @@
         <activity android:name=".test.ViewTestActivity"/>
         <activity android:name=".test.ViewModelActivity"/>
         <activity android:name=".ui.activity.MainActivity1"/>
+        <activity android:name=".test.TestActivity1"/>
 
 
         <!--适配基准-->

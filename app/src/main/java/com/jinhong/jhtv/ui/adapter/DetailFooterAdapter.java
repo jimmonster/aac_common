@@ -27,6 +27,7 @@ public class DetailFooterAdapter extends BaseQuickAdapter<DetailBean.DataBean.Po
     protected void convert(BaseViewHolder helper, DetailBean.DataBean.PosterVoListBean item) {
         FocusUtils.onFocusChange(helper.itemView);
         ImageUtils.load(R.id.iv_pics, (ImageView) helper.getView(R.id.iv_pics));
+        helper.setText(R.id.tv_title, item.getMainName());
 
     }
 

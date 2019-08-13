@@ -15,13 +15,19 @@ import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
+import com.jinhong.jhtv.model.MainIdBean;
+import com.jinhong.jhtv.model.MainListBean;
 import com.jinhong.jhtv.model.SearchBean;
 import com.jinhong.jhtv.ui.adapter.ItemFavoriteAdapter;
 import com.jinhong.jhtv.ui.adapter.ItemSearchInfoAdapter;
 import com.jinhong.jhtv.ui.adapter.KeyBoardAdapter;
+import com.jinhong.jhtv.utils.GsonUtil;
+import com.jinhong.jhtv.utils.IoUtils;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author :  Jim
@@ -37,7 +43,7 @@ public class SearchActivity extends BaseActivity {
     private TvRecyclerView mRecyclerViewFavorite;
 
     private String searchInfo = "";
-    private ArrayList<Integer> mFavorite;
+
     private SearchBean.DataBean mSearchInfoData;
     private ItemSearchInfoAdapter mSearchInfoAdapter;
     private MutableLiveData<SearchBean> mSearchBeanLiveData;
@@ -50,6 +56,8 @@ public class SearchActivity extends BaseActivity {
      * 小朋友们最爱看
      */
     private TextView mTvFavorite;
+    private MutableLiveData<MainListBean> mMainListBean;
+    private ArrayList<MainListBean.DataBean.PosterVosBean> mPosterVosBeans;
 
 
     @Override
@@ -72,16 +80,29 @@ public class SearchActivity extends BaseActivity {
             mLetters.add("" + i);
         }
 
+        String json = IoUtils.inputStreamToString(getResources().openRawResource(R.raw.data_main_id));
+        MainIdBean mainIdBean = GsonUtil.GsonToBean(json, MainIdBean.class);
+        MainIdBean.DataBean data = mainIdBean.getData();
+        mPosterVosBeans = new ArrayList<>();
 
-        mFavorite = new ArrayList<>();
-        mFavorite.add(R.drawable.iv_search_ip01);
-        mFavorite.add(R.drawable.iv_search_ip02);
-        mFavorite.add(R.drawable.iv_search_ip03);
-        mFavorite.add(R.drawable.iv_search_ip04);
-        mFavorite.add(R.drawable.iv_search_ip05);
-        mFavorite.add(R.drawable.iv_search_ip06);
-        //requestSearchInfo
+        mMainListBean = mCommonViewModel.getMainListBean(data.getMain());
+        mMainListBean.observe(this, new Observer<MainListBean>() {
+            @Override
+            public void onChanged(@Nullable MainListBean mainListBean) {
+                if (mainListBean != null) {
+                    List<MainListBean.DataBean.PosterVosBean> posterVos = mainListBean.getData().getPosterVos();
+                    Collections.sort(posterVos, (o1, o2) -> Integer.parseInt(o1.getPosterId().substring(3)) - Integer.parseInt(o2.getPosterId().substring(3)));
 
+                    for (int i = 8; i <= 13; i++) {
+                        if (posterVos.get(i) != null) {
+                            mPosterVosBeans.add(posterVos.get(i));
+                        }
+                    }
+
+                }
+
+            }
+        });
 
     }
 
@@ -101,9 +122,21 @@ public class SearchActivity extends BaseActivity {
 
 
         //推荐收藏
+
+
         mRecyclerViewFavorite = (TvRecyclerView) findViewById(R.id.recyclerView_favorite);
-        ItemFavoriteAdapter favoriteAdapter = new ItemFavoriteAdapter(R.layout.widget_item_favorite, mFavorite);
+        ItemFavoriteAdapter favoriteAdapter = new ItemFavoriteAdapter(R.layout.widget_item_favorite, mPosterVosBeans);
         mRecyclerViewFavorite.setAdapter(favoriteAdapter);
+        favoriteAdapter.bindToRecyclerView(mRecyclerViewFavorite);
+        favoriteAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putString("fatherId", "" + mPosterVosBeans.get(position).getFatherId());
+                startActivity(DetailActivity.class, bundle);
+            }
+        });
+
 
         //按键
         mRecyclerViewKeyboard = (TvRecyclerView) findViewById(R.id.recyclerView_keyboard);
@@ -119,7 +152,6 @@ public class SearchActivity extends BaseActivity {
                     default:
                         searchInfo += mLetters.get(position);
                         mTvSearchInfo.setText(searchInfo);
-                        //todo 请求后台
                         //最开始就请求一次热门的ip
 
                         mSearchBeanLiveData = mCommonViewModel.getSearchBean(searchInfo);
@@ -133,7 +165,6 @@ public class SearchActivity extends BaseActivity {
                             length--;
                             searchInfo = searchInfo.substring(0, length);
                             mTvSearchInfo.setText(searchInfo);
-                            //todo 请求后台
                             mSearchBeanLiveData = mCommonViewModel.getSearchBean(searchInfo);
                             setData2Adapter();
 
@@ -160,7 +191,6 @@ public class SearchActivity extends BaseActivity {
                     length--;
                     searchInfo = searchInfo.substring(0, length);
                     mTvSearchInfo.setText(searchInfo);
-                    //todo 请求后台
                     mSearchBeanLiveData = mCommonViewModel.getSearchBean(searchInfo);
                     setData2Adapter();
 
@@ -248,7 +278,6 @@ public class SearchActivity extends BaseActivity {
                     length--;
                     searchInfo = searchInfo.substring(0, length);
                     mTvSearchInfo.setText(searchInfo);
-                    //todo 请求后台
                     mSearchBeanLiveData = mCommonViewModel.getSearchBean(searchInfo);
                     setData2Adapter();
                 } else {

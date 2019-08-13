@@ -21,7 +21,7 @@
         android:ellipsize="end"
         android:gravity="center"
         android:singleLine="true"
-        android:text="小包变形记小包变形记小包变形记小包变形记"
+        android:text="口口口口口口"
         android:textColor="@color/white"
         android:textSize="24sp"/>
 

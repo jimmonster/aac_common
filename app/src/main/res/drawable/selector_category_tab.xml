@@ -12,7 +12,7 @@
                     <solid android:color="@android:color/transparent"/>
                 </shape>
             </item>
-            <item android:drawable="@drawable/iv_btn_game_press" >
+            <item android:drawable="@drawable/iv_btn_game_press">
             </item>
         </layer-list>
     </item>
@@ -24,7 +24,7 @@
                     <solid android:color="@android:color/transparent"/>
                 </shape>
             </item>
-            <item android:drawable="@drawable/iv_btn_game_normal" >
+            <item android:drawable="@drawable/iv_btn_game_normal">
             </item>
         </layer-list>
     </item>
@@ -38,7 +38,7 @@
                     <solid android:color="@android:color/transparent"/>
                 </shape>
             </item>
-            <item android:drawable="@drawable/iv_btn_game_focus" >
+            <item android:drawable="@drawable/iv_btn_game_focus">
             </item>
         </layer-list>
     </item>
