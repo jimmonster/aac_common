@@ -15,7 +15,7 @@
     <!--設定圓角，只適用於 rectangle-->
     <corners android:radius="30dp"/>
     <stroke
-        android:width="4dp"
+        android:width="8dp"
         android:color="#f47238"/>
     <!--設定描邊-->
 

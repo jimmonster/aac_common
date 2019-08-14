@@ -81,8 +81,8 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
     }
 
     public void setData2View(@NonNull RecordListBean recordListBean) {
-        int pages = recordListBean.getData().getPages();
-        mTvCurrentPage.setText(String.format("总共%d页", pages));
+        int size = recordListBean.getData().getSize();
+        mTvCurrentPage.setText(String.format("(共%d条)", size));
         RecordInfoListAdapter infoListAdapter = new RecordInfoListAdapter(R.layout.widget_record, recordListBean.getData().getList());
         mRecyclerView.setAdapter(infoListAdapter);
         infoListAdapter.bindToRecyclerView(mRecyclerView);

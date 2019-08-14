@@ -66,16 +66,15 @@ public class CollectionActivity extends BaseActivity implements View.OnClickList
             public void onChanged(@Nullable CollectListBean collectListBean) {
                 if (collectListBean != null) {
                     List<CollectListBean.DataBean.ListBean> listBeans = collectListBean.getData().getList();
-                    int pageNum = collectListBean.getData().getPageNum();
-                    int pages = collectListBean.getData().getPages();
+                    int size = collectListBean.getData().getSize();
 
 
-                    InfoListAdapter infoListAdapter = new InfoListAdapter(R.layout.widget_collection, listBeans,mCommonViewModel);
+                    InfoListAdapter infoListAdapter = new InfoListAdapter(R.layout.widget_collection, listBeans, mCommonViewModel);
                     mRecyclerView.setAdapter(infoListAdapter);
                     infoListAdapter.bindToRecyclerView(mRecyclerView);
 
                     //当前页数/总页数
-                    String format = String.format("(总共%s页)", pages);
+                    String format = String.format("(共%s条)", size);
                     mTvCurrentPage.setText(format);
                 }
             }

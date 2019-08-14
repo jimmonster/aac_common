@@ -42,7 +42,7 @@
             android:layout_alignLeft="@id/view"
             android:layout_centerVertical="true"
             android:layout_marginStart="130dp"
-            android:background="@drawable/selector_yellow_corner"
+            android:background="@drawable/iv_watch_btn_f"
             android:focusable="true"
             android:gravity="center_vertical"
             android:text="我的收藏"

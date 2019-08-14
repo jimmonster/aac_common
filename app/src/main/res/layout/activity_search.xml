@@ -164,7 +164,7 @@
         android:layout_marginTop="60dp"
         android:drawableLeft="@drawable/iv_search_up"
         android:drawablePadding="110dp"
-        android:text="(共1条搜索记录）"
+        android:text="(共0条搜索记录）"
         android:textColor="@color/gray_black"
         android:textSize="20sp"/>
 

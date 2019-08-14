@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
-import com.jinhong.jhtv.test.TestActivity1;
 
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnPermissionDenied;
@@ -31,7 +30,7 @@ public class StartActivity extends BaseActivity {
 
     private void jumpToNextActivity() {
         new Thread(() -> {
-            SystemClock.sleep(2000);
+            SystemClock.sleep(1000);
             startActivity(MainActivity1.class);
             finish();
         }).start();

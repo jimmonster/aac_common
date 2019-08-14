@@ -254,14 +254,13 @@ public class SearchActivity extends BaseActivity {
                                 //todo 跳转到详情页面
                                 Bundle bundle = new Bundle();
                                 bundle.putString("fatherId", "" + searchBean.getData().getList().get(position).getFatherId());
-                                startActivity(DetailActivity.class);
+                                startActivity(DetailActivity.class, bundle);
                             }
                         });
                     }
                 } catch (Exception e) {
                     LogUtils.e(e);
                 }
-
             }
         });
 

@@ -12,7 +12,7 @@ import com.jinhong.jhtv.R;
  * @description : 焦点工具类
  */
 public class FocusUtils {
-    final private static float NORMAL = 0.98f;
+    final private static float NORMAL = 0.95f;
     final private static float SELECT = 1.0f;
     final private static int DURATION = 200;
 
@@ -92,7 +92,6 @@ public class FocusUtils {
 //            }
 //        });
     }
-
 
 
     public static void unselected(View v) {

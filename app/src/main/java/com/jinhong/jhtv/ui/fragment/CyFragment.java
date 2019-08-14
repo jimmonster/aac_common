@@ -78,11 +78,10 @@ public class CyFragment extends BaseFragment {
                 int fatherId = programmeBean.getData().getList().get(position).getFatherId();
                 Bundle bundle = new Bundle();
                 bundle.putString("fatherId", "" + fatherId);
-                startActivity(DetailActivity.class);
+                startActivity(DetailActivity.class, bundle);
 
             }
         });
     }
-
 
 }
