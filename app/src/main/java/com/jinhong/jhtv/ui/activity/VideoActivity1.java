@@ -2,7 +2,7 @@ package com.jinhong.jhtv.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,8 +10,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -162,50 +162,68 @@ public class VideoActivity1 extends BaseActivity {
 
     }
 
+    @SuppressLint("NewApi")
     private void showDialogForExit() {
 
-        AlertDialog dialog = new AlertDialog.Builder(this).create();
-        dialog.setView(LayoutInflater.from(this).inflate(
-                R.layout.dialog_video_toast, null)); // 设置view
+        Dialog mDialog = new Dialog(this, R.style.video_style_dialog_progress);
+        mDialog.setContentView(R.layout.dialog_video_toast);
+        TextView mTvMessage = mDialog.findViewById(R.id.tv_message);
+        mTvMessage.setText("确定退出当前应用？");
+        Button mBtnExit = mDialog.findViewById(R.id.btn_exit);
+        Button mBtnWatching = mDialog.findViewById(R.id.btn_watching);
 
-        dialog.show(); //显示出来
-
-        TextView tvEnd = (TextView) dialog.findViewById(R.id.tv_end);
-        tvEnd.setOnClickListener(new View.OnClickListener() {
+        Button mBtnNext = mDialog.findViewById(R.id.btn_next);
+        mBtnNext.requestFocus();
+        mBtnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //结束播放
-                dialog.dismiss();
-                dialog.cancel();
-                //释放所有
-                mGsyPlayer.setVideoAllCallBack(null);
-                GSYVideoManager.releaseAllVideos();
-                finish();
+                //退出当前页面
+                endWatch();
+
             }
         });
-
-        TextView tvWatching = (TextView) dialog.findViewById(R.id.tv_watching);
-        tvWatching.setOnClickListener(new View.OnClickListener() {
+        mBtnWatching.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //继续观看
-                dialog.dismiss();
-                dialog.cancel();
+                mDialog.dismiss();
             }
         });
-
-        TextView tvNextCount = (TextView) dialog.findViewById(R.id.tv_next_count);
-        tvNextCount.setOnClickListener(new View.OnClickListener() {
+        mBtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //下一集
-                dialog.dismiss();
-                dialog.cancel();
+                //todo 加载下一集
 
-
+                mDialog.dismiss();
             }
         });
+        mDialog.create();
+        mDialog.show();
 
+
+    }
+
+    /**
+     * 结束播放
+     */
+    private void endWatch() {
+        //释放所有
+        mGsyPlayer.setVideoAllCallBack(null);
+        GSYVideoManager.releaseAllVideos();
+        finish();
+    }
+
+    /**
+     * 继续观看
+     */
+    private void watching() {
+
+    }
+
+    /**
+     * 播放下一集
+     */
+    private void nextWatch() {
 
     }
 

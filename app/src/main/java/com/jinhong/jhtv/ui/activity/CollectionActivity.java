@@ -54,14 +54,16 @@ public class CollectionActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initData() {
-
-
         mCollectListBean = mCommonViewModel.getCollectListBean("testott11", "1", "200");
     }
 
     private void initView() {
         mTvMovieRecord = (TextView) findViewById(R.id.tv_movie_record);
         mTvMovieRecord.setOnClickListener(this);
+        if (mTvMovieRecord.isSelected()) {
+            startActivity(RecordActivity.class);
+            finish();
+        }
         mTvMineCollection = (TextView) findViewById(R.id.tv_mine_collection);
         mTvCurrentPage = (TextView) findViewById(R.id.tv_current_page);
         mTvMineCollection.setOnClickListener(this);
@@ -149,7 +151,6 @@ public class CollectionActivity extends BaseActivity implements View.OnClickList
                     //当前页数/总页数
                     String format = String.format("(共%s条)", listBeans.size());
                     mTvCurrentPage.setText(format);
-
                 }
                 mDialog.dismiss();
 

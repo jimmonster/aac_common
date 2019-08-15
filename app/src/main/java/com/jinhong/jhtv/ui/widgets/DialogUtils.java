@@ -23,7 +23,7 @@ public class DialogUtils {
 
 
     public DialogUtils(Activity activity) {
-        mActivity=activity;
+        mActivity = activity;
         mDlg = new AlertDialog.Builder(activity).create();
         mDlg.setView(LayoutInflater.from(activity).inflate(
                 R.layout.dialog_video_toast, null)); // 设置view
@@ -48,7 +48,7 @@ public class DialogUtils {
         }
 
 
-        TextView tvEnd = (TextView) mDlg.findViewById(R.id.tv_end);
+        TextView tvEnd = (TextView) mDlg.findViewById(R.id.btn_exit);
         tvEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +57,7 @@ public class DialogUtils {
             }
         });
 
-        TextView tvWatching = (TextView) mDlg.findViewById(R.id.tv_watching);
+        TextView tvWatching = (TextView) mDlg.findViewById(R.id.btn_watching);
         tvWatching.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +66,7 @@ public class DialogUtils {
             }
         });
 
-        TextView tvNextCount = (TextView) mDlg.findViewById(R.id.tv_next_count);
+        TextView tvNextCount = (TextView) mDlg.findViewById(R.id.btn_next);
         tvNextCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

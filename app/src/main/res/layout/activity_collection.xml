@@ -10,8 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/iv_watch_hand"
-        >
+        android:background="@drawable/iv_watch_hand">
 
         <TextView
             android:id="@+id/view"

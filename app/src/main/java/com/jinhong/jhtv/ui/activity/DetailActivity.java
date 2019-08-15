@@ -178,15 +178,15 @@ public class DetailActivity extends BaseActivity {
             @Override
             public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
                 //todo 跳转到播放页面
-                jump2VideoActivity(position, childVos);
+                jump2VideoActivity(data, position, childVos);
 
             }
         });
         mTvPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo 跳转到播放页面
-                startActivity(VideoActivity1.class);
+                //todo 跳转到播放页面,先记录下观影记录
+                jump2VideoActivity(data, 0, childVos);
             }
         });
 
@@ -222,10 +222,23 @@ public class DetailActivity extends BaseActivity {
 
     }
 
-    public void jump2VideoActivity(int position, List<DetailBean.DataBean.ChildVosBean> childVos) {
-        Bundle bundle = new Bundle();
-        bundle.putString("url", childVos.get(position).getPlayUrl());
-        bundle.putInt("count", childVos.size());
-        startActivity(VideoActivity1.class, bundle);
+    /**
+     * 跳转到视频播放页面
+     *
+     * @param data     详情页参数
+     * @param position 当前集数
+     * @param childVos 当前对应的视频播放地址等
+     */
+    public void jump2VideoActivity(DetailBean.DataBean data, int position, List<DetailBean.DataBean.ChildVosBean> childVos) {
+            //  String playUrl = childVos.get(position).getPlayUrl();
+            mCommonViewModel.updateCollectBean("" + data.getFatherId(), "testott11", data.getMainName(), data.getDramaType());
+//                Bundle bundle = new Bundle();
+////                bundle.putString("url", playUrl);
+////                bundle.putInt("count", childVos.size());
+            startActivity(VideoActivity1.class);
+
+
+
+
     }
 }

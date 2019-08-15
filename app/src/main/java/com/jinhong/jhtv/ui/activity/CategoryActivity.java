@@ -76,6 +76,7 @@ public class CategoryActivity extends BaseActivity {
     }
 
     int index = 0;
+
     private void initData2View(CategoryLeftBean categoryLeftBean) {
 
         List<CategoryLeftBean.DataBean> data = categoryLeftBean.getData();
@@ -99,9 +100,11 @@ public class CategoryActivity extends BaseActivity {
             }
         });
 
+
         mRecyclerview.setOnItemListener(new TvRecyclerView.OnItemListener() {
             @Override
             public void onItemPreSelected(TvRecyclerView parent, View itemView, int position) {
+                index = mRecyclerview.getNextFocusRightId();
                 if (index == position) {
                     //当失去焦点时显示默认图片
                     itemView.setPressed(true);

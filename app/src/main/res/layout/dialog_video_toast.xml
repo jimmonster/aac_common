@@ -1,66 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/color_e0000000">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/transparent">
 
     <RelativeLayout
-        android:layout_width="300dp"
-        android:layout_height="400dp"
-        android:layout_centerInParent="true">
+        android:layout_width="786dp"
+        android:layout_height="441dp"
+        android:layout_gravity="center"
+        android:background="@drawable/iv_dialog_video_bg">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
-            android:text="是否退出当前界面"
-            android:textColor="@color/white"/>
+            android:layout_marginTop="35dp"
+            android:gravity="center"
+            android:text="感谢观看"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            android:textStyle="bold"/>
 
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="170dp"
+            android:gravity="center"
+            android:text="即将为你播放下一集.."
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="100dp">
+            android:layout_below="@id/tv_message"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="80dp">
 
-
-            <TextView
-                android:id="@+id/tv_end"
+            <Button
+                android:id="@+id/btn_exit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="35dp"
                 android:layout_weight="1"
-                android:background="@drawable/selector_page_next"
+                android:background="@drawable/selector_dialog_keycode"
                 android:focusable="true"
+                android:singleLine="true"
                 android:text="结束观看"
-                android:textColor="@color/white"
-                android:textSize="24sp"/>
+                android:textColor="@color/color_selector_white2black"
+                android:textSize="36sp"
+                />
 
-            <TextView
-                android:id="@+id/tv_watching"
+            <Button
+                android:id="@+id/btn_watching"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="35dp"
                 android:layout_weight="1"
-                android:background="@drawable/selector_page_next"
+                android:background="@drawable/selector_dialog_keycode"
                 android:focusable="true"
+                android:singleLine="true"
                 android:text="继续观看"
-                android:textColor="@color/white"
-                android:textSize="24sp"/>
+                android:textColor="@color/color_selector_white2black"
+                android:textSize="36sp"
+                />
 
-            <TextView
-                android:id="@+id/tv_next_count"
+
+            <Button
+                android:id="@+id/btn_next"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/selector_page_next"
+                android:background="@drawable/selector_dialog_keycode"
                 android:focusable="true"
+                android:singleLine="true"
                 android:text="下一集"
-                android:textColor="@color/white"
-                android:textSize="24sp"/>
+                android:textColor="@color/color_selector_white2black"
+                android:textSize="36sp"/>
 
         </LinearLayout>
 
 
     </RelativeLayout>
 
-</RelativeLayout>
+
+</FrameLayout>
