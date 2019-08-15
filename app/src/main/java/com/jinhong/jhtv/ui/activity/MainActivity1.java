@@ -1,5 +1,6 @@
 package com.jinhong.jhtv.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -77,6 +78,7 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
         mIvLogo = (ImageView) findViewById(R.id.iv_logo);
         mAstvNotify = (AutoHorizontalScrollTextView) findViewById(R.id.astv_notify);
         mIvSearch = (ImageView) findViewById(R.id.iv_search);
+        mIvSearch.requestFocus();
         mIvCollection = (ImageView) findViewById(R.id.iv_collection);
         mIvRecord = (ImageView) findViewById(R.id.iv_record);
 
@@ -96,7 +98,6 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
         TabLayout.Tab tab = mTabLayout.newTab().setCustomView(R.layout.tab_layout_item);
         mTabLayout.addTab(tab);
         FocusUtils.onFocusChange(tab.view, R.drawable.selector_main_tab0);
-
         TabLayout.Tab tab1 = mTabLayout.newTab().setCustomView(R.layout.tab_layout_item);
         mTabLayout.addTab(tab1);
         FocusUtils.onFocusChange(tab1.view, R.drawable.selector_main_tab1);
@@ -117,10 +118,10 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
 
         mTabLayout.addTab(tab5);
         FocusUtils.onFocusChange(tab5.view, R.drawable.selector_main_tab5);
-
         mViewPager.setAdapter(viewpagerAdapter);
         mViewPager.setOffscreenPageLimit(-1);
         mTabLayout.setupWithViewPager(mViewPager);
+
 
     }
 
@@ -142,6 +143,7 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
         }
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void onBackPressed() {
 

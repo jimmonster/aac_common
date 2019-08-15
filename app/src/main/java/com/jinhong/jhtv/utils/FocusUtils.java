@@ -76,7 +76,7 @@ public class FocusUtils {
 
 
     public static void onFocusChange(View view, int selected) {
-        unselected(view, selected);
+        setResoure(view, selected);
 
 //        view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 //            @RequiresApi(api = Build.VERSION_CODES.M)
@@ -117,6 +117,14 @@ public class FocusUtils {
         v.animate().scaleY(SELECT).scaleX(SELECT).setDuration(DURATION).start();
 
     }
+
+    public static void setResoure(View v, int drawable) {
+        v.setBackgroundResource(drawable);
+        v.animate().scaleY(SELECT).scaleX(SELECT).setDuration(DURATION).start();
+
+    }
+
+
 
     public static void selected(View v, int drawable) {
         v.setSelected(true);

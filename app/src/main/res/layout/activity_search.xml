@@ -28,8 +28,8 @@
         android:paddingStart="64dp"
         android:paddingEnd="120dp"
         android:singleLine="true"
-        android:textColor="@color/common_black"
-        android:textColorHint="@color/common_black"
+        android:textColor="@color/color_blue_44b1f5"
+        android:textColorHint="@color/color_blue_44b1f5"
         android:textSize="20sp"/>
 
 
@@ -172,13 +172,20 @@
     <com.owen.tvrecyclerview.widget.TvRecyclerView
         android:id="@+id/recyclerView_info"
         android:layout_width="match_parent"
-        android:layout_height="590dp"
+        android:layout_height="580dp"
         android:layout_alignParentTop="true"
         android:layout_marginStart="64dp"
         android:layout_marginTop="100dp"
         android:layout_toEndOf="@id/tv_search_info"
+        android:descendantFocusability="afterDescendants"
         android:orientation="vertical"
         android:scrollbars="none"
+        app:tv_horizontalSpacingWithMargins="20dp"
+        app:tv_layoutManager="GridLayoutManager"
+        app:tv_numColumns="1"
+        app:tv_numRows="1"
+        app:tv_optimizeLayout="false"
+        app:tv_selectedItemIsCentered="false"
         app:tv_verticalSpacingWithMargins="12dp">
 
     </com.owen.tvrecyclerview.widget.TvRecyclerView>

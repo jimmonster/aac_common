@@ -75,7 +75,7 @@ public class CategoryActivity extends BaseActivity {
 
     }
 
-
+    int index = 0;
     private void initData2View(CategoryLeftBean categoryLeftBean) {
 
         List<CategoryLeftBean.DataBean> data = categoryLeftBean.getData();
@@ -85,15 +85,45 @@ public class CategoryActivity extends BaseActivity {
         mCyFragment = new CyFragment(data.get(0).getId());
         FragmentUtils.add(getSupportFragmentManager(), mCyFragment, R.id.fl_replace_fragment);
 
-        mLlContainer.setBackgroundResource(R.drawable.iv_category_bg);
+        //  mLlContainer.setBackgroundResource(R.drawable.iv_category_bg);
         mIvLogo.setImageResource(R.drawable.iv_log_edt);
 
         mRecyclerview.setSelection(0);
+        cyLeftAdapter.bindToRecyclerView(mRecyclerview);
+
         cyLeftAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 mCyFragment = new CyFragment(data.get(position).getId());
                 FragmentUtils.replace(getSupportFragmentManager(), mCyFragment, R.id.fl_replace_fragment);
+            }
+        });
+
+        mRecyclerview.setOnItemListener(new TvRecyclerView.OnItemListener() {
+            @Override
+            public void onItemPreSelected(TvRecyclerView parent, View itemView, int position) {
+                if (index == position) {
+                    //当失去焦点时显示默认图片
+                    itemView.setPressed(true);
+                    itemView.setSelected(true);
+                } else {
+                    index = position;
+                }
+
+            }
+
+            @Override
+            public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
+
+                mCyFragment = new CyFragment(data.get(position).getId());
+                FragmentUtils.replace(getSupportFragmentManager(), mCyFragment, R.id.fl_replace_fragment);
+
+            }
+
+            @Override
+            public void onItemClick(TvRecyclerView parent, View itemView, int position) {
+
+                toast("onItemClick");
             }
         });
 

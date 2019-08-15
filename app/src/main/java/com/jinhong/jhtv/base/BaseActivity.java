@@ -9,12 +9,12 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.TimeUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.ui.widgets.BorderView;
 import com.jinhong.jhtv.ui.widgets.LoadingFrame;
@@ -101,8 +101,8 @@ public abstract class BaseActivity extends AppCompatActivity {
      *
      * @param str
      */
-    public void toast(String str) {
-        ToastUtils.showShort(str);
+    public void toast(Object str) {
+        Toast.makeText(this, "" + str, Toast.LENGTH_SHORT).show();
     }
 
     /**

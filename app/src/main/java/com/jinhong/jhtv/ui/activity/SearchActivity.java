@@ -4,7 +4,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -117,9 +117,13 @@ public class SearchActivity extends BaseActivity {
 
         //搜索内容
         mRecyclerViewInfo = (TvRecyclerView) findViewById(R.id.recyclerView_info);
-        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(this);
-        mRecyclerViewInfo.setLayoutManager(linearLayoutManager1);
-
+        List<SearchBean.DataBean.ListBean> data = new ArrayList<>();
+        SearchBean.DataBean.ListBean listBean = new SearchBean.DataBean.ListBean();
+        listBean.setMainName("当前请求数据为空");
+        data.add(listBean);
+        mSearchInfoAdapter = new ItemSearchInfoAdapter(R.layout.widget_item_search_info, data);
+        mRecyclerViewInfo.setAdapter(mSearchInfoAdapter);
+        mSearchInfoAdapter.bindToRecyclerView(mRecyclerViewInfo);
 
         //推荐收藏
 
@@ -246,15 +250,17 @@ public class SearchActivity extends BaseActivity {
                 try {
                     if (searchBean.getData() != null) {
                         mTvCurrentPage.setText(String.format("(共%d条搜索记录）", searchBean.getData().getSize()));
-                        mSearchInfoAdapter = new ItemSearchInfoAdapter(R.layout.widget_item_search_info, searchBean.getData().getList());
-                        mRecyclerViewInfo.setAdapter(mSearchInfoAdapter);
+                        mSearchInfoAdapter.setNewData(searchBean.getData().getList());
                         mSearchInfoAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                 //todo 跳转到详情页面
                                 Bundle bundle = new Bundle();
                                 bundle.putString("fatherId", "" + searchBean.getData().getList().get(position).getFatherId());
-                                startActivity(DetailActivity.class, bundle);
+                                if (!TextUtils.isEmpty("" + searchBean.getData().getList().get(position).getFatherId())) {
+                                    startActivity(DetailActivity.class, bundle);
+                                }
+
                             }
                         });
                     }

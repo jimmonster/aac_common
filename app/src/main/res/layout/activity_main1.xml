@@ -5,7 +5,6 @@
     android:id="@+id/ll_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="@drawable/iv_qinzi_main_bg"
     android:clipChildren="false"
     android:clipToPadding="false"
@@ -31,7 +30,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:background="@drawable/selector_main_record"/>
+            android:background="@drawable/selector_main_record"
+            android:focusable="true"/>
 
         <ImageView
             android:id="@+id/iv_collection"
@@ -40,7 +40,8 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:layout_toLeftOf="@id/iv_record"
-            android:background="@drawable/selector_main_collection"/>
+            android:background="@drawable/selector_main_collection"
+            android:focusable="true"/>
 
         <ImageView
             android:id="@+id/iv_search"
@@ -49,7 +50,8 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="50dp"
             android:layout_toLeftOf="@id/iv_collection"
-            android:background="@drawable/selector_main_search"/>
+            android:background="@drawable/selector_main_search"
+            android:focusable="true"/>
 
 
         <com.jinhong.jhtv.ui.views.AutoHorizontalScrollTextView
@@ -64,7 +66,7 @@
             android:paddingEnd="30dp"
             android:singleLine="true"
             android:text="@string/test_info"
-            android:textColor="#074b52"
+            android:textColor="@color/color_blue_074b52"
             android:textSize="24sp"/>
 
 
@@ -77,6 +79,8 @@
         android:layout_height="100dp"
         android:layout_marginStart="80dp"
         android:layout_marginEnd="80dp"
+        android:focusable="true"
+        android:descendantFocusability="afterDescendants"
         app:tabBackground="@drawable/selector_main_indicator"
         app:tabGravity="fill"
         app:tabIndicatorHeight="0dp"

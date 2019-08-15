@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
           android:id="@+id/tv_item_search_info"
-          android:layout_width="1004dp"
+          android:layout_width="match_parent"
           android:layout_height="106dp"
           android:background="@drawable/iv_search_sbg"
           android:ellipsize="end"
+          android:focusable="true"
           android:gravity="center_vertical"
           android:paddingStart="80dp"
           android:paddingEnd="80dp"
           android:singleLine="true"
-          android:focusable="true"
           android:text="小猪佩奇玩玩具"
           android:textColor="@color/white"
           android:textSize="36sp">

@@ -96,6 +96,7 @@ public class DetailActivity extends BaseActivity {
         mTvIsCollection = (TextView) findViewById(R.id.tv_isCollection);
         mLlDiv = (LinearLayout) findViewById(R.id.ll_div);
 
+
     }
 
     private void initData() {
@@ -177,13 +178,18 @@ public class DetailActivity extends BaseActivity {
             @Override
             public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
                 //todo 跳转到播放页面
-                Bundle bundle = new Bundle();
-                bundle.putString("url", childVos.get(position).getPlayUrl());
-                bundle.putInt("count", childVos.size());
-                startActivity(VideoActivity1.class, bundle);
+                jump2VideoActivity(position, childVos);
 
             }
         });
+        mTvPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //todo 跳转到播放页面
+                startActivity(VideoActivity1.class);
+            }
+        });
+
         //推荐海报
         mDetailFooterAdapter = new DetailFooterAdapter(R.layout.widget_item_detail, data.getPosterVoList());
         mRecyclerViewRecommend.setAdapter(mDetailFooterAdapter);
@@ -216,5 +222,10 @@ public class DetailActivity extends BaseActivity {
 
     }
 
-
+    public void jump2VideoActivity(int position, List<DetailBean.DataBean.ChildVosBean> childVos) {
+        Bundle bundle = new Bundle();
+        bundle.putString("url", childVos.get(position).getPlayUrl());
+        bundle.putInt("count", childVos.size());
+        startActivity(VideoActivity1.class, bundle);
+    }
 }

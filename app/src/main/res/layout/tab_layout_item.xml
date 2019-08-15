@@ -2,6 +2,7 @@
 <ImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/iv_tab_item"
+    android:focusableInTouchMode="true"
     android:layout_width="268dp"
     android:layout_height="100dp"
     android:background="@drawable/selector_main_tab0"

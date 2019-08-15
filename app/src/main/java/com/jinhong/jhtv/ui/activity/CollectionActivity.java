@@ -1,18 +1,24 @@
 package com.jinhong.jhtv.ui.activity;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
 import com.jinhong.jhtv.model.CollectListBean;
+import com.jinhong.jhtv.model.DeleteRecordBean;
 import com.jinhong.jhtv.ui.adapter.InfoListAdapter;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,6 +43,7 @@ public class CollectionActivity extends BaseActivity implements View.OnClickList
      */
     private TextView mTvCurrentPage;
 
+    List<CollectListBean.DataBean.ListBean> listBeans;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,26 +68,49 @@ public class CollectionActivity extends BaseActivity implements View.OnClickList
         mTvMineCollection.setSelected(true);
         mTvMineCollection.requestFocus();
         mRecyclerView = (TvRecyclerView) findViewById(R.id.recyclerView);
+        mRecyclerView.setSelection(0);
+        listBeans = new ArrayList<>();
+        InfoListAdapter infoListAdapter = new InfoListAdapter(R.layout.widget_collection, listBeans);
+        mRecyclerView.setAdapter(infoListAdapter);
+        infoListAdapter.bindToRecyclerView(mRecyclerView);
         mCollectListBean.observe(this, new Observer<CollectListBean>() {
             @Override
             public void onChanged(@Nullable CollectListBean collectListBean) {
                 if (collectListBean != null) {
-                    List<CollectListBean.DataBean.ListBean> listBeans = collectListBean.getData().getList();
+
+                    listBeans = collectListBean.getData().getList();
                     int size = collectListBean.getData().getSize();
-
-
-                    InfoListAdapter infoListAdapter = new InfoListAdapter(R.layout.widget_collection, listBeans, mCommonViewModel);
-                    mRecyclerView.setAdapter(infoListAdapter);
-                    infoListAdapter.bindToRecyclerView(mRecyclerView);
-
+                    infoListAdapter.setNewData(listBeans);
                     //当前页数/总页数
                     String format = String.format("(共%s条)", size);
                     mTvCurrentPage.setText(format);
                 }
             }
         });
+        infoListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                String fatherId = "" + listBeans.get(position).getFatherId();
+                TextView tvIsCollection = view.findViewById(R.id.tv_isCollection);
+                switch (view.getId()) {
+                    default:
+                        break;
+                    case R.id.tv_isCollection:
+                        showDialog(infoListAdapter, listBeans, position);
+                        tvIsCollection.requestFocus();
+                        break;
+                    case R.id.tv_play:
+                        Bundle bundle = new Bundle();
+                        bundle.putString("fatherId", fatherId);
+                        startActivity(DetailActivity.class, bundle);
+                        break;
+                }
+            }
+        });
+
 
     }
+
 
     @Override
     public void onClick(View v) {
@@ -95,6 +125,45 @@ public class CollectionActivity extends BaseActivity implements View.OnClickList
             case R.id.tv_mine_collection:
                 break;
         }
+    }
+
+    @SuppressLint("NewApi")
+    private void showDialog(InfoListAdapter infoListAdapter, List<CollectListBean.DataBean.ListBean> listBeans, int layoutPosition) {
+        String fatherId = "" + listBeans.get(layoutPosition).getFatherId();
+        String userId = listBeans.get(layoutPosition).getUserId();
+        Dialog mDialog = new Dialog(this, R.style.video_style_dialog_progress);
+        mDialog.setContentView(R.layout.dialog_common);
+        TextView mTvMessage = mDialog.findViewById(R.id.tv_message);
+        Button mBtnSure = mDialog.findViewById(R.id.btn_sure);
+        Button mBtnCancel = mDialog.findViewById(R.id.btn_cancel);
+        mBtnCancel.requestFocus();
+        mBtnSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MutableLiveData<DeleteRecordBean> deleteRecordBean = mCommonViewModel.getDeleteRecordBean(fatherId, userId);
+                if (listBeans.size() > layoutPosition) {
+                    log(layoutPosition);
+                    listBeans.remove(layoutPosition);//集合移除该条
+                    infoListAdapter.notifyItemRemoved(layoutPosition);//通知移除该条
+                    infoListAdapter.notifyItemRangeChanged(layoutPosition, listBeans.size() - layoutPosition);//更新适配器这条后面列表的变化
+                    //当前页数/总页数
+                    String format = String.format("(共%s条)", listBeans.size());
+                    mTvCurrentPage.setText(format);
+
+                }
+                mDialog.dismiss();
+
+            }
+        });
+        mBtnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDialog.dismiss();
+            }
+        });
+        mDialog.create();
+        mDialog.show();
+
     }
 }
 
