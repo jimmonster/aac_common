@@ -1,12 +1,14 @@
 package com.jinhong.jhtv.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
+import com.jinhong.jhtv.model.DeleteRecordBean;
 import com.jinhong.jhtv.model.DetailBean;
 import com.jinhong.jhtv.model.IsCollectBean;
 import com.jinhong.jhtv.model.UpdateCollectBean;
@@ -121,6 +124,7 @@ public class DetailActivity extends BaseActivity {
 
     }
 
+    int status = -1;
 
     @SuppressLint("DefaultLocale")
     private void initData2View(DetailBean detailBean) {
@@ -137,33 +141,40 @@ public class DetailActivity extends BaseActivity {
         isCollectBean.observe(this, new Observer<IsCollectBean>() {
             @Override
             public void onChanged(@Nullable IsCollectBean isCollectBean) {
-                if (isCollectBean.getStatus() == 0) {
+                status = isCollectBean.getStatus();
+                if (status == 0) {
+                    //已经收藏
                     mTvIsCollection.setBackgroundResource(R.drawable.selector_collection_yes);
 
                 } else {
+                    //还未收藏
                     mTvIsCollection.setBackgroundResource(R.drawable.selector_collection_no);
-
-                    mTvIsCollection.setOnClickListener(new View.OnClickListener() {
+                }
+            }
+        });
+        mTvIsCollection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (status == 0) {
+                    status = -1;
+                    //已经收藏
+                    showDialog(fatherId, "testott11");
+                } else {
+                    //还未收藏
+                    mTvIsCollection.setBackgroundResource(R.drawable.selector_collection_no);
+                    MutableLiveData<UpdateCollectBean> updateCollectBean = mCommonViewModel.updateCollectBean(fatherId, "testott11", data.getMainName(), data.getDramaType());
+                    updateCollectBean.observe(DetailActivity.this, new Observer<UpdateCollectBean>() {
                         @Override
-                        public void onClick(View v) {
-
-                            MutableLiveData<UpdateCollectBean> updateCollectBean = mCommonViewModel.updateCollectBean("" + data.getFatherId(), "testott11", data.getMainName(), data.getDramaType());
-
-                            updateCollectBean.observe(DetailActivity.this, new Observer<UpdateCollectBean>() {
-                                @Override
-                                public void onChanged(@Nullable UpdateCollectBean updateCollectBean) {
-                                    if (updateCollectBean.getStatus() == 0) {
-                                        mTvIsCollection.setBackgroundResource(R.drawable.selector_collection_yes);
-                                    } else {
-                                        mTvIsCollection.setBackgroundResource(R.drawable.selector_collection_no);
-
-                                    }
-
-                                }
-                            });
+                        public void onChanged(@Nullable UpdateCollectBean updateCollectBean) {
+                            if (updateCollectBean.getStatus() == 0) {
+                                status = 0;
+                                mTvIsCollection.setBackgroundResource(R.drawable.selector_collection_yes);
+                            }
                         }
                     });
+
                 }
+
             }
         });
 
@@ -230,15 +241,53 @@ public class DetailActivity extends BaseActivity {
      * @param childVos 当前对应的视频播放地址等
      */
     public void jump2VideoActivity(DetailBean.DataBean data, int position, List<DetailBean.DataBean.ChildVosBean> childVos) {
-            //  String playUrl = childVos.get(position).getPlayUrl();
-            mCommonViewModel.updateCollectBean("" + data.getFatherId(), "testott11", data.getMainName(), data.getDramaType());
+
+
+        //  String playUrl = childVos.get(position).getPlayUrl();
+        mCommonViewModel.updateCollectBean("" + data.getFatherId(), "testott11", data.getMainName(), data.getDramaType());
 //                Bundle bundle = new Bundle();
 ////                bundle.putString("url", playUrl);
 ////                bundle.putInt("count", childVos.size());
-            startActivity(VideoActivity1.class);
+        startActivity(VideoActivity1.class);
 
 
+    }
 
+
+    @SuppressLint("NewApi")
+    private void showDialog(String fatherId, String userId) {
+
+        Dialog mDialog = new Dialog(this, R.style.video_style_dialog_progress);
+        mDialog.setContentView(R.layout.dialog_common);
+        TextView mTvMessage = mDialog.findViewById(R.id.tv_message);
+        Button mBtnSure = mDialog.findViewById(R.id.btn_sure);
+        Button mBtnCancel = mDialog.findViewById(R.id.btn_cancel);
+        mBtnCancel.requestFocus();
+        mBtnSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MutableLiveData<DeleteRecordBean> deleteRecordBean = mCommonViewModel.getDeleteRecordBean(fatherId, userId);
+                deleteRecordBean.observe(DetailActivity.this, new Observer<DeleteRecordBean>() {
+                    @Override
+                    public void onChanged(@Nullable DeleteRecordBean deleteRecordBean) {
+                        if (deleteRecordBean.getStatus() == 0) {
+                            status = -1;
+                            mTvIsCollection.setBackgroundResource(R.drawable.selector_collection_no);
+                        }
+                    }
+                });
+                mDialog.dismiss();
+
+            }
+        });
+        mBtnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDialog.dismiss();
+            }
+        });
+        mDialog.create();
+        mDialog.show();
 
     }
 }

@@ -59,8 +59,6 @@ public class CyFragment extends BaseFragment {
         mRecyclerView = (TvRecyclerView) view.findViewById(R.id.recyclerView_right);
 
         mListBeans = new ArrayList<>();
-
-        mTvPageCount.setText(String.format("共%d条", mListBeans.size()));
         mCyRightAdapter = new CyRightAdapter(R.layout.widget_cy_poster, mListBeans);
         mRecyclerView.setAdapter(mCyRightAdapter);
         mCyRightAdapter.bindToRecyclerView(mRecyclerView);
@@ -70,6 +68,7 @@ public class CyFragment extends BaseFragment {
                 if (programmeBean != null) {
                     mListBeans = programmeBean.getData().getList();
                     mCyRightAdapter.setNewData(mListBeans);
+                    mTvPageCount.setText(String.format("共%d条", mListBeans.size()));
                 }
             }
         });
@@ -80,7 +79,6 @@ public class CyFragment extends BaseFragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("fatherId", "" + fatherId);
                 startActivity(DetailActivity.class, bundle);
-
             }
         });
 
