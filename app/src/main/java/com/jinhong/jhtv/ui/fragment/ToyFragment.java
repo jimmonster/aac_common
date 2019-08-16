@@ -129,8 +129,7 @@ public class ToyFragment extends BaseFragment {
                             break;
                         case 9:
                             Bundle bundle = new Bundle();
-                            //todo 获取真正的columnId
-                            bundle.putString("columnId", "10037");
+                            bundle.putString("columnId", mColumnId);
                             startActivity(CategoryActivity.class, bundle);
                             break;
 

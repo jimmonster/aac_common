@@ -13,10 +13,15 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
 import com.jinhong.jhtv.model.CategoryLeftBean;
+import com.jinhong.jhtv.model.MainIdBean;
 import com.jinhong.jhtv.ui.adapter.CyLeftAdapter;
 import com.jinhong.jhtv.ui.fragment.CyFragment;
+import com.jinhong.jhtv.utils.GsonUtil;
+import com.jinhong.jhtv.utils.ImageUtils;
+import com.jinhong.jhtv.utils.IoUtils;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +40,9 @@ public class CategoryActivity extends BaseActivity {
     private String columnId;
 
     private LinearLayout mLlContainer;
+    List<CategoryLeftBean.DataBean> dataBeanList;
+    private MutableLiveData<CategoryLeftBean> mCategoryLeftListBean;
+    private MainIdBean.DataBean mMainIdBeanData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,91 +53,91 @@ public class CategoryActivity extends BaseActivity {
             columnId = bundleExtra.getString("columnId", "");
 
         }
-        initView();
         initData();
+        initView();
 
 
     }
+
+    private void initData() {
+        String json = IoUtils.inputStreamToString(getResources().openRawResource(R.raw.data_main_id));
+        MainIdBean mainIdBean = GsonUtil.GsonToBean(json, MainIdBean.class);
+        mMainIdBeanData = mainIdBean.getData();
+        mCategoryLeftListBean = mCommonViewModel.getCategoryLeftListBean(columnId);
+
+
+    }
+
 
     private void initView() {
         mLlContainer = (LinearLayout) findViewById(R.id.ll_container);
         mIvLogo = (ImageView) findViewById(R.id.iv_logo);
         mRecyclerview = (TvRecyclerView) findViewById(R.id.recyclerview);
+        //加载对应log
+        if (columnId.equals(mMainIdBeanData.getDraw())) {
+            ImageUtils.load(R.drawable.iv_log_huihua, mIvLogo);
+        } else if (columnId.equals(mMainIdBeanData.getManual())) {
+            ImageUtils.load(R.drawable.iv_log_shougong, mIvLogo);
+        } else if (columnId.equals(mMainIdBeanData.getToy())) {
+            ImageUtils.load(R.drawable.iv_log_toy, mIvLogo);
+        } else if (columnId.equals(mMainIdBeanData.getGame())) {
+            ImageUtils.load(R.drawable.iv_log_game, mIvLogo);
+        } else if (columnId.equals(mMainIdBeanData.getEducation())) {
+            ImageUtils.load(R.drawable.iv_log_edt, mIvLogo);
+        }
 
-    }
 
-    private void initData() {
+        dataBeanList = new ArrayList<>();
+        CyLeftAdapter cyLeftAdapter = new CyLeftAdapter(R.layout.widget_cy_text, dataBeanList);
+        mRecyclerview.setAdapter(cyLeftAdapter);
+        mRecyclerview.setSelection(0);
+        cyLeftAdapter.bindToRecyclerView(mRecyclerview);
 
-        MutableLiveData<CategoryLeftBean> categoryLeftListBean = mCommonViewModel.getCategoryLeftListBean(columnId);
-        categoryLeftListBean.observe(CategoryActivity.this, new Observer<CategoryLeftBean>() {
+        mCategoryLeftListBean.observe(CategoryActivity.this, new Observer<CategoryLeftBean>() {
             @Override
             public void onChanged(@Nullable CategoryLeftBean categoryLeftBean) {
                 if (categoryLeftBean != null) {
+                    dataBeanList = categoryLeftBean.getData();
+                    cyLeftAdapter.setNewData(dataBeanList);
+                    if (mCyFragment == null) {
+                        mCyFragment = new CyFragment(CategoryActivity.this.dataBeanList.get(0).getId());
+                        FragmentUtils.add(getSupportFragmentManager(), mCyFragment, R.id.fl_replace_fragment);
+                    }
 
-                    initData2View(categoryLeftBean);
+                    //  mLlContainer.setBackgroundResource(R.drawable.iv_category_bg);
                 }
 
             }
         });
-
-
-    }
-
-    int index = 0;
-
-    private void initData2View(CategoryLeftBean categoryLeftBean) {
-
-        List<CategoryLeftBean.DataBean> data = categoryLeftBean.getData();
-
-        CyLeftAdapter cyLeftAdapter = new CyLeftAdapter(R.layout.widget_cy_text, data);
-        mRecyclerview.setAdapter(cyLeftAdapter);
-        mCyFragment = new CyFragment(data.get(0).getId());
-        FragmentUtils.add(getSupportFragmentManager(), mCyFragment, R.id.fl_replace_fragment);
-
-        //  mLlContainer.setBackgroundResource(R.drawable.iv_category_bg);
-        mIvLogo.setImageResource(R.drawable.iv_log_edt);
-
-        mRecyclerview.setSelection(0);
-        cyLeftAdapter.bindToRecyclerView(mRecyclerview);
 
         cyLeftAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                mCyFragment = new CyFragment(data.get(position).getId());
+                mCyFragment = new CyFragment(dataBeanList.get(position).getId());
                 FragmentUtils.replace(getSupportFragmentManager(), mCyFragment, R.id.fl_replace_fragment);
             }
         });
 
-
         mRecyclerview.setOnItemListener(new TvRecyclerView.OnItemListener() {
             @Override
             public void onItemPreSelected(TvRecyclerView parent, View itemView, int position) {
-                index = mRecyclerview.getNextFocusRightId();
-                if (index == position) {
-                    //当失去焦点时显示默认图片
-                    itemView.setPressed(true);
-                    itemView.setSelected(true);
-                } else {
-                    index = position;
-                }
+                //上次选中
 
             }
 
             @Override
             public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
-
-                mCyFragment = new CyFragment(data.get(position).getId());
+                //当前选中
+                mCyFragment = new CyFragment(dataBeanList.get(position).getId());
                 FragmentUtils.replace(getSupportFragmentManager(), mCyFragment, R.id.fl_replace_fragment);
-
             }
 
             @Override
             public void onItemClick(TvRecyclerView parent, View itemView, int position) {
+                //点击
 
-                toast("onItemClick");
             }
         });
-
     }
 
 

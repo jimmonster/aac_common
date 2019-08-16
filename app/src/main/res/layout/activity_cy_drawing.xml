@@ -4,7 +4,7 @@
               android:id="@+id/ll_container"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@drawable/iv_qinzi_main_bg"
+              android:background="@drawable/iv_bg_game"
               android:clipChildren="false"
               android:clipToPadding="false"
               android:orientation="horizontal">

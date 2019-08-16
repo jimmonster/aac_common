@@ -16,6 +16,9 @@ import com.jinhong.jhtv.ui.activity.DetailActivity;
 import com.jinhong.jhtv.ui.adapter.CyRightAdapter;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author :  Jim
  * @date :  2019-07-11
@@ -29,6 +32,7 @@ public class CyFragment extends BaseFragment {
     private CyRightAdapter mCyRightAdapter;
     private MutableLiveData<ProgrammeBean> mProgrammeBean;
     private TextView mTvPageCount;
+    private List<ProgrammeBean.DataBean.ListBean> mListBeans;
 
     public CyFragment(int data) {
         columnId = data;
@@ -43,7 +47,6 @@ public class CyFragment extends BaseFragment {
     @Override
     protected void initData() {
         super.initData();
-
         mProgrammeBean = mCommonViewModel.getProgrammeBean("" + columnId);
 
     }
@@ -54,34 +57,35 @@ public class CyFragment extends BaseFragment {
 
         //右边内容
         mRecyclerView = (TvRecyclerView) view.findViewById(R.id.recyclerView_right);
-//        mRecyclerView.addItemDecoration(new GridItemDecoration(0,0));
+
+        mListBeans = new ArrayList<>();
+
+        mTvPageCount.setText(String.format("共%d条", mListBeans.size()));
+        mCyRightAdapter = new CyRightAdapter(R.layout.widget_cy_poster, mListBeans);
+        mRecyclerView.setAdapter(mCyRightAdapter);
+        mCyRightAdapter.bindToRecyclerView(mRecyclerView);
         mProgrammeBean.observe(getActivity(), new Observer<ProgrammeBean>() {
             @Override
             public void onChanged(@Nullable ProgrammeBean programmeBean) {
                 if (programmeBean != null) {
-                    initData2View(programmeBean);
+                    mListBeans = programmeBean.getData().getList();
+                    mCyRightAdapter.setNewData(mListBeans);
                 }
             }
         });
-
-
-    }
-
-    public void initData2View(@Nullable ProgrammeBean programmeBean) {
-        mTvPageCount.setText(String.format("共%d条", programmeBean.getData().getSize()));
-        mCyRightAdapter = new CyRightAdapter(R.layout.widget_cy_poster, programmeBean.getData().getList());
-        mRecyclerView.setAdapter(mCyRightAdapter);
-
         mRecyclerView.setOnItemListener(new AbstractOnItemListener() {
             @Override
             public void onItemClick(TvRecyclerView parent, View itemView, int position) {
-                int fatherId = programmeBean.getData().getList().get(position).getFatherId();
+                int fatherId = mListBeans.get(position).getFatherId();
                 Bundle bundle = new Bundle();
                 bundle.putString("fatherId", "" + fatherId);
                 startActivity(DetailActivity.class, bundle);
 
             }
         });
+
+
     }
+
 
 }
