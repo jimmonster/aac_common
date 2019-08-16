@@ -28,7 +28,7 @@ public class InfoListAdapter extends BaseQuickAdapter<CollectListBean.DataBean.L
         helper.setText(R.id.tv_type, item.getDramaType());
         helper.setText(R.id.tv_isCollection, item.getCreatetime() + "");
         helper.setText(R.id.tv_play, "播放");
-        helper.setText(R.id.tv_isCollection, "已收藏");
+        helper.setText(R.id.tv_isCollection, "取消收藏");
         helper.addOnClickListener(R.id.tv_play);
         helper.addOnClickListener(R.id.tv_isCollection);
 

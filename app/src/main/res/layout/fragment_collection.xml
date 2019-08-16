@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="62dp"
+        android:layout_marginEnd="90dp"
+        android:background="@drawable/iv_watch_jl"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="730dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingStart="90dp"
+            android:text="内容名称"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginEnd="380dp"
+            android:gravity="center_vertical"
+            android:text="类型"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_play"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="80dp"
+            android:gravity="center_vertical"
+            android:text="播放"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_collection"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="90dp"
+            android:gravity="center_vertical"
+            android:text="收藏"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <com.owen.tvrecyclerview.widget.TvRecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="630dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="90dp"
+        android:orientation="vertical"
+        android:scrollbars="none"
+        app:tv_layoutManager="GridLayoutManager"
+        app:tv_numColumns="1"
+        app:tv_numRows="6"
+        app:tv_selectedItemIsCentered="true"
+        app:tv_verticalSpacingWithMargins="14dp">
+
+    </com.owen.tvrecyclerview.widget.TvRecyclerView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/iv_search_down"/>
+
+        <TextView
+            android:id="@+id/tv_current_page"
+            android:layout_width="160dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:text="(共0条)"
+            android:textColor="@color/white"
+            android:textSize="28sp"/>
+
+
+        <TextView
+            android:id="@+id/tv_instructions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp"
+            android:gravity="center"
+            android:text="为您保存一个月内观看时长超过半分钟的节目记录，按\上下键翻页\ "
+            android:textColor="@color/white"
+            android:textSize="28sp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -57,7 +57,6 @@ public class MainFragment extends BaseFragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             String data = bundle.getString("DATA");
-            log(data);
             mMainListBean = mCommonViewModel.getMainListBean(data);
         }
 

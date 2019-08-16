@@ -1,15 +1,17 @@
 package com.jinhong.jhtv.ui.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.FragmentTransaction;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
-import com.jinhong.jhtv.ui.fragment.MainFragment;
-import com.jinhong.jhtv.ui.fragment.ToyFragment;
-import com.jinhong.jhtv.utils.FocusUtils;
+import com.jinhong.jhtv.ui.fragment.CollectionFragment;
+import com.jinhong.jhtv.ui.fragment.RecordFragment;
+import com.owen.tab.TabLayout;
+import com.owen.tab.TvTabLayout;
 
 import java.util.ArrayList;
 
@@ -18,11 +20,17 @@ import java.util.ArrayList;
  * @date :  2019-07-25
  * @description :收藏和记录页面切换
  */
-@Deprecated
 public class CollectionAndRecordActivity extends BaseActivity {
-    private TabLayout mTabLayout;
-    private ViewPager mViewPager;
+
+    private TvTabLayout mTabLayout;
+    private FrameLayout mFrameLayout;
+    /**
+     * (当前2/5页)
+     */
+    private TextView mTvCurrentPage;
+
     private ArrayList<Fragment> mFragments;
+    private String mType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,34 +38,83 @@ public class CollectionAndRecordActivity extends BaseActivity {
         setContentView(R.layout.collection_record);
         initData();
         initView();
+
     }
 
     private void initData() {
+        Bundle bundleExtra = getIntent().getBundleExtra(extraBundle);
+        if (bundleExtra != null) {
+            mType = bundleExtra.getString("type", "collection");
+        }
+        //添加页面
         mFragments = new ArrayList<>();
-        mFragments.add(new MainFragment().getInstance("10007"));
-        mFragments.add(new ToyFragment().getInstance("10037"));
+        mFragments.add(new RecordFragment());
+        mFragments.add(new CollectionFragment());
+
     }
 
     private void initView() {
-        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
-        mTabLayout.setSelectedTabIndicator(R.drawable.selector_main_indicator);
 
+        mTabLayout = (TvTabLayout) findViewById(R.id.tab_layout);
+        mFrameLayout = (FrameLayout) findViewById(R.id.frame_layout);
+        mTvCurrentPage = (TextView) findViewById(R.id.tv_current_page);
         //添加tab图片
-        TabLayout.Tab tab = mTabLayout.newTab().setCustomView(R.layout.tab_layout_item2);
-        mTabLayout.addTab(tab);
-        FocusUtils.onFocusChange(tab.view, R.drawable.selector_main_tab0);
+        TabLayout.Tab tab = mTabLayout.newTab().setText("观影记录");
+        TabLayout.Tab tab1 = mTabLayout.newTab().setText("我的收藏");
 
-        TabLayout.Tab tab1 = mTabLayout.newTab().setCustomView(R.layout.tab_layout_item2);
-        mTabLayout.addTab(tab1);
-        FocusUtils.onFocusChange(tab1.view, R.drawable.selector_main_tab1);
+        if ("collection".equals(mType)) {
+            mTabLayout.addTab(tab, false);
+            mTabLayout.addTab(tab1, true);
 
-        ViewpagerAdapter viewpagerAdapter = new ViewpagerAdapter(getSupportFragmentManager(), mFragments);
+        } else if ("record".equals(mType)) {
+            mTabLayout.addTab(tab, true);
+            mTabLayout.addTab(tab1, false);
+        }
 
-        mViewPager.setAdapter(viewpagerAdapter);
-        mViewPager.setOffscreenPageLimit(-1);
-        mTabLayout.setupWithViewPager(mViewPager);
+
+        mTabLayout.addOnTabSelectedListener(new TabSelectedListener());
+        mTabLayout.requestFocus();
+
     }
+
+
+    public class TabSelectedListener implements TvTabLayout.OnTabSelectedListener {
+
+        private Fragment mFragment;
+
+        @Override
+        public void onTabSelected(TvTabLayout.Tab tab) {
+            tab.getView().setBackgroundResource(R.drawable.selector_collection_indicator_yes);
+            tab.getView().setSelected(true);
+            final int position = tab.getPosition();
+            mFragment = getSupportFragmentManager().findFragmentByTag(position + "");
+            FragmentTransaction mFt = getSupportFragmentManager().beginTransaction();
+            if (mFragment == null) {
+                mFragment = mFragments.get(position);
+                mFt.add(R.id.frame_layout, mFragment, String.valueOf(position));
+            } else {
+                mFt.attach(mFragment);
+            }
+            mFt.commit();
+
+        }
+
+        @Override
+        public void onTabUnselected(TvTabLayout.Tab tab) {
+            tab.getView().setBackgroundResource(R.drawable.selector_collection_indicator_no);
+            tab.getView().setSelected(false);
+            if (mFragment != null) {
+                FragmentTransaction mFt = getSupportFragmentManager().beginTransaction();
+                mFt.detach(mFragment);
+                mFt.commit();
+            }
+        }
+
+        @Override
+        public void onTabReselected(TvTabLayout.Tab tab) {
+        }
+    }
+
 }
 
 

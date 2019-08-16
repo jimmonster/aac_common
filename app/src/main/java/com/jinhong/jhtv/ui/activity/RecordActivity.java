@@ -2,20 +2,22 @@ package com.jinhong.jhtv.ui.activity;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
 import com.jinhong.jhtv.model.RecordListBean;
 import com.jinhong.jhtv.ui.adapter.RecordInfoListAdapter;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,6 +39,7 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
     private TextView mTvMineCollection;
     private MutableLiveData<RecordListBean> mRecordListBean;
     private TextView mView;
+    List<RecordListBean.DataBean.ListBean> listBeans;
     /**
      * (总共1页)
      */
@@ -69,25 +72,41 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
         mTvMovieRecord.requestFocus();
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        listBeans = new ArrayList<>();
+        RecordInfoListAdapter infoListAdapter = new RecordInfoListAdapter(R.layout.widget_record, listBeans);
+        mRecyclerView.setAdapter(infoListAdapter);
+        infoListAdapter.bindToRecyclerView(mRecyclerView);
         mRecordListBean.observe(this, new Observer<RecordListBean>() {
             @Override
             public void onChanged(@Nullable RecordListBean recordListBean) {
                 if (recordListBean != null) {
-                    setData2View(recordListBean);
+                    listBeans = recordListBean.getData().getList();
+                    infoListAdapter.setNewData(listBeans);
+                    int size = recordListBean.getData().getSize();
+                    mTvCurrentPage.setText(String.format("(共%d条)", size));
+
                 }
             }
         });
+        infoListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()) {
+                    default:break;
+                    case R.id.tv_play:
+                        Intent intent = new Intent(RecordActivity.this, VideoActivity1.class);
+                        //todo 传递url给video
+                        startActivity(intent);
+                        break;
+                }
+
+            }
+        });
+
+
 
     }
 
-    public void setData2View(@NonNull RecordListBean recordListBean) {
-        int size = recordListBean.getData().getSize();
-        mTvCurrentPage.setText(String.format("(共%d条)", size));
-        RecordInfoListAdapter infoListAdapter = new RecordInfoListAdapter(R.layout.widget_record, recordListBean.getData().getList());
-        mRecyclerView.setAdapter(infoListAdapter);
-        infoListAdapter.bindToRecyclerView(mRecyclerView);
-
-    }
 
     @Override
     public void onClick(View v) {

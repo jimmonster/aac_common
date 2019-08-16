@@ -25,19 +25,12 @@ public class RecordInfoListAdapter extends BaseQuickAdapter<RecordListBean.DataB
 
     @Override
     protected void convert(BaseViewHolder helper, RecordListBean.DataBean.ListBean item) {
-        helper.getView(R.id.tv_play).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, VideoActivity1.class);
-                //todo 传递url给video
-                mContext.startActivity(intent);
 
-            }
-        });
         helper.setText(R.id.tv_name, item.getContentName());
         helper.setText(R.id.tv_type, item.getDramaType());
         helper.setText(R.id.tv_progress, item.getDration());
         helper.setText(R.id.tv_play, "播放");
+        helper.addOnClickListener(R.id.tv_play);
 
     }
 }

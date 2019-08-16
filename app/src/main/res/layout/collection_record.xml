@@ -6,25 +6,32 @@
               android:background="@drawable/iv_qinzi_main_bg"
               android:orientation="vertical">
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tabLayout"
+    <com.owen.tab.TvTabLayout
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="160dp"
+        android:layout_gravity="center_vertical"
+
         android:background="@drawable/iv_watch_hand"
-        app:tabBackground="@drawable/selector_main_indicator"
+        app:tabBackground="@drawable/selector_collection_indicator"
         app:tabGravity="center"
+        app:tabIndicatorGravity="bottom"
         app:tabIndicatorHeight="0dp"
-        app:tabMaxWidth="0dp"
-        app:tabMode="fixed"
-        app:tabRippleColor="@android:color/transparent">
+        app:tabIndicatorResId="@color/color_yellow"
+        app:tabIndicatorWidth="180dp"
+        app:tabPadding="8dp"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabScrollMode="fixed"
+        app:tabTexSize="38sp"
+        app:tabTextColor="@color/color_selector_white2orange"
+        app:tabTextSelectedScale="1.2"/>
 
-    </android.support.design.widget.TabLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"/>
 
-    </android.support.v4.view.ViewPager>
 
 </LinearLayout>

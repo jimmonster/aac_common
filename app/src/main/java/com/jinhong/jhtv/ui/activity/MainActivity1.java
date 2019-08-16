@@ -32,6 +32,7 @@ import java.util.ArrayList;
  * @date :  2019-07-01
  * @description :主页界面
  */
+@Deprecated
 public class MainActivity1 extends BaseActivity implements View.OnClickListener {
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -196,21 +197,5 @@ class ViewpagerAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return mFragmentArrayList.size();
     }
-
-//    @Nullable
-//    @Override
-//    public CharSequence getPageTitle(int position) {
-//
-//        Drawable image = mActivity.getResources().getDrawable(mTabs.get(position));
-//        image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
-//        SpannableString sb = new SpannableString(" ");
-//        ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
-//        sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//
-//        return "";
-//
-//
-//    }
-
 
 }
