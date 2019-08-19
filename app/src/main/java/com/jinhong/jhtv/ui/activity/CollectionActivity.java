@@ -144,7 +144,6 @@ public class CollectionActivity extends BaseActivity implements View.OnClickList
             public void onClick(View v) {
                 MutableLiveData<DeleteRecordBean> deleteRecordBean = mCommonViewModel.getDeleteRecordBean(fatherId, userId);
                 if (listBeans.size() > layoutPosition) {
-                    log(layoutPosition);
                     listBeans.remove(layoutPosition);//集合移除该条
                     infoListAdapter.notifyItemRemoved(layoutPosition);//通知移除该条
                     infoListAdapter.notifyItemRangeChanged(layoutPosition, listBeans.size() - layoutPosition);//更新适配器这条后面列表的变化

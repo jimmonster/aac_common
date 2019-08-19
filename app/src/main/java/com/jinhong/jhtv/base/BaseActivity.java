@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -16,9 +17,9 @@ import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.jinhong.jhtv.R;
-import com.jinhong.jhtv.ui.widgets.BorderView;
 import com.jinhong.jhtv.ui.widgets.LoadingFrame;
 import com.jinhong.jhtv.vm.viewmodel.CommonViewModel;
+import com.owen.focus.FocusBorder;
 
 import java.util.HashMap;
 
@@ -27,9 +28,8 @@ import java.util.HashMap;
  * @date :  2019-07-01
  * @description :
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements BaseFragment.FocusBorderHelper{
     public CommonViewModel mCommonViewModel;
-    public BorderView mBorder;
     public String extraBundle = "ExtraBundle";
     @SuppressLint("HandlerLeak")
     public Handler baseHandler = new Handler() {
@@ -40,6 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         }
     };
+    private FocusBorder mFocusBorder;
 
 
     @Override
@@ -61,10 +62,73 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         mCommonViewModel = ViewModelProviders.of(this).get(CommonViewModel.class);
         //添加选中焦点边框
-        mBorder = new BorderView(this);
-        mBorder.setBackgroundResource(R.drawable.iv_focus);
+        initBorder();
 
 
+    }
+
+
+    @Override
+    public FocusBorder getFocusBorder() {
+        return mFocusBorder;
+    }
+
+
+    private void initBorder() {
+//        /** 颜色焦点框 */
+//        mColorFocusBorder = new FocusBorder.Builder().asColor()
+//                //阴影宽度(方法shadowWidth(18f)也可以设置阴影宽度)
+//                .shadowWidth(TypedValue.COMPLEX_UNIT_DIP, 20f)
+//                //阴影颜色
+//                .shadowColor(Color.parseColor("#3FBB66"))
+//                //边框宽度(方法borderWidth(2f)也可以设置边框宽度)
+//                .borderWidth(TypedValue.COMPLEX_UNIT_DIP, 3.2f)
+//                //边框颜色
+//                .borderColor(Color.parseColor("#00FF00"))
+//                //padding值
+//                .padding(2f)
+//                //动画时长
+//                .animDuration(300)
+//                //不要闪光动画
+//                //.noShimmer()
+//                //闪光颜色
+//                .shimmerColor(Color.parseColor("#66FFFFFF"))
+//                //闪光动画时长
+//                .shimmerDuration(1000)
+//                //不要呼吸灯效果
+//                //.noBreathing()
+//                //呼吸灯效果时长
+//                .breathingDuration(3000)
+//                //边框动画模式
+//                .animMode(AbsFocusBorder.Mode.SEQUENTIALLY)
+//                .build(this);
+
+        // 移动框
+        if(null == mFocusBorder) {
+            mFocusBorder = new FocusBorder.Builder()
+                    .asColor()
+                    .borderColorRes(R.color.common_orange_dark)
+                    .borderWidth(TypedValue.COMPLEX_UNIT_DIP, 3.2f)
+                    .shadowColorRes(R.color.common_orange)
+                    .shadowWidth(TypedValue.COMPLEX_UNIT_DIP, 12f)
+                    .build(this);
+        }
+
+
+
+    }
+
+
+
+    /**
+     * dp2px
+     *
+     * @param dp
+     * @return px
+     */
+    public float dp2px(int dp) {
+        return TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
     }
 
 
@@ -237,15 +301,15 @@ public abstract class BaseActivity extends AppCompatActivity {
                 String nowString = TimeUtils.getNowString();
                 HashMap<String, String> params = new HashMap<>();
 
-                params.put("clickTime",nowString);
+                params.put("clickTime", nowString);
                 params.put("clientIp", NetworkUtils.getIPAddress(true));
-                params.put("productName","qhz");
-                params.put("productPage","category");
-                params.put("area","1");
-                params.put("sort","3");
-                params.put("options","0");
-                params.put("contentId","100010");
-                params.put("contentName","小猪佩奇");
+                params.put("productName", "qhz");
+                params.put("productPage", "category");
+                params.put("area", "1");
+                params.put("sort", "3");
+                params.put("options", "0");
+                params.put("contentId", "100010");
+                params.put("contentName", "小猪佩奇");
                 mCommonViewModel.updateSingleCollectBean(params);
                 break;
             default:

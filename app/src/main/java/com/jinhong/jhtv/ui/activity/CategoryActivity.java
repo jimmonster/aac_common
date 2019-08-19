@@ -68,6 +68,8 @@ public class CategoryActivity extends BaseActivity {
 
     }
 
+    int currentPosition = 0;
+    int lastPosition = 0;
 
     private void initView() {
         mLlContainer = (LinearLayout) findViewById(R.id.ll_container);
@@ -122,11 +124,17 @@ public class CategoryActivity extends BaseActivity {
             @Override
             public void onItemPreSelected(TvRecyclerView parent, View itemView, int position) {
                 //上次选中
+                if (currentPosition != position) {
+                    currentPosition = position;
+                    mRecyclerview.setItemActivated(position);
+                }
+
 
             }
 
             @Override
             public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
+                currentPosition = position;
                 //当前选中
                 mCyFragment = new CyFragment(dataBeanList.get(position).getId());
                 FragmentUtils.replace(getSupportFragmentManager(), mCyFragment, R.id.fl_replace_fragment);
@@ -135,9 +143,11 @@ public class CategoryActivity extends BaseActivity {
             @Override
             public void onItemClick(TvRecyclerView parent, View itemView, int position) {
                 //点击
-
+                toast("点击" + position);
+                log("点击" + position);
             }
         });
+
     }
 
 

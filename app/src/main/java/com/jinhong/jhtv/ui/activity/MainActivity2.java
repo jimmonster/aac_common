@@ -1,13 +1,18 @@
 package com.jinhong.jhtv.ui.activity;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
 import com.jinhong.jhtv.model.MainIdBean;
@@ -85,6 +90,7 @@ public class MainActivity2 extends BaseActivity implements View.OnClickListener 
         mTabLayout.addTab(tab);
 
         TabLayout.Tab tab1 = mTabLayout.newTab().setCustomView(R.layout.tab_layout_item2_1);
+
         mTabLayout.addTab(tab1);
 
         TabLayout.Tab tab2 = mTabLayout.newTab().setCustomView(R.layout.tab_layout_item2_2);
@@ -126,6 +132,35 @@ public class MainActivity2 extends BaseActivity implements View.OnClickListener 
                 startActivity(CollectionAndRecordActivity.class, bundle);
                 break;
         }
+    }
+    @SuppressLint("NewApi")
+    @Override
+    public void onBackPressed() {
+
+        Dialog mDialog = new Dialog(this, R.style.video_style_dialog_progress);
+        mDialog.setContentView(R.layout.dialog_common);
+        TextView mTvMessage = mDialog.findViewById(R.id.tv_message);
+        mTvMessage.setText("确定退出当前应用？");
+        Button mBtnSure = mDialog.findViewById(R.id.btn_sure);
+        Button mBtnCancel = mDialog.findViewById(R.id.btn_cancel);
+        mBtnCancel.requestFocus();
+        mBtnSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppUtils.exitApp();
+
+            }
+        });
+        mBtnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mDialog.dismiss();
+            }
+        });
+        mDialog.create();
+        mDialog.show();
+
     }
 
     public class TabSelectedListener implements TvTabLayout.OnTabSelectedListener {

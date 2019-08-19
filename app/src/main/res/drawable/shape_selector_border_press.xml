@@ -15,7 +15,7 @@
     <!--設定圓角，只適用於 rectangle-->
     <stroke
         android:width="8dp"
-        android:color="@android:color/holo_orange_light"/>
+        android:color="#ff7c50"/>
     <!--設定描邊-->
 
 

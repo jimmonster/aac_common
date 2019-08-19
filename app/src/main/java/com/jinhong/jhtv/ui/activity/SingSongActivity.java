@@ -33,15 +33,15 @@ public class SingSongActivity extends BaseActivity implements View.OnClickListen
       
         mIvPic0 = (ImageView) findViewById(R.id.iv_pic0);
         mRlContainer0 = (RelativeLayout) findViewById(R.id.rl_container0);
-        mBorder.attachTo(mRlContainer0);
+
         mRlContainer0.setOnClickListener(this);
         mIvPic1 = (ImageView) findViewById(R.id.iv_pic1);
         mRlContainer1 = (RelativeLayout) findViewById(R.id.rl_container1);
-        mBorder.attachTo(mRlContainer1);
+
         mRlContainer1.setOnClickListener(this);
         mIvPic2 = (ImageView) findViewById(R.id.iv_pic2);
         mRlContainer2 = (RelativeLayout) findViewById(R.id.rl_container2);
-        mBorder.attachTo(mRlContainer2);
+
         mRlContainer2.setOnClickListener(this);
 
 

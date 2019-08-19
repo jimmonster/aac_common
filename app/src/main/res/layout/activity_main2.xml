@@ -87,7 +87,7 @@
         app:tabPaddingStart="13dp"
         app:tabRippleColor="@android:color/transparent"
         app:tabScrollMode="fixed"
-        app:tabTexSize="24dp"
+        app:tabTexSize="24sp"
         app:tabTextColor="@color/black"
         app:tabTextSelectedScale="1.0"/>
 
