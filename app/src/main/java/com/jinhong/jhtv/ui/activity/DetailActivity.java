@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -244,7 +245,7 @@ public class DetailActivity extends BaseActivity {
     }
 
 
-    @SuppressLint("NewApi")
+
     private void showDialog(String fatherId, String userId) {
 
         Dialog mDialog = new Dialog(this, R.style.video_style_dialog_progress);
@@ -278,7 +279,9 @@ public class DetailActivity extends BaseActivity {
                 mDialog.cancel();
             }
         });
-        mDialog.create();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mDialog.create();
+        }
         mDialog.show();
 
     }

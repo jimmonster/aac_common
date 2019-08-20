@@ -173,7 +173,7 @@ public class VideoActivity extends BaseActivity implements CancelAdapt, View.OnC
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 toast(position + "");
-                //跳转到当前集数，并且关闭菜单
+                //todo 跳转到当前集数，并且关闭菜单
                 mLlMenuContainer.setVisibility(View.INVISIBLE);
             }
         });

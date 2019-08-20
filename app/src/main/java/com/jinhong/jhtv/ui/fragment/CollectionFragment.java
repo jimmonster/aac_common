@@ -1,9 +1,9 @@
 package com.jinhong.jhtv.ui.fragment;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -98,7 +98,7 @@ public class CollectionFragment extends BaseFragment {
 
     }
 
-    @SuppressLint("NewApi")
+
     private void showDialog(InfoListAdapter infoListAdapter, List<CollectListBean.DataBean.ListBean> listBeans, int layoutPosition) {
         String fatherId = "" + listBeans.get(layoutPosition).getFatherId();
         String userId = listBeans.get(layoutPosition).getUserId();
@@ -131,7 +131,9 @@ public class CollectionFragment extends BaseFragment {
                 mDialog.dismiss();
             }
         });
-        mDialog.create();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mDialog.create();
+        }
         mDialog.show();
 
     }

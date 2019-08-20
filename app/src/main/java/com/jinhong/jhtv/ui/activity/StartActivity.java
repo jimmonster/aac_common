@@ -47,7 +47,9 @@ public class StartActivity extends BaseActivity {
     }
 
     //检测版本升级
+    @Deprecated
     private void checkVersion() {
+        //已经集成了bugly的升级
 
     }
 

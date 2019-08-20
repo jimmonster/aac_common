@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.model.MainListBean;
+import com.jinhong.jhtv.utils.AutoSizeUtils;
 import com.jinhong.jhtv.utils.FocusUtils;
 import com.jinhong.jhtv.utils.ImageUtils;
 
@@ -76,7 +77,7 @@ public class ToyVirtualAdapter extends VirtualLayoutAdapter {
 
             switch (position) {
                 default:
-                    ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(416, 318);
+                    ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(AutoSizeUtils.dp2px(mContext,416), AutoSizeUtils.dp2px(mContext,318));
                     holder.itemView.setLayoutParams(layoutParams);
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                     ImageUtils.load(posterVos.get(position).getPosterPath(), (ImageView) holder.itemView);
@@ -84,7 +85,7 @@ public class ToyVirtualAdapter extends VirtualLayoutAdapter {
 
                 case 0:
                 case 1:
-                    layoutParams = new ViewGroup.LayoutParams(858, 318);
+                    layoutParams = new ViewGroup.LayoutParams(AutoSizeUtils.dp2px(mContext,858), AutoSizeUtils.dp2px(mContext,318));
                     holder.itemView.setLayoutParams(layoutParams);
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                     ImageUtils.load(posterVos.get(position).getPosterPath(), (ImageView) holder.itemView);
@@ -92,7 +93,7 @@ public class ToyVirtualAdapter extends VirtualLayoutAdapter {
 
 
                 case 9:
-                    layoutParams = new ViewGroup.LayoutParams(416, 318);
+                    layoutParams = new ViewGroup.LayoutParams(AutoSizeUtils.dp2px(mContext,416), AutoSizeUtils.dp2px(mContext,318));
                     holder.itemView.setLayoutParams(layoutParams);
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                     ImageUtils.load(R.drawable.iv_qinzi_more, (ImageView) holder.itemView);
@@ -107,6 +108,8 @@ public class ToyVirtualAdapter extends VirtualLayoutAdapter {
         }
 
     }
+
+
     @Override
     public int getItemCount() {
         List<LayoutHelper> helpers = getLayoutHelpers();

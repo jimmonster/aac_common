@@ -162,7 +162,7 @@ public class VideoActivity1 extends BaseActivity {
 
     }
 
-    @SuppressLint("NewApi")
+
     private void showDialogForExit() {
 
         Dialog mDialog = new Dialog(this, R.style.video_style_dialog_progress);
@@ -197,7 +197,9 @@ public class VideoActivity1 extends BaseActivity {
                 mDialog.dismiss();
             }
         });
-        mDialog.create();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mDialog.create();
+        }
         mDialog.show();
 
 
@@ -231,13 +233,14 @@ public class VideoActivity1 extends BaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_LEFT: //向左键，快退
+            case 0x0025:
                 int visibility = mLlMenuContainer.getVisibility();
                 seekControl(false, visibility);
                 break;
             case KeyEvent.KEYCODE_DPAD_RIGHT:  //向右键，快进
+            case 0x0027:
                 visibility = mLlMenuContainer.getVisibility();
                 seekControl(true, visibility);
-
                 break;
 
             case KeyEvent.KEYCODE_ENTER:     //确定键，暂停播放

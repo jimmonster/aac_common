@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jinhong.jhtv.R;
+import com.jinhong.jhtv.utils.AutoSizeUtils;
 
 import java.util.List;
 
@@ -27,11 +28,9 @@ public class KeyBoardAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         switch (position) {
             default:
                 ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
-                params.width = 70;
-                params.height = 70;
-
+                params.width = AutoSizeUtils.dp2px(mContext, 70);
+                params.height = AutoSizeUtils.dp2px(mContext, 70);
                 holder.itemView.setLayoutParams(params);
-
                 holder.itemView.requestLayout();
                 holder.itemView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                     @Override
@@ -50,8 +49,8 @@ public class KeyBoardAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
             case 32:
             case 37:
                 params = holder.itemView.getLayoutParams();
-                params.width = 160;
-                params.height = 70;
+                params.width = AutoSizeUtils.dp2px(mContext, 160);
+                params.height = AutoSizeUtils.dp2px(mContext, 70);
                 holder.itemView.setLayoutParams(params);
                 holder.itemView.requestLayout();
                 holder.itemView.setOnFocusChangeListener(new View.OnFocusChangeListener() {

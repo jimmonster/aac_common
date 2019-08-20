@@ -17,6 +17,7 @@ import com.jinhong.jhtv.base.BaseFragment;
 import com.jinhong.jhtv.model.MainListBean;
 import com.jinhong.jhtv.ui.activity.DetailActivity;
 import com.jinhong.jhtv.ui.adapter.MainVirtualAdapter;
+import com.jinhong.jhtv.utils.AutoSizeUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -79,7 +80,7 @@ public class MainFragment extends BaseFragment {
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                outRect.set(13, 12, 13, 12);
+                outRect.set(AutoSizeUtils.dp2px(getActivity(),13), AutoSizeUtils.dp2px(getActivity(),14), AutoSizeUtils.dp2px(getActivity(),13), AutoSizeUtils.dp2px(getActivity(),14));
             }
         });
 
@@ -149,7 +150,7 @@ public class MainFragment extends BaseFragment {
             @Override
             public void onItemClick(View view, int position) {
                 MainListBean.DataBean.PosterVosBean posterVosBean = mainListBean.getData().getPosterVos().get(position);
-                toast(posterVosBean.getFatherId());
+
                 Bundle bundle = new Bundle();
                 bundle.putString("fatherId", "" + posterVosBean.getFatherId());
                 startActivity(DetailActivity.class, bundle);
@@ -158,7 +159,7 @@ public class MainFragment extends BaseFragment {
         });
 
 
-    }
+}
 
 
 }

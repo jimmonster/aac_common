@@ -2,6 +2,7 @@ package com.jinhong.jhtv.ui.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Build;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -45,7 +46,9 @@ public class CommonDialog {
                 mDialog.dismiss();
             }
         });
-        mDialog.create();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mDialog.create();
+        }
 
     }
 

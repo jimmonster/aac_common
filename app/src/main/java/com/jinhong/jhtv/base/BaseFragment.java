@@ -71,6 +71,16 @@ public abstract class BaseFragment extends Fragment {
             mFocusBorder.onFocus(focusedView, FocusBorder.OptionsFactory.get(scale, scale, roundRadius));
         }
     }
+    /**
+     * dp2px
+     *
+     * @param dp
+     * @return px
+     */
+    public float dp2px(int dp) {
+        return TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
+    }
 
     @Override
     public void onAttach(Context context) {

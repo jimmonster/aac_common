@@ -3,6 +3,7 @@ package com.jinhong.jhtv.base;
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,6 +23,8 @@ import com.jinhong.jhtv.vm.viewmodel.CommonViewModel;
 import com.owen.focus.FocusBorder;
 
 import java.util.HashMap;
+
+import me.jessyan.autosize.AutoSizeCompat;
 
 /**
  * @author :  Jim
@@ -47,6 +50,14 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseFrag
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
 
+    }
+
+    @Override
+    public Resources getResources() {
+        //需要升级到 v1.1.2 及以上版本才能使用 AutoSizeCompat
+        AutoSizeCompat.autoConvertDensityOfGlobal((super.getResources()));//如果没有自定义需求用这个方法
+       // AutoSizeCompat.autoConvertDensity((super.getResources(), 667, false);//如果有自定义需求就用这个方法
+        return super.getResources();
     }
 
     public void baseHandler(Message msg) {
@@ -120,16 +131,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseFrag
 
 
 
-    /**
-     * dp2px
-     *
-     * @param dp
-     * @return px
-     */
-    public float dp2px(int dp) {
-        return TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
-    }
+
 
 
     /**

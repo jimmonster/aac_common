@@ -1,7 +1,7 @@
 package com.jinhong.jhtv.ui.activity;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -133,7 +133,7 @@ public class MainActivity2 extends BaseActivity implements View.OnClickListener 
                 break;
         }
     }
-    @SuppressLint("NewApi")
+
     @Override
     public void onBackPressed() {
 
@@ -158,7 +158,9 @@ public class MainActivity2 extends BaseActivity implements View.OnClickListener 
                 mDialog.dismiss();
             }
         });
-        mDialog.create();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mDialog.create();
+        }
         mDialog.show();
 
     }

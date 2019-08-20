@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.model.MainListBean;
+import com.jinhong.jhtv.utils.AutoSizeUtils;
 import com.jinhong.jhtv.utils.FocusUtils;
 import com.jinhong.jhtv.utils.ImageUtils;
 
@@ -76,7 +77,7 @@ public class MainVirtualAdapter extends VirtualLayoutAdapter {
         try {
             switch (position) {
                 default:
-                    ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(416, 318);
+                    ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(AutoSizeUtils.dp2px(mContext,416), AutoSizeUtils.dp2px(mContext,318));
                     holder.itemView.setLayoutParams(layoutParams);
 
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -89,7 +90,7 @@ public class MainVirtualAdapter extends VirtualLayoutAdapter {
                 case 11:
                 case 12:
                 case 13:
-                    layoutParams = new ViewGroup.LayoutParams(225, 225);
+                    layoutParams = new ViewGroup.LayoutParams(AutoSizeUtils.dp2px(mContext,225), AutoSizeUtils.dp2px(mContext,225));
                     holder.itemView.setLayoutParams(layoutParams);
                     ImageView itemView = (ImageView) holder.itemView;
                     itemView.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -107,7 +108,7 @@ public class MainVirtualAdapter extends VirtualLayoutAdapter {
                 case 14:
                 case 17:
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    layoutParams = new ViewGroup.LayoutParams(440, 520);
+                    layoutParams = new ViewGroup.LayoutParams(AutoSizeUtils.dp2px(mContext,440), AutoSizeUtils.dp2px(mContext,520));
                     holder.itemView.setLayoutParams(layoutParams);
                     ImageUtils.load(mPosterVos.get(position).getPosterPath(), (ImageView) holder.itemView);
                     break;
@@ -118,7 +119,7 @@ public class MainVirtualAdapter extends VirtualLayoutAdapter {
                 case 19:
 
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    layoutParams = new ViewGroup.LayoutParams(440, 248);
+                    layoutParams = new ViewGroup.LayoutParams(AutoSizeUtils.dp2px(mContext,440), AutoSizeUtils.dp2px(mContext,248));
                     holder.itemView.setLayoutParams(layoutParams);
                     ImageUtils.load(mPosterVos.get(position).getPosterPath(), (ImageView) holder.itemView);
 
@@ -132,6 +133,7 @@ public class MainVirtualAdapter extends VirtualLayoutAdapter {
 
 
     }
+
 
     @Override
     public int getItemCount() {
