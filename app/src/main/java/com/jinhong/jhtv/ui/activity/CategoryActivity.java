@@ -69,7 +69,7 @@ public class CategoryActivity extends BaseActivity {
     }
 
     int currentPosition = 0;
-    int lastPosition = 0;
+
 
     private void initView() {
         mLlContainer = (LinearLayout) findViewById(R.id.ll_container);

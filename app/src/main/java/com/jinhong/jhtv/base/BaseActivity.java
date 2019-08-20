@@ -40,7 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseFrag
 
         }
     };
-    private FocusBorder mFocusBorder;
+    public FocusBorder mFocusBorder;
 
 
     @Override

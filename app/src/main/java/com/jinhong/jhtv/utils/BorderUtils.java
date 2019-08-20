@@ -20,12 +20,13 @@ public class BorderUtils {
         if (null == mFocusBorder) {
             mFocusBorder = new FocusBorder.Builder()
                     .asColor()
-                .borderColorRes(R.color.common_orange_dark)//边框颜色
-                .borderWidth(TypedValue.COMPLEX_UNIT_DIP, 3f)
-                .shadowColorRes(R.color.color_yellow)//阴影颜色
-                .shadowWidth(TypedValue.COMPLEX_UNIT_DIP, 12f)
-                .build(activity);
-    }
+                    .borderColorRes(R.color.common_orange_dark)//边框颜色
+                    .borderWidth(TypedValue.COMPLEX_UNIT_DIP, 3f)
+                    .shadowColorRes(R.color.color_yellow)//阴影颜色
+                    .shadowWidth(TypedValue.COMPLEX_UNIT_DIP, 12f)
+                    .padding(3)
+                    .build(activity);
+        }
     }
 
     public static BorderUtils getInstance(Activity activity) {

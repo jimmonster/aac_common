@@ -31,7 +31,7 @@ public class StartActivity extends BaseActivity {
     private void jumpToNextActivity() {
         new Thread(() -> {
             SystemClock.sleep(1000);
-            startActivity(MainActivity2.class);
+            startActivity(MainActivity3.class);
             finish();
         }).start();
     }

@@ -250,12 +250,26 @@ public class SearchActivity extends BaseActivity {
                     } else {
                         mTvCurrentPage.setText(String.format("(共%d条搜索记录）", 0));
                         mSearchInfoAdapter.setNewData(mNoData);
+                        mSearchInfoAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                toast("当前数据为空");
+
+                            }
+                        });
                     }
                 }
             });
         } else {
             mTvCurrentPage.setText(String.format("(共%d条搜索记录）", 0));
             mSearchInfoAdapter.setNewData(mNoData);
+            mSearchInfoAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    toast("当前数据为空");
+
+                }
+            });
         }
 
 

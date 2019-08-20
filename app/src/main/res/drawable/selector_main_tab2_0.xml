@@ -1,0 +1,14 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_selected="true"
+          android:drawable="@drawable/selector_main_indicator_focused"/>
+
+    <item android:state_focused="true"
+          android:drawable="@drawable/selector_main_indicator_focused"/>
+
+    <item android:state_activated="true"
+          android:drawable="@drawable/selector_main_indicator_select"/>
+
+    <item android:drawable="@drawable/selector_main_indicator_unselect"/>
+
+</selector>

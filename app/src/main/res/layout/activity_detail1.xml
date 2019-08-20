@@ -127,20 +127,35 @@
             android:layout_toEndOf="@id/tv_play"
             android:orientation="vertical">
 
-            <com.jinhong.jhtv.ui.leanback.RecyclerViewTV
+            <com.owen.tvrecyclerview.widget.TvRecyclerView
                 android:id="@+id/recyclerView_tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:scrollbars="none"
+                app:spanCount="1"
+                app:tv_horizontalSpacingWithMargins="0dp"
+                app:tv_isMenu="true"
+                app:tv_layoutManager="ListLayoutManager"
+                app:tv_verticalSpacingWithMargins="0dp">
 
-            </com.jinhong.jhtv.ui.leanback.RecyclerViewTV>
+            </com.owen.tvrecyclerview.widget.TvRecyclerView>
 
 
-            <com.jinhong.jhtv.ui.leanback.RecyclerViewTV
+            <com.owen.tvrecyclerview.widget.TvRecyclerView
                 android:id="@+id/recyclerView_count"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </com.jinhong.jhtv.ui.leanback.RecyclerViewTV>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:scrollbars="none"
+                app:tv_horizontalSpacingWithMargins="72dp"
+                app:tv_layoutManager="GridLayoutManager"
+                app:tv_numColumns="10"
+                app:tv_numRows="2"
+                app:tv_optimizeLayout="false"
+                app:tv_selectedItemIsCentered="false"
+                app:tv_verticalSpacingWithMargins="28dp">
+            </com.owen.tvrecyclerview.widget.TvRecyclerView>
 
         </LinearLayout>
 

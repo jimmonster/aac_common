@@ -5,8 +5,6 @@
     android:focusableInTouchMode="true"
     android:layout_width="268dp"
     android:layout_height="100dp"
-    android:layout_marginStart="13dp"
-    android:layout_marginEnd="13dp"
     android:background="@drawable/selector_main_tab0"
     android:focusable="true"
     android:scaleType="center">

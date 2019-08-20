@@ -98,6 +98,8 @@
         <activity android:name=".ui.activity.MainActivity1"/>
         <activity android:name=".ui.activity.MainActivity2"/>
         <activity android:name=".ui.activity.CollectionAndRecordActivity"/>
+        <activity android:name=".ui.activity.MainActivity3"/>
+        <activity android:name=".ui.activity.DetailActivity2"/>
 
 
         <!--适配基准-->

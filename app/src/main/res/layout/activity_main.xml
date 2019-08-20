@@ -95,24 +95,24 @@
                 android:id="@+id/iv_tab2"
                 android:layout_width="243dp"
                 android:layout_height="121dp"
-                android:focusable="true"
                 android:layout_marginStart="52dp"
+                android:focusable="true"
                 android:src="@drawable/selector_titles2"/>
 
             <ImageView
                 android:id="@+id/iv_tab3"
                 android:layout_width="243dp"
                 android:layout_height="121dp"
-                android:focusable="true"
                 android:layout_marginStart="52dp"
+                android:focusable="true"
                 android:src="@drawable/selector_titles3"/>
 
             <ImageView
                 android:id="@+id/iv_tab4"
                 android:layout_width="243dp"
                 android:layout_height="121dp"
-                android:focusable="true"
                 android:layout_marginStart="52dp"
+                android:focusable="true"
                 android:src="@drawable/selector_titles4"/>
 
 
@@ -120,8 +120,8 @@
                 android:id="@+id/iv_tab5"
                 android:layout_width="243dp"
                 android:layout_height="121dp"
-                android:focusable="true"
                 android:layout_marginStart="52dp"
+                android:focusable="true"
                 android:src="@drawable/selector_titles5"/>
 
 

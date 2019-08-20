@@ -7,12 +7,9 @@ import android.widget.TextClock;
 
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
-import com.jinhong.jhtv.test.GridListActivity;
-import com.jinhong.jhtv.test.TabLayoutTest;
-import com.jinhong.jhtv.test.VLayoutActivity;
+
 import com.jinhong.jhtv.test.VideoTestActivity;
-import com.jinhong.jhtv.test.ViewModelActivity;
-import com.jinhong.jhtv.test.ViewTestActivity;
+
 import com.jinhong.jhtv.ui.views.AutoHorizontalScrollTextView;
 import com.jinhong.jhtv.utils.FocusUtils;
 
@@ -115,14 +112,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             default:
                 break;
             case R.id.iv_tab0://亲子玩具
-                startActivity(ViewTestActivity.class);
+                bundle.putInt("type", 1);
+                startActivity(CategoryActivity.class, bundle);
                 break;
             case R.id.iv_tab1://亲子游戏
-                startActivity(ViewModelActivity.class);
+                bundle.putInt("type", 2);
+                startActivity(CategoryActivity.class, bundle);
                 break;
             case R.id.iv_tab2://亲子手工
-
-                startActivity(GridListActivity.class);
+                bundle.putInt("type", 3);
+                startActivity(CategoryActivity.class, bundle);
                 break;
             case R.id.iv_tab3://亲子教育
                 bundle.putInt("type", 4);
@@ -136,7 +135,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(AnimationCyActivity.class);
                 break;
             case R.id.iv_pic0:
-                startActivity(TabLayoutTest.class);
+                startActivity(MbActivity.class);
                 break;
             case R.id.iv_pic1:
                 startActivity(SingSongActivity.class);
@@ -169,7 +168,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(MainActivity1.class);
                 break;
             case R.id.iv_pic9:
-                startActivity(VLayoutActivity.class);
+                startActivity(MainActivity1.class);
                 break;
         }
     }

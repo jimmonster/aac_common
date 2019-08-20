@@ -6,7 +6,6 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,9 +22,6 @@ import com.jinhong.jhtv.model.UpdateCollectBean;
 import com.jinhong.jhtv.ui.adapter.DetailCountAdapter;
 import com.jinhong.jhtv.ui.adapter.DetailFooterAdapter;
 import com.jinhong.jhtv.ui.adapter.DetailTabAdapter;
-import com.jinhong.jhtv.ui.leanback.GridLayoutManagerTV;
-import com.jinhong.jhtv.ui.leanback.LinearLayoutManagerTV;
-import com.jinhong.jhtv.ui.leanback.RecyclerViewTV;
 import com.jinhong.jhtv.utils.ImageUtils;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
@@ -62,14 +58,14 @@ public class DetailActivity extends BaseActivity {
     private TextView mTvInfo1;
     private TextView mTvPlay;
 
-    private RecyclerViewTV mRecyclerViewCount;
+    private TvRecyclerView mRecyclerViewCount;
     private TvRecyclerView mRecyclerViewRecommend;
     //数据
 
     private DetailCountAdapter mDetailCountAdapter;
     private DetailFooterAdapter mDetailFooterAdapter;
 
-    private RecyclerViewTV mRecyclerViewTabs;
+    private TvRecyclerView mRecyclerViewTabs;
     private DetailTabAdapter mDetailTabAdapter;
     private TextView mTvIsCollection;
     private LinearLayout mLlDiv;
@@ -92,10 +88,10 @@ public class DetailActivity extends BaseActivity {
         mLlContainer = (LinearLayout) findViewById(R.id.ll_container);
         mTvInfo1 = (TextView) findViewById(R.id.tv_info1);
         mTvPlay = (TextView) findViewById(R.id.tv_play);
-        mRecyclerViewCount = (RecyclerViewTV) findViewById(R.id.recyclerView_count);
+        mRecyclerViewCount = (TvRecyclerView) findViewById(R.id.recyclerView_count);
         mRecyclerViewRecommend = (TvRecyclerView) findViewById(R.id.recyclerView_recommend);
 
-        mRecyclerViewTabs = (RecyclerViewTV) findViewById(R.id.recyclerView_tabs);
+        mRecyclerViewTabs = (TvRecyclerView) findViewById(R.id.recyclerView_tabs);
         mTvIsCollection = (TextView) findViewById(R.id.tv_isCollection);
         mLlDiv = (LinearLayout) findViewById(R.id.ll_div);
 
@@ -129,6 +125,8 @@ public class DetailActivity extends BaseActivity {
     @SuppressLint("DefaultLocale")
     private void initData2View(DetailBean detailBean) {
         DetailBean.DataBean data = detailBean.getData();
+        List<DetailBean.DataBean.ChildVosBean> childVos = data.getChildVos();
+
         ImageUtils.load(detailBean.getData().getPosterPath(), mIvPoster);
         mTvTitle.setText(detailBean.getData().getMainName());
         mTvInfo1.setText(detailBean.getData().getMainDesc());
@@ -179,20 +177,29 @@ public class DetailActivity extends BaseActivity {
         });
 
 
-        //集数
-        List<DetailBean.DataBean.ChildVosBean> childVos = data.getChildVos();
-        mRecyclerViewCount.setLayoutManager(new GridLayoutManagerTV(this, 10));
-        mDetailCountAdapter = new DetailCountAdapter(R.layout.widget_textview_count, childVos);
-        mRecyclerViewCount.setAdapter(mDetailCountAdapter);
-        mDetailCountAdapter.bindToRecyclerView(mRecyclerViewCount);
-        mRecyclerViewCount.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
+        //tabs
+        mDetailTabAdapter = new DetailTabAdapter(R.layout.widget_textview_tab, childVos);
+        mRecyclerViewTabs.setAdapter(mDetailTabAdapter);
+        mDetailTabAdapter.bindToRecyclerView(mRecyclerViewTabs);
+        mDetailTabAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-                //todo 跳转到播放页面
-                jump2VideoActivity(data, position, childVos);
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                //todo 选择到对应的界面
 
             }
         });
+        //集数
+        mDetailCountAdapter = new DetailCountAdapter(R.layout.widget_textview_count, childVos);
+        mRecyclerViewCount.setAdapter(mDetailCountAdapter);
+        mDetailCountAdapter.bindToRecyclerView(mRecyclerViewCount);
+        mDetailCountAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                //todo 跳转到播放页面
+                jump2VideoActivity(data, position, childVos);
+            }
+        });
+        //播放
         mTvPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,7 +211,6 @@ public class DetailActivity extends BaseActivity {
         //推荐海报
         mDetailFooterAdapter = new DetailFooterAdapter(R.layout.widget_item_detail, data.getPosterVoList());
         mRecyclerViewRecommend.setAdapter(mDetailFooterAdapter);
-//        mRecyclerViewCount.setDefaultSelect(0);
         mDetailFooterAdapter.bindToRecyclerView(mRecyclerViewRecommend);
         mDetailFooterAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -218,18 +224,6 @@ public class DetailActivity extends BaseActivity {
             }
         });
 
-        //tabs
-        mRecyclerViewTabs.setLayoutManager(new LinearLayoutManagerTV(this, LinearLayoutManager.HORIZONTAL, false));
-        mDetailTabAdapter = new DetailTabAdapter(R.layout.widget_textview_tab, childVos);
-        mRecyclerViewTabs.setAdapter(mDetailTabAdapter);
-//        mRecyclerViewCount.setDefaultSelect(0);
-        mRecyclerViewTabs.setOnItemClickListener(new RecyclerViewTV.OnItemClickListener() {
-            @Override
-            public void onItemClick(RecyclerViewTV parent, View itemView, int position) {
-                //todo 加载对应集数
-
-            }
-        });
 
     }
 
@@ -241,13 +235,9 @@ public class DetailActivity extends BaseActivity {
      * @param childVos 当前对应的视频播放地址等
      */
     public void jump2VideoActivity(DetailBean.DataBean data, int position, List<DetailBean.DataBean.ChildVosBean> childVos) {
-
-
-        //  String playUrl = childVos.get(position).getPlayUrl();
+        String playUrl = "";
+        //  todo 跳转到播放页面
         mCommonViewModel.updateCollectBean("" + data.getFatherId(), "testott11", data.getMainName(), data.getDramaType());
-//                Bundle bundle = new Bundle();
-////                bundle.putString("url", playUrl);
-////                bundle.putInt("count", childVos.size());
         startActivity(VideoActivity1.class);
 
 
@@ -277,6 +267,7 @@ public class DetailActivity extends BaseActivity {
                     }
                 });
                 mDialog.dismiss();
+                mDialog.cancel();
 
             }
         });
@@ -284,6 +275,7 @@ public class DetailActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 mDialog.dismiss();
+                mDialog.cancel();
             }
         });
         mDialog.create();

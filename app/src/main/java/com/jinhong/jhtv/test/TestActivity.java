@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
+import com.jinhong.jhtv.utils.BorderUtils;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class TestActivity extends BaseActivity {
 
     private void initData() {
         mList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             mList.add("按钮" + i);
         }
     }
@@ -52,6 +53,26 @@ public class TestActivity extends BaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Toast.makeText(TestActivity.this, "position" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mRecyclerViewRight.setOnItemListener(new TvRecyclerView.OnItemListener() {
+            @Override
+            public void onItemPreSelected(TvRecyclerView parent, View itemView, int position) {
+
+            }
+
+            @Override
+            public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
+//焦点监听 方式一:绑定整个页面的焦点监听事件
+                BorderUtils.getInstance(TestActivity.this).onMoveFocusBorder(itemView,1.2f);
+
+
+            }
+
+            @Override
+            public void onItemClick(TvRecyclerView parent, View itemView, int position) {
+
             }
         });
 

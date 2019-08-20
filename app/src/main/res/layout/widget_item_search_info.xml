@@ -10,7 +10,7 @@
           android:paddingStart="80dp"
           android:paddingEnd="80dp"
           android:singleLine="true"
-          android:text="小猪佩奇玩玩具"
+          android:text="当前数据为空"
           android:textColor="@color/white"
           android:textSize="36sp">
 
