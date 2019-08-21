@@ -110,7 +110,7 @@
     <color name="gray">#AAAA</color>
     <color name="color_1d51a0">#1d51a0</color>
     <!--半透明-->
-    <color name="color_e0000000">#50000000</color>
+    <color name="color_e0000000">#80000000</color>
     <!--全透明-->
     <color name="color_0000000">#00000000</color>
     <color name="color_text">#e2e5f5</color>

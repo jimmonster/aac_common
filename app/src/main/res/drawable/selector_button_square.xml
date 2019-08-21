@@ -1,0 +1,14 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/shape_corners_blue"
+          android:state_selected="true"/>
+
+    <item android:drawable="@drawable/shape_corners_blue"
+          android:state_focused="true"/>
+
+    <item android:drawable="@drawable/shape_corners_blue"
+          android:state_activated="true"/>
+
+    <item android:drawable="@drawable/shape_corners_orange"/>
+
+</selector>

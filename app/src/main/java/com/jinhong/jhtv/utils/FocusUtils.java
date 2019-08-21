@@ -8,13 +8,13 @@ import com.jinhong.jhtv.R;
 
 /**
  * @author :  Jim
- * @date :  2019-07-10
+ * @date :  8019-07-10
  * @description : 焦点工具类
  */
 public class FocusUtils {
     final private static float NORMAL = 0.95f;
     final private static float SELECT = 1.0f;
-    final private static int DURATION = 200;
+    final private static int DURATION = 800;
 
     /**
      * 焦点监听,不带圆角
@@ -76,6 +76,7 @@ public class FocusUtils {
 
 
     public static void onFocusChange(View view, int selected) {
+
         setResoure(view, selected);
 
 //        view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -123,7 +124,6 @@ public class FocusUtils {
         v.animate().scaleY(SELECT).scaleX(SELECT).setDuration(DURATION).start();
 
     }
-
 
 
     public static void selected(View v, int drawable) {

@@ -18,4 +18,12 @@
         <item name="android:textColor">#e8a007</item>
     </style>
 
+    <style name="BDAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/iv_watch_tc</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- Minor指竖屏模式下的宽度 -->
+        <item name="android:windowMinWidthMinor">300dp</item>
+        <item name="windowFixedWidthMinor">300dp</item>
+    </style>
+
 </resources>
