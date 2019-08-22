@@ -189,9 +189,7 @@
         app:tv_horizontalSpacingWithMargins="20dp"
         app:tv_layoutManager="GridLayoutManager"
         app:tv_numColumns="1"
-        app:tv_numRows="1"
-        app:tv_optimizeLayout="false"
-        app:tv_selectedItemIsCentered="false"
+        app:tv_numRows="6"
         app:tv_verticalSpacingWithMargins="12dp">
 
     </com.owen.tvrecyclerview.widget.TvRecyclerView>

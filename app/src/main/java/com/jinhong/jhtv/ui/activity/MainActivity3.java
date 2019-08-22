@@ -138,12 +138,12 @@ public class MainActivity3 extends BaseActivity implements View.OnClickListener 
             case R.id.iv_collection:
                 Bundle bundle = new Bundle();
                 bundle.putString("type", "collection");
-                startActivity(CollectionAndRecordActivity.class, bundle);
+                startActivity(CollectionAndRecordActivity2.class, bundle);
                 break;
             case R.id.iv_record:
                 bundle = new Bundle();
                 bundle.putString("type", "record");
-                startActivity(CollectionAndRecordActivity.class, bundle);
+                startActivity(CollectionAndRecordActivity2.class, bundle);
                 break;
         }
     }

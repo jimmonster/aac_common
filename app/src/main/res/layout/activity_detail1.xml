@@ -10,8 +10,7 @@
     android:clipToPadding="false"
     android:paddingStart="150dp"
     android:paddingTop="120dp"
-    android:paddingEnd="150dp"
-    >
+    android:paddingEnd="150dp">
 
 
     <ImageView
@@ -133,6 +132,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:scrollbars="none"
+                android:visibility="gone"
                 app:spanCount="1"
                 app:tv_horizontalSpacingWithMargins="0dp"
                 app:tv_isMenu="true"

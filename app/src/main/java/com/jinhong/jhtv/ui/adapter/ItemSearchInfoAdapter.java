@@ -1,7 +1,6 @@
 package com.jinhong.jhtv.ui.adapter;
 
 import android.support.annotation.Nullable;
-import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -24,18 +23,6 @@ public class ItemSearchInfoAdapter extends BaseQuickAdapter<SearchBean.DataBean.
 
     @Override
     protected void convert(BaseViewHolder helper, SearchBean.DataBean.ListBean item) {
-        helper.itemView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (v != null) {
-                    if (hasFocus) {
-                        v.setBackgroundResource(R.drawable.iv_search_sbg_f);
-                    }else {
-                        v.setBackgroundResource(R.drawable.iv_search_sbg);
-                    }
-                }
-            }
-        });
         helper.setText(R.id.tv_item_search_info, item.getMainName());
 
     }

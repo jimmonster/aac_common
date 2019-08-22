@@ -24,7 +24,8 @@
         app:tabScrollMode="fixed"
         app:tabTexSize="38sp"
         app:tabTextColor="@color/color_selector_white2orange"
-        app:tabTextSelectedScale="1.2"/>
+        app:tabTextSelectedScale="1.2">
+    </com.owen.tab.TvTabLayout>
 
 
 

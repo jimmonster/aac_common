@@ -6,7 +6,8 @@ package com.jinhong.jhtv;
  * @description :
  */
 public class Constants {
-    public final static String MAIN = "http://192.168.0.20:9369/";
+    //    public final static String MAIN = "http://192.168.0.20:9369/";//本地地址
+    public final static String MAIN = "http://47.99.217.51:9373/";//阿里云地址
     //bugly ID and KEY
     public final static String BUGLYID = "d9ec61125d";
     public final static String BUGLYKEY = "fa91456f-9045-4a3f-b184-65ce46419b6b";

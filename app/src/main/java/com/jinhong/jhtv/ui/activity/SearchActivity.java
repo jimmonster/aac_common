@@ -170,7 +170,7 @@ public class SearchActivity extends BaseActivity {
                 searchInfo = searchInfo.substring(0, length < 0 ? 0 : length);
                 //删除
                 mTvSearchInfo.setText(searchInfo);
-                if (!TextUtils.isEmpty(searchInfo) && length > 0) {
+                if (!TextUtils.isEmpty(searchInfo) || length > 0) {
                     mSearchBeanLiveData = mCommonViewModel.getSearchBean(searchInfo);
                     setData2Adapter(true);
                 } else {
@@ -229,6 +229,7 @@ public class SearchActivity extends BaseActivity {
     }
 
     public void setData2Adapter(boolean isClick) {
+
         if (isClick) {
             mSearchBeanLiveData.observe(this, new Observer<SearchBean>() {
                 @Override
@@ -250,26 +251,12 @@ public class SearchActivity extends BaseActivity {
                     } else {
                         mTvCurrentPage.setText(String.format("(共%d条搜索记录）", 0));
                         mSearchInfoAdapter.setNewData(mNoData);
-                        mSearchInfoAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                toast("当前数据为空");
-
-                            }
-                        });
                     }
                 }
             });
         } else {
             mTvCurrentPage.setText(String.format("(共%d条搜索记录）", 0));
             mSearchInfoAdapter.setNewData(mNoData);
-            mSearchInfoAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    toast("当前数据为空");
-
-                }
-            });
         }
 
 
