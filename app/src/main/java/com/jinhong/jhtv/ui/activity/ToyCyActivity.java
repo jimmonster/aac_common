@@ -10,6 +10,7 @@ import com.jinhong.jhtv.base.BaseActivity;
  * @date :  2019-07-11
  * @description :亲子玩具/游戏页面
  */
+@Deprecated
 public class ToyCyActivity  extends BaseActivity {
 
 

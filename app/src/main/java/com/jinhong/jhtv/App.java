@@ -106,7 +106,7 @@ public class App extends Application implements Application.ActivityLifecycleCal
          * 参数2：appId
          * 参数3：是否开启debug
          */
-        Bugly.init(getApplicationContext(), Constants.BUGLYID, true);
+        Bugly.init(getApplicationContext(), Constants.BUGLYID, BuildConfig.DEBUG);
 
         /**
          * 如果想自定义策略，按照如下方式设置

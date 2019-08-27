@@ -179,6 +179,7 @@ public class MainActivity1 extends BaseActivity implements View.OnClickListener 
 
 }
 
+@Deprecated
 class ViewpagerAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<Fragment> mFragmentArrayList;

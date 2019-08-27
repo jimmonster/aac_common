@@ -20,6 +20,7 @@ import java.util.ArrayList;
  * @date :  2019-07-25
  * @description :收藏和记录页面切换
  */
+@Deprecated
 public class CollectionAndRecordActivity extends BaseActivity {
 
     private TvTabLayout mTabLayout;

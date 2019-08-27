@@ -56,8 +56,9 @@ public class SearchActivity extends BaseActivity {
      */
     private TextView mTvFavorite;
     private MutableLiveData<MainListBean> mMainListBean;
-    private ArrayList<MainListBean.DataBean.PosterVosBean> mPosterVosBeans;
+    private ArrayList<MainListBean.DataBean.PosterVosBean> mPosterVosBeans = new ArrayList<>();
     private List<SearchBean.DataBean.ListBean> mNoData;
+    private MainIdBean.DataBean mDataBean;
 
 
     @Override
@@ -86,30 +87,18 @@ public class SearchActivity extends BaseActivity {
 
         String json = IoUtils.inputStreamToString(getResources().openRawResource(R.raw.data_main_id));
         MainIdBean mainIdBean = GsonUtil.GsonToBean(json, MainIdBean.class);
-        MainIdBean.DataBean data = mainIdBean.getData();
-        mPosterVosBeans = new ArrayList<>();
+        mDataBean = mainIdBean.getData();
+        //推荐收藏
+        mMainListBean = mCommonViewModel.getMainListBean(mDataBean.getMain());
 
-        mMainListBean = mCommonViewModel.getMainListBean(data.getMain());
-        mMainListBean.observe(this, new Observer<MainListBean>() {
-            @Override
-            public void onChanged(@Nullable MainListBean mainListBean) {
-                if (mainListBean != null) {
-                    List<MainListBean.DataBean.PosterVosBean> posterVos = mainListBean.getData().getPosterVos();
-                    Collections.sort(posterVos, (o1, o2) -> Integer.parseInt(o1.getPosterId().substring(3)) - Integer.parseInt(o2.getPosterId().substring(3)));
-
-                    for (int i = 8; i <= 13; i++) {
-                        if (posterVos.get(i) != null) {
-                            mPosterVosBeans.add(posterVos.get(i));
-                        }
-                    }
-
-                }
-
-            }
-        });
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPosterVosBeans.clear();
+    }
 
     private void initView() {
 
@@ -125,14 +114,44 @@ public class SearchActivity extends BaseActivity {
         mSearchInfoAdapter = new ItemSearchInfoAdapter(R.layout.widget_item_search_info, mNoData);
         mRecyclerViewInfo.setAdapter(mSearchInfoAdapter);
         mSearchInfoAdapter.bindToRecyclerView(mRecyclerViewInfo);
-
-        //推荐收藏
+        //初始化展示推荐的数据
+        mSearchBeanLiveData = mCommonViewModel.getSearchBean(searchInfo);
+        setData2Adapter(true);
+        mSearchInfoAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (mSearchInfoData != null && mSearchInfoData.getList() != null && mSearchInfoData.getList().size() > 0) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("fatherId", "" + mSearchInfoData.getList().get(position).getFatherId());
+                    startActivity(DetailActivity.class, bundle);
+                }
+            }
+        });
 
 
         mRecyclerViewFavorite = (TvRecyclerView) findViewById(R.id.recyclerView_favorite);
         ItemFavoriteAdapter favoriteAdapter = new ItemFavoriteAdapter(R.layout.widget_item_favorite, mPosterVosBeans);
         mRecyclerViewFavorite.setAdapter(favoriteAdapter);
         favoriteAdapter.bindToRecyclerView(mRecyclerViewFavorite);
+        mMainListBean.observe(this, new Observer<MainListBean>() {
+            @Override
+            public void onChanged(@Nullable MainListBean mainListBean) {
+                if (mainListBean != null) {
+                    List<MainListBean.DataBean.PosterVosBean> posterVos = mainListBean.getData().getPosterVos();
+                    Collections.sort(posterVos, (o1, o2) -> Integer.parseInt(o1.getPosterId().substring(3)) - Integer.parseInt(o2.getPosterId().substring(3)));
+
+                    for (int i = 8; i <= 13; i++) {
+                        if (posterVos.get(i) != null) {
+                            mPosterVosBeans.add(posterVos.get(i));
+                        }
+                    }
+                    favoriteAdapter.setNewData(mPosterVosBeans);
+
+
+                }
+
+            }
+        });
         favoriteAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -155,7 +174,6 @@ public class SearchActivity extends BaseActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 searchInfo += mLetters.get(position);
                 mTvSearchInfo.setText(searchInfo);
-                //最开始就请求一次热门的ip
                 mSearchBeanLiveData = mCommonViewModel.getSearchBean(searchInfo);
                 setData2Adapter(true);
 
@@ -170,7 +188,7 @@ public class SearchActivity extends BaseActivity {
                 searchInfo = searchInfo.substring(0, length < 0 ? 0 : length);
                 //删除
                 mTvSearchInfo.setText(searchInfo);
-                if (!TextUtils.isEmpty(searchInfo) || length > 0) {
+                if (!TextUtils.isEmpty(searchInfo) && length >= 0) {
                     mSearchBeanLiveData = mCommonViewModel.getSearchBean(searchInfo);
                     setData2Adapter(true);
                 } else {
@@ -230,34 +248,26 @@ public class SearchActivity extends BaseActivity {
 
     public void setData2Adapter(boolean isClick) {
 
-        if (isClick) {
-            mSearchBeanLiveData.observe(this, new Observer<SearchBean>() {
-                @Override
-                public void onChanged(@Nullable SearchBean searchBean) {
-                    if (searchBean != null && searchBean.getData() != null && searchBean.getData().getSize() > 0) {
+
+        mSearchBeanLiveData.observe(this, new Observer<SearchBean>() {
+            @Override
+            public void onChanged(@Nullable SearchBean searchBean) {
+                if (searchBean != null) {
+                    mSearchInfoData = searchBean.getData();
+                    if (mSearchInfoData.getSize() > 0) {
                         mTvCurrentPage.setText(String.format("(共%d条搜索记录）", searchBean.getData().getSize()));
                         mSearchInfoAdapter.setNewData(searchBean.getData().getList());
-                        mSearchInfoAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                //todo 跳转到详情页面
-                                Bundle bundle = new Bundle();
-                                bundle.putString("fatherId", "" + searchBean.getData().getList().get(position).getFatherId());
-                                if (!TextUtils.isEmpty("" + searchBean.getData().getList().get(position).getFatherId())) {
-                                    startActivity(DetailActivity.class, bundle);
-                                }
-                            }
-                        });
                     } else {
                         mTvCurrentPage.setText(String.format("(共%d条搜索记录）", 0));
                         mSearchInfoAdapter.setNewData(mNoData);
                     }
                 }
-            });
-        } else {
-            mTvCurrentPage.setText(String.format("(共%d条搜索记录）", 0));
-            mSearchInfoAdapter.setNewData(mNoData);
-        }
+
+
+            }
+
+
+        });
 
 
     }

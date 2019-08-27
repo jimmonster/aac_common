@@ -30,6 +30,7 @@ import java.util.ArrayList;
  * @date :  2019-07-03
  * @description :
  */
+@Deprecated
 public class MainActivity2 extends BaseActivity implements View.OnClickListener {
 
 

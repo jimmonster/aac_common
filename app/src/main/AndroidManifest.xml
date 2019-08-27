@@ -98,6 +98,8 @@
         <activity android:name=".ui.activity.CollectionAndRecordActivity"/>
         <activity android:name=".ui.activity.MainActivity3"/>
         <activity android:name=".test.BluesActivity"/>
+        <activity android:name=".ui.activity.CollectionAndRecordActivity2"/>
+
 
 
         <!--适配基准-->
@@ -118,7 +120,6 @@
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent"/>
-        <activity android:name=".ui.activity.CollectionAndRecordActivity2"/>
 
         <!-- 必须配置 fileProvider， 注意： android:authorities="${applicationId}.fileProvider" 不要直接copy，设置为你的包名.fileProvider-->
         <provider
