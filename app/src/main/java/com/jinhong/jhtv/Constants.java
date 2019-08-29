@@ -109,8 +109,6 @@ public class Constants {
     public final static String POST_MULTIPLE_LOG_INSERT = MAIN + "kdepg_server/log/batchInsert.do";
 
 
-    //测试接口
-    public final static String TEST_URL = "http://api.live.bilibili.com/AppIndex/tags?_device=android&appkey=1d8b6e7d45233436&build=505000&mobi_app=android&platform=android&ts=1495438990&sign=27e923afa5c522c9c8c42f6e56f4bf99";
-    public final static String TEST_URL1 = "http://api.live.bilibili.com//mobile/rooms?platform=android";
+
 
 }

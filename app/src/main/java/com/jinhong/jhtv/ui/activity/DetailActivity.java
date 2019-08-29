@@ -117,8 +117,6 @@ public class DetailActivity extends BaseActivity {
                 }
             }
         });
-
-
     }
 
     int status = -1;
@@ -243,7 +241,6 @@ public class DetailActivity extends BaseActivity {
 
 
     }
-
 
 
     private void showDialog(String fatherId, String userId) {

@@ -4,6 +4,7 @@ import com.jinhong.jhtv.callback.JsonCallback;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.FileCallback;
 import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.HttpHeaders;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -50,6 +51,11 @@ public class OkGoUtils {
        //post，需要传递TAG
     public static void post(String url, Map<String, String> paramMap, Object tag, StringCallback callback) {
         OkGo.<String>post(url).params(paramMap).tag(tag).execute(callback);
+    }
+
+    //post，需要传递headers
+    public static void post(String url, HttpHeaders headers, Map<String, String> paramMap, StringCallback callback) {
+        OkGo.<String>post(url).headers(headers).params(paramMap).execute(callback);
     }
 
     //post，不需要传递TAG
