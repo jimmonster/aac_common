@@ -3,6 +3,7 @@ package com.jinhong.jhtv.ui.activity;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Dialog;
+import android.arch.lifecycle.MutableLiveData;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jinhong.jhtv.CustomMedia.BaseGSYVideoPlayer;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
+import com.jinhong.jhtv.model.UpdateBookmarkBean;
 import com.jinhong.jhtv.ui.widgets.GSYPlayView;
 import com.jinhong.jhtv.utils.FocusUtils;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
@@ -30,6 +32,7 @@ import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoViewBridge;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -69,13 +72,20 @@ public class VideoActivity1 extends BaseActivity {
     };
     private GSYPlayView mStart;
     private SeekBar mSeekBar;
+    private MutableLiveData<UpdateBookmarkBean> mUpdateBookmarkBean;
+    private String mUserId;
+    private String mFatherId;
+    private String mContentId;
+    private String mMainName;
+    private String mContemainNamentName;
+    private String mDramaType;
+    private String mSort;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video2);
         initData();
-
         initView();
     }
 
@@ -84,6 +94,21 @@ public class VideoActivity1 extends BaseActivity {
         for (int i = 1; i <= 25; i++) {
             mTvCounts.add("" + i);
         }
+
+
+        Bundle bundleExtra = getIntent().getBundleExtra(extraBundle);
+        if (bundleExtra != null) {
+            url = bundleExtra.getString("playUrl", "");
+            mUserId = bundleExtra.getString("userId", "");
+            mFatherId = bundleExtra.getString("fatherId", "");
+            mContentId = bundleExtra.getString("contentId", "");
+            mMainName = bundleExtra.getString("mainName", "");
+            mContemainNamentName = bundleExtra.getString("contemainNamentName", "");
+            mDramaType = bundleExtra.getString("dramaType", "");
+            mSort = bundleExtra.getString("sort", "");
+
+        }
+
     }
 
 
@@ -102,6 +127,8 @@ public class VideoActivity1 extends BaseActivity {
         mGsyVideoManager = mGsyPlayer.getGSYVideoManager();
         mGsyPlayer.setBottomShowProgressBarDrawable(progressDrawable, thumb);
         mGsyPlayer.setUp(url, true, null);
+        //上传观影记录
+        upDateRecord(mUserId, mFatherId, mContentId, mMainName, mContemainNamentName, mDramaType, mSort);
 
         //自动播放
         mGsyPlayer.startPlayLogic();
@@ -128,6 +155,7 @@ public class VideoActivity1 extends BaseActivity {
             }
         });
 
+
     }
 
 
@@ -152,14 +180,36 @@ public class VideoActivity1 extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+        int visibility = mLlMenuContainer.getVisibility();
+        if (visibility == View.VISIBLE) {
+            mLlMenuContainer.setVisibility(View.INVISIBLE);
+        } else {
+            showDialogForExit();
+        }
 
 //        //释放所有
 //        mGsyPlayer.setVideoAllCallBack(null);
 //        GSYVideoManager.releaseAllVideos();
         //弹出对话框
-        showDialogForExit();
+
         // super.onBackPressed();
 
+    }
+
+    private void upDateRecord(String userId, String fatherId, String contentId, String mainName, String contemainNamentName, String dramaType, String sort) {
+        long seekOnStart = mGsyPlayer.getSeekOnStart();
+        //上传观影记录
+        HashMap<String, String> params = new HashMap<>();
+        params.put("userId", userId);
+        params.put("fatherId", fatherId);
+        params.put("contentId", contentId);
+        params.put("mainName", mainName);
+        params.put("contemainNamentName", contemainNamentName);
+        params.put("dramaType", dramaType);
+        params.put("sort", sort);
+        params.put("duration", Long.toString(seekOnStart));
+        mUpdateBookmarkBean = mCommonViewModel.getUpdateBookmarkBean(params);
+//                mGsyVideoManager.he
     }
 
 
@@ -177,6 +227,8 @@ public class VideoActivity1 extends BaseActivity {
         mBtnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 //退出当前页面
                 endWatch();
 
@@ -316,7 +368,7 @@ public class VideoActivity1 extends BaseActivity {
             if (isAdd) {
                 currentPosition += 5_000;//快退5S
                 if (duration > currentPosition) {
-                    mGsyVideoManager.seekTo(currentPosition);
+                    mGsyVideoManager.seekTo(currentPosition + 5_000);
                 }
             } else {
                 currentPosition -= 5_000;//快退5S

@@ -1,14 +1,11 @@
 package com.jinhong.jhtv.ui.adapter;
 
-import android.content.Intent;
 import android.support.annotation.Nullable;
-import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.model.RecordListBean;
-import com.jinhong.jhtv.ui.activity.VideoActivity1;
 
 import java.util.List;
 
@@ -26,7 +23,7 @@ public class RecordInfoListAdapter extends BaseQuickAdapter<RecordListBean.DataB
     @Override
     protected void convert(BaseViewHolder helper, RecordListBean.DataBean.ListBean item) {
 
-        helper.setText(R.id.tv_name, item.getContentName());
+        helper.setText(R.id.tv_name, item.getMainName());
         helper.setText(R.id.tv_type, item.getDramaType());
         helper.setText(R.id.tv_progress, item.getDration());
         helper.setText(R.id.tv_play, "播放");

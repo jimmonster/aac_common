@@ -2,7 +2,6 @@ package com.jinhong.jhtv.ui.activity;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -94,9 +93,9 @@ public class RecordActivity extends BaseActivity implements View.OnClickListener
                 switch (view.getId()) {
                     default:break;
                     case R.id.tv_play:
-                        Intent intent = new Intent(RecordActivity.this, VideoActivity1.class);
-                        //todo 传递url给video
-                        startActivity(intent);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("fatherId", "" + listBeans.get(position).getFatherId());
+                        startActivity(DetailActivity.class, bundle);
                         break;
                 }
 

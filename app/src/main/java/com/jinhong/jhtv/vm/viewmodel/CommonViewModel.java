@@ -118,7 +118,7 @@ public class CommonViewModel extends ViewModel {
         HashMap<String, String> params = new HashMap<>();
         params.put("userId", userId);
         params.put("pageNum", "1");
-        params.put("pageSize", "6");
+        params.put("pageSize", "200");
 
         //数据请求建议放在Repository，viewModel主攻业务
         return mRepository.requestRecordListData(Constants.POST_RECORD_LIST, params);

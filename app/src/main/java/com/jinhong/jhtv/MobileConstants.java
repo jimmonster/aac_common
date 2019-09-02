@@ -8,7 +8,7 @@ package com.jinhong.jhtv;
 public class MobileConstants {
 
     //山东移动
-    public final static String MOBILE_MAIN = "http://";
+    public final static String MOBILE_MAIN = "http://223.99.141.143:1100";
     //统一订购退订(serviceOrder)
     public final static String POST_SERVICE_ORDER = MOBILE_MAIN + "/aep/serviceOrder/v1";
     //查询产品详情接口(queryProduct)

@@ -26,8 +26,9 @@ import java.util.HashMap;
 /**
  * @author :  Jim
  * @date :  2019-08-28
- * @description :
+ * @description :山东移动viewModel
  */
+
 public class MobileViewModel extends ViewModel {
     private MobileRepository mRepository;
 
@@ -37,6 +38,7 @@ public class MobileViewModel extends ViewModel {
 
     //统一订购退订(serviceOrder)
     public MutableLiveData<ServiceOrderBean> getServiceOrderBean(String url) {
+
         HttpHeaders headers = OkGo.getInstance().getCommonHeaders();
         headers.put("Accept", "application/json");
         headers.put("Content-Type", "application/json");

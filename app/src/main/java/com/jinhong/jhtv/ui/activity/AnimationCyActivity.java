@@ -27,6 +27,7 @@ import java.util.List;
 public class AnimationCyActivity extends BaseActivity {
 
 
+
     private ImageView mIvLogo;
     private TvRecyclerView mRecyclerview;
     private int mLog;
@@ -35,6 +36,7 @@ public class AnimationCyActivity extends BaseActivity {
     private String columnId;
 
     private LinearLayout mLlContainer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
