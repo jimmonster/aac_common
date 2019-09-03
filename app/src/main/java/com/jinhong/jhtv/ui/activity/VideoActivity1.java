@@ -29,6 +29,7 @@ import com.jinhong.jhtv.utils.FocusUtils;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
+import com.shuyu.gsyvideoplayer.listener.VideoAllCallBack;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoViewBridge;
 
 import java.util.ArrayList;
@@ -44,10 +45,10 @@ public class VideoActivity1 extends BaseActivity {
 
     private BaseGSYVideoPlayer mGsyPlayer;
 
-    //    String url = "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8";
+    //        String url = "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8";
 //    String url = "http://ivi.bupt.edu.cn/hls/hunantv.m3u8";
-//        String url = "http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4";
-    String url = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
+    String url = "http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4";
+    String url1 = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
     private GSYVideoViewBridge mGsyVideoManager;//视频管理
     private GSYVideoOptionBuilder mGsyVideoOption;//配置工具
     private RelativeLayout mRlVideoTip;
@@ -155,6 +156,121 @@ public class VideoActivity1 extends BaseActivity {
             }
         });
 
+        mGsyPlayer.setVideoAllCallBack(new VideoAllCallBack() {
+            @Override
+            public void onStartPrepared(String url, Object... objects) {
+
+            }
+
+            @Override
+            public void onPrepared(String url, Object... objects) {
+
+            }
+
+            @Override
+            public void onClickStartIcon(String url, Object... objects) {
+
+            }
+
+            @Override
+            public void onClickStartError(String url, Object... objects) {
+
+            }
+
+            @Override
+            public void onClickStop(String url, Object... objects) {
+
+            }
+
+            @Override
+            public void onClickStopFullscreen(String url, Object... objects) {
+
+            }
+
+            @Override
+            public void onClickResume(String url, Object... objects) {
+
+            }
+
+            @Override
+            public void onClickResumeFullscreen(String url, Object... objects) {
+
+            }
+
+            @Override
+            public void onClickSeekbar(String url, Object... objects) {
+
+            }
+
+            @Override
+            public void onClickSeekbarFullscreen(String url, Object... objects) {
+
+            }
+
+            @Override
+            public void onAutoComplete(String url, Object... objects) {
+                //播放完毕
+                showDialogForExit("播放结束");
+            }
+
+            @Override
+            public void onEnterFullscreen(String url, Object... objects) {
+
+            }
+
+            @Override
+            public void onQuitFullscreen(String url, Object... objects) {
+
+            }
+
+            @Override
+            public void onQuitSmallWidget(String url, Object... objects) {
+
+            }
+
+            @Override
+            public void onEnterSmallWidget(String url, Object... objects) {
+
+            }
+
+            @Override
+            public void onTouchScreenSeekVolume(String url, Object... objects) {
+
+            }
+
+            @Override
+            public void onTouchScreenSeekPosition(String url, Object... objects) {
+
+            }
+
+            @Override
+            public void onTouchScreenSeekLight(String url, Object... objects) {
+
+            }
+
+            @Override
+            public void onPlayError(String url, Object... objects) {
+                //播放错误
+
+
+            }
+
+            @Override
+            public void onClickStartThumb(String url, Object... objects) {
+
+            }
+
+            @Override
+            public void onClickBlank(String url, Object... objects) {
+
+            }
+
+            @Override
+            public void onClickBlankFullscreen(String url, Object... objects) {
+
+            }
+        });
+
 
     }
 
@@ -184,7 +300,7 @@ public class VideoActivity1 extends BaseActivity {
         if (visibility == View.VISIBLE) {
             mLlMenuContainer.setVisibility(View.INVISIBLE);
         } else {
-            showDialogForExit();
+            showDialogForExit("确定退出当前影片？");
         }
 
 //        //释放所有
@@ -212,13 +328,17 @@ public class VideoActivity1 extends BaseActivity {
 //                mGsyVideoManager.he
     }
 
-
-    private void showDialogForExit() {
+    /**
+     * 弹窗
+     *
+     * @param messages
+     */
+    private void showDialogForExit(String messages) {
 
         Dialog mDialog = new Dialog(this, R.style.video_style_dialog_progress);
         mDialog.setContentView(R.layout.dialog_video_toast);
         TextView mTvMessage = mDialog.findViewById(R.id.tv_message);
-        mTvMessage.setText("确定退出当前应用？");
+        mTvMessage.setText(messages);
         Button mBtnExit = mDialog.findViewById(R.id.btn_exit);
         Button mBtnWatching = mDialog.findViewById(R.id.btn_watching);
 
@@ -227,8 +347,6 @@ public class VideoActivity1 extends BaseActivity {
         mBtnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 //退出当前页面
                 endWatch();
 
@@ -245,7 +363,8 @@ public class VideoActivity1 extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //todo 加载下一集
-
+                mGsyPlayer.setUp(url1, true, null);
+                mGsyPlayer.startPlayLogic();
                 mDialog.dismiss();
             }
         });
@@ -267,19 +386,6 @@ public class VideoActivity1 extends BaseActivity {
         finish();
     }
 
-    /**
-     * 继续观看
-     */
-    private void watching() {
-
-    }
-
-    /**
-     * 播放下一集
-     */
-    private void nextWatch() {
-
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -376,13 +482,8 @@ public class VideoActivity1 extends BaseActivity {
                     mGsyVideoManager.seekTo(currentPosition);
                 }
             }
-
-
         }
-
-
     }
-
 
     private class GSYMenuAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         public GSYMenuAdapter(int layoutResId, @Nullable List<String> data) {

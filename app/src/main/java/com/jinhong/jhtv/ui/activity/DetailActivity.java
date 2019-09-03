@@ -134,7 +134,7 @@ public class DetailActivity extends BaseActivity {
         mTvCount.setText(String.format("集数：%d", detailBean.getData().getSitnums()));
 
         //todo 先查看是否收藏，收藏点击取消收藏，否则增加收藏
-        MutableLiveData<IsCollectBean> isCollectBean = mCommonViewModel.getIsCollectBean("" + data.getFatherId(), "testott11");
+        MutableLiveData<IsCollectBean> isCollectBean = mCommonViewModel.getIsCollectBean(String.valueOf(data.getFatherId()), "testott11");
         isCollectBean.observe(this, new Observer<IsCollectBean>() {
             @Override
             public void onChanged(@Nullable IsCollectBean isCollectBean) {
@@ -244,7 +244,7 @@ public class DetailActivity extends BaseActivity {
         //“sort”:”1”,
         //“duration”:”69”,
         String playUrl = "http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4";
-      //todo
+        //todo
         //  String playUrl1 = childVos.get(position).getPlayUrl();
         //  String contentId = String.valueOf(childVos.get(position).getContentId());
         //  String contentName = childVos.get(position).getContentName();
