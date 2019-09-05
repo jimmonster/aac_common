@@ -49,6 +49,7 @@ public class VideoActivity1 extends BaseActivity {
 //    String url = "http://ivi.bupt.edu.cn/hls/hunantv.m3u8";
     String url = "http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4";
     String url1 = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
+    String url2 = "http://202.99.114.93/88888891/16/20190905/270840647/270840647.ts";
     private GSYVideoViewBridge mGsyVideoManager;//视频管理
     private GSYVideoOptionBuilder mGsyVideoOption;//配置工具
     private RelativeLayout mRlVideoTip;
@@ -116,11 +117,14 @@ public class VideoActivity1 extends BaseActivity {
     private void initView() {
 
         mRlVideoTip = (RelativeLayout) findViewById(R.id.rl_video_tip);
+        mRlVideoTip.setVisibility(View.VISIBLE);
         mRecyclerViewMenu = (TvRecyclerView) findViewById(R.id.recyclerView_menu);
 
         mLlMenuContainer = (LinearLayout) findViewById(R.id.ll_menu_container);
 
         mGsyPlayer = (BaseGSYVideoPlayer) findViewById(R.id.gsy_player);
+
+
         mStart = (GSYPlayView) mGsyPlayer.findViewById(R.id.start);
         mSeekBar = mGsyPlayer.findViewById(R.id.progress);
         Drawable thumb = getResources().getDrawable(R.drawable.ic_video_volume_button);
@@ -210,7 +214,7 @@ public class VideoActivity1 extends BaseActivity {
             @Override
             public void onAutoComplete(String url, Object... objects) {
                 //播放完毕
-                showDialogForExit("播放结束");
+                showDialogForExit("播放结束，自动为您播放下一集...", true);
             }
 
             @Override
@@ -300,7 +304,7 @@ public class VideoActivity1 extends BaseActivity {
         if (visibility == View.VISIBLE) {
             mLlMenuContainer.setVisibility(View.INVISIBLE);
         } else {
-            showDialogForExit("确定退出当前影片？");
+            showDialogForExit("确定退出当前影片？", false);
         }
 
 //        //释放所有
@@ -332,8 +336,9 @@ public class VideoActivity1 extends BaseActivity {
      * 弹窗
      *
      * @param messages
+     * @param isNext   是否可以直接播放下一集
      */
-    private void showDialogForExit(String messages) {
+    private void showDialogForExit(String messages, Boolean isNext) {
 
         Dialog mDialog = new Dialog(this, R.style.video_style_dialog_progress);
         mDialog.setContentView(R.layout.dialog_video_toast);
@@ -359,22 +364,40 @@ public class VideoActivity1 extends BaseActivity {
                 mDialog.dismiss();
             }
         });
+
         mBtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //todo 加载下一集
                 mGsyPlayer.setUp(url1, true, null);
                 mGsyPlayer.startPlayLogic();
+
                 mDialog.dismiss();
             }
         });
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mDialog.create();
         }
         mDialog.show();
 
+        //可以自动播放下一集
+        if (isNext) {
+//            RunnableUtil.Companion.start(mBtnNext);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mBtnNext.performClick();
+                    mDialog.dismiss();
+                }
+            }, 2000);
+
+
+        }
+
 
     }
+
 
     /**
      * 结束播放
@@ -400,10 +423,18 @@ public class VideoActivity1 extends BaseActivity {
                 visibility = mLlMenuContainer.getVisibility();
                 seekControl(true, visibility);
                 break;
+            case KeyEvent.KEYCODE_DPAD_UP://向上键，上一集
+            case 0x0021:
+                //todo 上一集
+                break;
+            case KeyEvent.KEYCODE_DPAD_DOWN://向下键，下一集
+            case 0x0022:
+                //todo 下一集
+
+                break;
 
             case KeyEvent.KEYCODE_ENTER:     //确定键，暂停播放
             case KeyEvent.KEYCODE_DPAD_CENTER:
-                toast("暂停播放");
                 if (mGsyVideoManager.isPlaying()) {
                     mGsyVideoManager.pause();
                     mStart.pause();
@@ -415,8 +446,6 @@ public class VideoActivity1 extends BaseActivity {
 
             case KeyEvent.KEYCODE_MENU://菜单键
                 mRecyclerViewMenu.requestFocus(R.id.gsy_player);
-                toast("菜单键");
-
                 visibility = mLlMenuContainer.getVisibility();
                 if (visibility == View.VISIBLE) {
                     mLlMenuContainer.setVisibility(View.INVISIBLE);
@@ -426,11 +455,9 @@ public class VideoActivity1 extends BaseActivity {
                 break;
 
             case KeyEvent.KEYCODE_0:
-                //todo 模拟菜单键
+                //todo 模拟菜单
                 //获取到焦点
                 mRecyclerViewMenu.requestFocus(R.id.gsy_player);
-                toast("KEYCODE_NUMPAD_0");
-
                 visibility = mLlMenuContainer.getVisibility();
                 if (visibility == View.VISIBLE) {
                     mLlMenuContainer.setVisibility(View.INVISIBLE);
@@ -441,8 +468,7 @@ public class VideoActivity1 extends BaseActivity {
 
 
             case KeyEvent.KEYCODE_9:
-                //模拟确认键
-                toast("暂停播放");
+                //todo 模拟确认键
                 if (mGsyVideoManager.isPlaying()) {
                     mGsyVideoManager.pause();
                     mStart.pause();

@@ -18,9 +18,12 @@ import android.widget.TextView;
 
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.ui.widgets.GSYPlayView;
+import com.shuyu.gsyvideoplayer.cache.CacheFactory;
 import com.shuyu.gsyvideoplayer.listener.GSYVideoShotListener;
 import com.shuyu.gsyvideoplayer.listener.GSYVideoShotSaveListener;
+import com.shuyu.gsyvideoplayer.player.PlayerFactory;
 import com.shuyu.gsyvideoplayer.utils.Debuger;
+import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.shuyu.gsyvideoplayer.utils.NetworkUtils;
 import com.shuyu.gsyvideoplayer.video.base.GSYBaseVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
@@ -28,6 +31,8 @@ import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 import java.io.File;
 
 import moe.codeest.enviews.ENDownloadView;
+import tv.danmaku.ijk.media.exo2.Exo2PlayerManager;
+import tv.danmaku.ijk.media.exo2.ExoPlayerCacheManager;
 
 /**
  * @author :  Jim
@@ -95,6 +100,12 @@ public class BaseGSYVideoPlayer extends GSYVideoPlayer {
     @Override
     protected void init(Context context) {
         super.init(context);
+        //EXOPlayer内核，支持格式更多
+        PlayerFactory.setPlayManager(Exo2PlayerManager.class);
+        //exo缓存模式，支持m3u8，只支持exo
+        CacheFactory.setCacheManager(ExoPlayerCacheManager.class);
+        //切换渲染模式
+        GSYVideoType.setShowType(GSYVideoType.SCREEN_MATCH_FULL);
 
 
         //增加自定义ui

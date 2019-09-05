@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
@@ -81,6 +83,7 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:$live_version"
     annotationProcessor "android.arch.persistence.room:compiler:$live_version"
     implementation "android.arch.persistence.room:rxjava2:$live_version"
+    implementation project(':sdk_sdmobile')
     //通用工具类
     implementation 'com.blankj:utilcode:1.24.7'
     //autosize今日头条适配
@@ -144,8 +147,31 @@ dependencies {
     }
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
+
+
     //GSY播放器
-    implementation 'com.shuyu:GSYVideoPlayer:6.0.3'
+//    implementation 'com.shuyu:GSYVideoPlayer:6.0.3'
+//    //是否需要ExoPlayer模式
+//    implementation 'com.shuyu:GSYVideoPlayer-exo2:6.0.3'
+//
+//    //根据你的需求ijk模式的so
+//    implementation 'com.shuyu:gsyVideoPlayer-armv5:6.0.3'
+//    implementation 'com.shuyu:gsyVideoPlayer-armv7a:6.0.3'
+//    implementation 'com.shuyu:gsyVideoPlayer-arm64:6.0.3'
+//    implementation 'com.shuyu:gsyVideoPlayer-x64:6.0.3'
+//    implementation 'com.shuyu:gsyVideoPlayer-x86:6.0.3'
+
+    implementation 'com.shuyu:gsyVideoPlayer-java:6.0.3'
+
+//是否需要ExoPlayer模式
+    implementation 'com.shuyu:GSYVideoPlayer-exo2:6.0.3'
+
+//更多ijk的编码支持
+    implementation 'com.shuyu:gsyVideoPlayer-ex_so:6.0.3'
+
+
+
+
     //lifecycle
     implementation "android.arch.lifecycle:extensions:1.1.1"
 

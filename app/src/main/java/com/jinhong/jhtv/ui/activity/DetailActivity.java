@@ -235,33 +235,40 @@ public class DetailActivity extends BaseActivity {
      */
     public void jump2VideoActivity(DetailBean.DataBean data, int position, List<DetailBean.DataBean.ChildVosBean> childVos) {
 
-        //“userId”:”testott11”,
-        //“fatherId”:1,
-        //“contentId”:6,
-        //“mainName”:”小猪佩奇”,
-        //“contentName”:”小猪佩奇第一集”,
-        //“dramaType”:”玩具”,
-        //“sort”:”1”,
-        //“duration”:”69”,
-        String playUrl = "http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4";
-        //todo
-        //  String playUrl1 = childVos.get(position).getPlayUrl();
-        //  String contentId = String.valueOf(childVos.get(position).getContentId());
-        //  String contentName = childVos.get(position).getContentName();
-        //  String sort = String.valueOf(childVos.get(position).getSort());
-        Bundle bundle = new Bundle();
-        bundle.putString("playUrl", playUrl);
-        bundle.putString("userId", "testott11");
-        bundle.putString("fatherId", String.valueOf(data.getFatherId()));
-        bundle.putString("contentId", "6");
-        bundle.putString("mainName", data.getMainName());
-        bundle.putString("contemainNamentName", "小猪佩奇第一集");
-        bundle.putString("dramaType", data.getDramaType());
-        bundle.putString("sort", "1");
+        //判断是否订购
+        boolean isBuy = true;
+        if (!isBuy) {
+            //没有订购
+            startActivity(OrderActivity.class);
+        } else {
+            //“userId”:”testott11”,
+            //“fatherId”:1,
+            //“contentId”:6,
+            //“mainName”:”小猪佩奇”,
+            //“contentName”:”小猪佩奇第一集”,
+            //“dramaType”:”玩具”,
+            //“sort”:”1”,
+            //“duration”:”69”,
+           // String playUrl = "http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4";
+            String playUrl = "http://202.99.114.93/88888891/16/20190905/270840647/270840647.ts";
+            //todo
+            //  String playUrl1 = childVos.get(position).getPlayUrl();
+            //  String contentId = String.valueOf(childVos.get(position).getContentId());
+            //  String contentName = childVos.get(position).getContentName();
+            //  String sort = String.valueOf(childVos.get(position).getSort());
+            Bundle bundle = new Bundle();
+            bundle.putString("playUrl", playUrl);
+            bundle.putString("userId", "testott11");
+            bundle.putString("fatherId", String.valueOf(data.getFatherId()));
+            bundle.putString("contentId", "6");
+            bundle.putString("mainName", data.getMainName());
+            bundle.putString("contemainNamentName", "小猪佩奇第一集");
+            bundle.putString("dramaType", data.getDramaType());
+            bundle.putString("sort", "1");
 
-        startActivity(VideoActivity1.class, bundle);
+            startActivity(VideoActivity1.class, bundle);
 
-
+        }
     }
 
 

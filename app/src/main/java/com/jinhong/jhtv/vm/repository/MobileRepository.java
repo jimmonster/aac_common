@@ -17,7 +17,6 @@ import com.jinhong.jhtv.model.ServiceOrderBean;
 import com.jinhong.jhtv.utils.GsonUtil;
 import com.jinhong.jhtv.utils.OkGoUtils;
 import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.Response;
 
 import java.util.HashMap;
@@ -42,8 +41,8 @@ public class MobileRepository {
     private MutableLiveData<QueryUserResourcesBean> mQueryUserResourcesBeanMutableLiveData = new MutableLiveData<>();
 
     //统一订购退订(serviceOrder)
-    public MutableLiveData<ServiceOrderBean> getServiceOrderBean(String url, HttpHeaders headers, HashMap<String, String> params) {
-        OkGoUtils.post(url, headers, params, new StringCallback() {
+    public MutableLiveData<ServiceOrderBean> getServiceOrderBean(String url, HashMap<String, String> params) {
+        OkGoUtils.post(url, params, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 if (response != null) {
@@ -56,8 +55,8 @@ public class MobileRepository {
     }
 
     //查询产品详情接口(queryProduct)
-    public MutableLiveData<QueryProductBean> getQueryProductBean(String url, HttpHeaders headers, HashMap<String, String> params) {
-        OkGoUtils.post(url, headers, params, new StringCallback() {
+    public MutableLiveData<QueryProductBean> getQueryProductBean(String url, HashMap<String, String> params) {
+        OkGoUtils.post(url, params, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 if (response != null) {
@@ -70,8 +69,8 @@ public class MobileRepository {
     }
 
     //取消订单接口(cancleOrder)
-    public MutableLiveData<CancleOrderBean> getCancleOrderBean(String url, HttpHeaders headers, HashMap<String, String> params) {
-        OkGoUtils.post(url, headers, params, new StringCallback() {
+    public MutableLiveData<CancleOrderBean> getCancleOrderBean(String url, HashMap<String, String> params) {
+        OkGoUtils.post(url, params, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 if (response != null) {
@@ -85,8 +84,8 @@ public class MobileRepository {
 
 
     //切换订单支付方式接口(payOrderByNewChannel) (暂未实现)
-    public MutableLiveData<PayOrderByNewChannelBean> getPayOrderByNewChannelBean(String url, HttpHeaders headers, HashMap<String, String> params) {
-        OkGoUtils.post(url, headers, params, new StringCallback() {
+    public MutableLiveData<PayOrderByNewChannelBean> getPayOrderByNewChannelBean(String url, HashMap<String, String> params) {
+        OkGoUtils.post(url, params, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 if (response != null) {
@@ -99,8 +98,8 @@ public class MobileRepository {
     }
 
     //订单信息查询接口(queryOrder)
-    public MutableLiveData<QueryOrderBean> getQueryOrderBean(String url, HttpHeaders headers, HashMap<String, String> params) {
-        OkGoUtils.post(url, headers, params, new StringCallback() {
+    public MutableLiveData<QueryOrderBean> getQueryOrderBean(String url, HashMap<String, String> params) {
+        OkGoUtils.post(url, params, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 if (response != null) {
@@ -113,8 +112,8 @@ public class MobileRepository {
     }
 
     //周期资费批价接口(calculateSingle)
-    public MutableLiveData<CalculateSingleBean> getCalculateSingleBean(String url, HttpHeaders headers, HashMap<String, String> params) {
-        OkGoUtils.post(url, headers, params, new StringCallback() {
+    public MutableLiveData<CalculateSingleBean> getCalculateSingleBean(String url, HashMap<String, String> params) {
+        OkGoUtils.post(url, params, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 if (response != null) {
@@ -127,8 +126,8 @@ public class MobileRepository {
     }
 
     //按次事件类资费批价接口(calculatePrice)
-    public MutableLiveData<CalculatePriceBean> getCalculatePriceBean(String url, HttpHeaders headers, HashMap<String, String> params) {
-        OkGoUtils.post(url, headers, params, new StringCallback() {
+    public MutableLiveData<CalculatePriceBean> getCalculatePriceBean(String url, HashMap<String, String> params) {
+        OkGoUtils.post(url, params, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 if (response != null) {
@@ -141,8 +140,8 @@ public class MobileRepository {
     }
 
     //查询用户可参加的营销活动列表(queryPromotions)
-    public MutableLiveData<QueryPromotionsBean> getQueryPromotionsBean(String url, HttpHeaders headers, HashMap<String, String> params) {
-        OkGoUtils.post(url, headers, params, new StringCallback() {
+    public MutableLiveData<QueryPromotionsBean> getQueryPromotionsBean(String url, HashMap<String, String> params) {
+        OkGoUtils.post(url, params, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 if (response != null) {
@@ -155,8 +154,8 @@ public class MobileRepository {
     }
 
     //查询订购记录(querySubInfoList)
-    public MutableLiveData<QuerySubInfoListBean> getQuerySubInfoListBean(String url, HttpHeaders headers, HashMap<String, String> params) {
-        OkGoUtils.post(url, headers, params, new StringCallback() {
+    public MutableLiveData<QuerySubInfoListBean> getQuerySubInfoListBean(String url, HashMap<String, String> params) {
+        OkGoUtils.post(url, params, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 if (response != null) {
@@ -169,8 +168,8 @@ public class MobileRepository {
     }
 
     // 第三方支付结果通知记录 (notifyThirdPaymentResult)
-    public MutableLiveData<NotifyThirdPaymentResultBean> getNotifyThirdPaymentResultBean(String url, HttpHeaders headers, HashMap<String, String> params) {
-        OkGoUtils.post(url, headers, params, new StringCallback() {
+    public MutableLiveData<NotifyThirdPaymentResultBean> getNotifyThirdPaymentResultBean(String url, HashMap<String, String> params) {
+        OkGoUtils.post(url, params, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 if (response != null) {
@@ -183,8 +182,8 @@ public class MobileRepository {
     }
 
     //用户领取优惠券资源(drawVouhcers)
-    public MutableLiveData<DrawVouhcersBean> getDrawVouhcersBean(String url, HttpHeaders headers, HashMap<String, String> params) {
-        OkGoUtils.post(url, headers, params, new StringCallback() {
+    public MutableLiveData<DrawVouhcersBean> getDrawVouhcersBean(String url, HashMap<String, String> params) {
+        OkGoUtils.post(url, params, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 if (response != null) {
@@ -197,8 +196,8 @@ public class MobileRepository {
     }
 
     //查询用户优惠券资源(queryUserResources)
-    public MutableLiveData<QueryUserResourcesBean> getQueryUserResourcesBean(String url, HttpHeaders headers, HashMap<String, String> params) {
-        OkGoUtils.post(url, headers, params, new StringCallback() {
+    public MutableLiveData<QueryUserResourcesBean> getQueryUserResourcesBean(String url, HashMap<String, String> params) {
+        OkGoUtils.post(url, params, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 if (response != null) {

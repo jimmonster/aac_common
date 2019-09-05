@@ -16,6 +16,8 @@
 
     <string name="nav_tab_normal_ttf">@string/fzlt_zhun_hei</string>
     <string name="nav_tab_focus_ttf">@string/fzlt_cu_hei</string>
+    <string name="app_order_info1">资费29/月，包月有效期从订购当日起至次月该日期前一天，到期自动续费，您可随时"自动服务-续订变更"中退订，退订后不再续费</string>
+    <string name="app_order_info2">资费30元/30天，在有效时段内可无限次使用，到期自动取消</string>
 
 
 </resources>

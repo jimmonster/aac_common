@@ -39,6 +39,13 @@
 
     <!-- WindowManger 权限(浮动窗口)-->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <supports-screens
+        android:smallScreens="true"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:xlargeScreens="true"
+        android:anyDensity="true" />
+
 
 
     <application
@@ -120,6 +127,7 @@
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent"/>
+        <activity android:name=".ui.activity.OrderActivity"/>
 
         <!-- 必须配置 fileProvider， 注意： android:authorities="${applicationId}.fileProvider" 不要直接copy，设置为你的包名.fileProvider-->
         <provider

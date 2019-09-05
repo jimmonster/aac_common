@@ -109,6 +109,4 @@ public class Constants {
     public final static String POST_MULTIPLE_LOG_INSERT = MAIN + "kdepg_server/log/batchInsert.do";
 
 
-
-
 }
