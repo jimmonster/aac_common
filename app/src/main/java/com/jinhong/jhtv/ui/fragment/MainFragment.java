@@ -12,15 +12,19 @@ import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.StaggeredGridLayoutHelper;
+import com.blankj.utilcode.util.NetworkUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseFragment;
 import com.jinhong.jhtv.model.MainListBean;
+import com.jinhong.jhtv.model.SingleCollectBean;
 import com.jinhong.jhtv.ui.activity.DetailActivity;
 import com.jinhong.jhtv.ui.adapter.MainVirtualAdapter;
 import com.jinhong.jhtv.utils.AutoSizeUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,6 +40,7 @@ public class MainFragment extends BaseFragment {
     private ArrayList<String> mContents;
 
     private MutableLiveData<MainListBean> mMainListBean;
+    private String mData;
 
 
     public MainFragment getInstance(String s) {
@@ -57,8 +62,8 @@ public class MainFragment extends BaseFragment {
         //获取到activity传递过来的数据
         Bundle bundle = getArguments();
         if (bundle != null) {
-            String data = bundle.getString("DATA");
-            mMainListBean = mCommonViewModel.getMainListBean(data);
+            mData = bundle.getString("DATA");
+            mMainListBean = mCommonViewModel.getMainListBean(mData);
         }
 
 
@@ -150,6 +155,29 @@ public class MainFragment extends BaseFragment {
             @Override
             public void onItemClick(View view, int position) {
                 MainListBean.DataBean.PosterVosBean posterVosBean = mainListBean.getData().getPosterVos().get(position);
+
+                //todo 请求上传数据接口，并且上传
+                //单条日志上传接口
+                String nowString = TimeUtils.getNowString();
+                HashMap<String, String> params = new HashMap<>();
+
+                params.put("clickTime", nowString);
+                params.put("clientIp", NetworkUtils.getIPAddress(true));
+                params.put("productName", posterVosBean.getMainName());
+                params.put("productPage", mData);
+                params.put("area", String.valueOf(posterVosBean.getFatherId()));
+                params.put("sort", String.valueOf(position));
+                params.put("options", "0");
+                params.put("contentId", posterVosBean.getPosterId());
+                params.put("contentName",posterVosBean.getMainName());
+                MutableLiveData<SingleCollectBean> singleCollectBean = mCommonViewModel.updateSingleCollectBean(params);
+                singleCollectBean.observe(getActivity(), new Observer<SingleCollectBean>() {
+                    @Override
+                    public void onChanged(@Nullable SingleCollectBean singleCollectBean) {
+
+                    }
+                });
+
 
                 Bundle bundle = new Bundle();
                 bundle.putString("fatherId", "" + posterVosBean.getFatherId());

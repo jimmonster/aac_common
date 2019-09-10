@@ -19,7 +19,6 @@ import com.jinhong.jhtv.model.QuerySubInfoListBean;
 import com.jinhong.jhtv.model.QueryUserResourcesBean;
 import com.jinhong.jhtv.model.ServiceOrderBean;
 import com.jinhong.jhtv.vm.repository.MobileRepository;
-import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpHeaders;
 
 import java.util.HashMap;
@@ -35,29 +34,39 @@ public class MobileViewModel extends ViewModel {
 
     public MobileViewModel() {
         mRepository = new MobileRepository();
-
-        HttpHeaders headers = OkGo.getInstance().getCommonHeaders();
-        headers.put("Content-Type", "application/json");
-        headers.put("Authorization", "WSSE realm=\"SDP\",profile=\"UsernameToken\",type=\"Appkey\"");
-        headers.put("X-WSSE", HeaderUtils.Companion.getXWSSE());
-        OkGo.getInstance().addCommonHeaders(headers);
     }
 
     //统一订购退订(serviceOrder)
     public MutableLiveData<ServiceOrderBean> getServiceOrderBean(String url) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", "WSSE realm=\"SDP\",profile=\"UsernameToken\",type=\"Appkey\"");
+        headers.put("X-WSSE", HeaderUtils.Companion.getXWSSE());
+
         HashMap<String, String> params = new HashMap<>();
-        params.put("userID", ParamsUtils.Companion.getUserID());
-        params.put("contentID", ParamsUtils.Companion.getContentID());
-        params.put("productID", ParamsUtils.Companion.getProductID());
-        params.put("action", ParamsUtils.Companion.getAction());
-        params.put("continueflag", ParamsUtils.Companion.getContinueflag());
-        params.put("orderMode", ParamsUtils.Companion.getOrderMode());
-        params.put("serStartTime", ParamsUtils.Companion.getTime());
+//        params.put("userID", ParamsUtils.Companion.getUserID());
+//        params.put("contentID", ParamsUtils.Companion.getContentID());
+//        params.put("productID", ParamsUtils.Companion.getProductID());
+//        params.put("action", ParamsUtils.Companion.getAction());
+//        params.put("continueflag", ParamsUtils.Companion.getContinueflag());
+//        params.put("orderMode", ParamsUtils.Companion.getOrderMode());
+//        params.put("serStartTime", ParamsUtils.Companion.getTime());
+        params.put("userID", "CSD000012345678");
+        params.put("contentID", "zh5063462349");
+        params.put("productID", "hw0012515133");
+        params.put("action", "1");
+        params.put("continueflag", "1");
+        params.put("orderMode", "1");
+        params.put("serStartTime", "20161130210404");
         return mRepository.getServiceOrderBean(MobileConstants.POST_SERVICE_ORDER, params);
     }
 
     //查询产品详情接口(queryProduct)
     public MutableLiveData<QueryProductBean> getQueryProductBean(String url) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", "WSSE realm=\"SDP\",profile=\"UsernameToken\",type=\"Appkey\"");
+        headers.put("X-WSSE", HeaderUtils.Companion.getXWSSE());
 
         HashMap<String, String> params = new HashMap<>();
         params.put("productID", ParamsUtils.Companion.getProductID());
@@ -66,6 +75,10 @@ public class MobileViewModel extends ViewModel {
 
     //取消订单接口(cancleOrder)
     public MutableLiveData<CancleOrderBean> getCancleOrderBean(String url) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", "WSSE realm=\"SDP\",profile=\"UsernameToken\",type=\"Appkey\"");
+        headers.put("X-WSSE", HeaderUtils.Companion.getXWSSE());
 
         HashMap<String, String> params = new HashMap<>();
         params.put("userID", ParamsUtils.Companion.getUserID());
@@ -75,6 +88,10 @@ public class MobileViewModel extends ViewModel {
 
     //切换订单支付方式接口(payOrderByNewChannel) (暂未实现)
     public MutableLiveData<PayOrderByNewChannelBean> getPayOrderByNewChannelBean(String url) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", "WSSE realm=\"SDP\",profile=\"UsernameToken\",type=\"Appkey\"");
+        headers.put("X-WSSE", HeaderUtils.Companion.getXWSSE());
 
         HashMap<String, String> params = new HashMap<>();
 
@@ -83,6 +100,10 @@ public class MobileViewModel extends ViewModel {
 
     //订单信息查询接口(queryOrder)
     public MutableLiveData<QueryOrderBean> getQueryOrderBean(String url) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", "WSSE realm=\"SDP\",profile=\"UsernameToken\",type=\"Appkey\"");
+        headers.put("X-WSSE", HeaderUtils.Companion.getXWSSE());
 
         HashMap<String, String> params = new HashMap<>();
         params.put("userID", ParamsUtils.Companion.getUserID());
@@ -92,6 +113,10 @@ public class MobileViewModel extends ViewModel {
 
     //周期资费批价接口(calculateSingle)
     public MutableLiveData<CalculateSingleBean> getCalculateSingleBean(String url) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", "WSSE realm=\"SDP\",profile=\"UsernameToken\",type=\"Appkey\"");
+        headers.put("X-WSSE", HeaderUtils.Companion.getXWSSE());
 
         HashMap<String, String> params = new HashMap<>();
         params.put("userID", ParamsUtils.Companion.getUserID());
@@ -105,6 +130,10 @@ public class MobileViewModel extends ViewModel {
 
     //按次事件类资费批价接口(calculatePrice)
     public MutableLiveData<CalculatePriceBean> getCalculatePriceBean(String url) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", "WSSE realm=\"SDP\",profile=\"UsernameToken\",type=\"Appkey\"");
+        headers.put("X-WSSE", HeaderUtils.Companion.getXWSSE());
 
         HashMap<String, String> params = new HashMap<>();
         params.put("userID", ParamsUtils.Companion.getUserID());
@@ -114,6 +143,10 @@ public class MobileViewModel extends ViewModel {
 
     // 查询用户可参加的营销活动列表(queryPromotions)
     public MutableLiveData<QueryPromotionsBean> getQueryPromotionsBean(String url) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", "WSSE realm=\"SDP\",profile=\"UsernameToken\",type=\"Appkey\"");
+        headers.put("X-WSSE", HeaderUtils.Companion.getXWSSE());
 
         HashMap<String, String> params = new HashMap<>();
         params.put("userID", ParamsUtils.Companion.getUserID());
@@ -123,6 +156,10 @@ public class MobileViewModel extends ViewModel {
 
     //查询订购记录(querySubInfoList)
     public MutableLiveData<QuerySubInfoListBean> getQuerySubInfoListBean(String url) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", "WSSE realm=\"SDP\",profile=\"UsernameToken\",type=\"Appkey\"");
+        headers.put("X-WSSE", HeaderUtils.Companion.getXWSSE());
 
         HashMap<String, String> params = new HashMap<>();
         params.put("userID", ParamsUtils.Companion.getUserID());
@@ -132,6 +169,10 @@ public class MobileViewModel extends ViewModel {
 
     // 第三方支付结果通知记录 (notifyThirdPaymentResult)
     public MutableLiveData<NotifyThirdPaymentResultBean> getNotifyThirdPaymentResultBean(String url) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", "WSSE realm=\"SDP\",profile=\"UsernameToken\",type=\"Appkey\"");
+        headers.put("X-WSSE", HeaderUtils.Companion.getXWSSE());
 
         HashMap<String, String> params = new HashMap<>();
         params.put("userID", ParamsUtils.Companion.getUserID());
@@ -143,6 +184,10 @@ public class MobileViewModel extends ViewModel {
 
     //用户领取优惠券资源(drawVouhcers)
     public MutableLiveData<DrawVouhcersBean> getDrawVouhcersBean(String url) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", "WSSE realm=\"SDP\",profile=\"UsernameToken\",type=\"Appkey\"");
+        headers.put("X-WSSE", HeaderUtils.Companion.getXWSSE());
 
         HashMap<String, String> params = new HashMap<>();
         params.put("userID", ParamsUtils.Companion.getUserID());
@@ -157,6 +202,10 @@ public class MobileViewModel extends ViewModel {
 
     //查询用户优惠券资源(queryUserResources)
     public MutableLiveData<QueryUserResourcesBean> getQueryUserResourcesBean(String url) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", "WSSE realm=\"SDP\",profile=\"UsernameToken\",type=\"Appkey\"");
+        headers.put("X-WSSE", HeaderUtils.Companion.getXWSSE());
 
         HashMap<String, String> params = new HashMap<>();
         params.put("userID", ParamsUtils.Companion.getUserID());

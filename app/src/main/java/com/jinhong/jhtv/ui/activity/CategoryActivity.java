@@ -9,11 +9,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.FragmentUtils;
+import com.blankj.utilcode.util.NetworkUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseActivity;
 import com.jinhong.jhtv.model.CategoryLeftBean;
 import com.jinhong.jhtv.model.MainIdBean;
+import com.jinhong.jhtv.model.SingleCollectBean;
 import com.jinhong.jhtv.ui.adapter.CyLeftAdapter;
 import com.jinhong.jhtv.ui.fragment.CyFragment;
 import com.jinhong.jhtv.utils.GsonUtil;
@@ -22,6 +25,7 @@ import com.jinhong.jhtv.utils.IoUtils;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -128,8 +132,6 @@ public class CategoryActivity extends BaseActivity {
                     currentPosition = position;
                     mRecyclerview.setItemActivated(position);
                 }
-
-
             }
 
             @Override
@@ -145,10 +147,14 @@ public class CategoryActivity extends BaseActivity {
                 //点击
                 toast("点击" + position);
                 log("点击" + position);
+
+
             }
         });
 
     }
+
+
 
 
 }

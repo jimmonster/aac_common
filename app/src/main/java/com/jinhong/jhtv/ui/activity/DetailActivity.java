@@ -142,7 +142,6 @@ public class DetailActivity extends BaseActivity {
                 if (status == 0) {
                     //已经收藏
                     mTvIsCollection.setBackgroundResource(R.drawable.selector_collection_yes);
-
                 } else {
                     //还未收藏
                     mTvIsCollection.setBackgroundResource(R.drawable.selector_collection_no);
@@ -169,9 +168,7 @@ public class DetailActivity extends BaseActivity {
                             }
                         }
                     });
-
                 }
-
             }
         });
 
@@ -184,7 +181,6 @@ public class DetailActivity extends BaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 //todo 选择到对应的界面
-
             }
         });
         //集数
@@ -249,8 +245,8 @@ public class DetailActivity extends BaseActivity {
             //“dramaType”:”玩具”,
             //“sort”:”1”,
             //“duration”:”69”,
-           // String playUrl = "http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4";
-            String playUrl = "http://202.99.114.93/88888891/16/20190905/270840647/270840647.ts";
+            String playUrl = "http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4";
+            //  String playUrl = "http://202.99.114.93/88888891/16/20190905/270840647/270840647.ts";
             //todo
             //  String playUrl1 = childVos.get(position).getPlayUrl();
             //  String contentId = String.valueOf(childVos.get(position).getContentId());

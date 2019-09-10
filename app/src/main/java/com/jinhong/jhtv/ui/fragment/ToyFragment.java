@@ -12,15 +12,19 @@ import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.NetworkUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseFragment;
 import com.jinhong.jhtv.model.MainListBean;
+import com.jinhong.jhtv.model.SingleCollectBean;
 import com.jinhong.jhtv.ui.activity.CategoryActivity;
 import com.jinhong.jhtv.ui.activity.DetailActivity;
 import com.jinhong.jhtv.ui.adapter.ToyVirtualAdapter;
 import com.jinhong.jhtv.utils.AutoSizeUtils;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -124,6 +128,27 @@ public class ToyFragment extends BaseFragment {
                 try {
                     switch (position) {
                         default:
+                            //todo 请求上传数据接口，并且上传
+                            //单条日志上传接口
+                            String nowString = TimeUtils.getNowString();
+                            HashMap<String, String> params = new HashMap<>();
+                            params.put("clickTime", nowString);
+                            params.put("clientIp", NetworkUtils.getIPAddress(true));
+                            params.put("productName", posterVos.get(position).getMainName());
+                            params.put("productPage", mColumnId);
+                            params.put("area", "1");
+                            params.put("sort", String.valueOf(position));
+                            params.put("options", "0");
+                            params.put("contentId", posterVos.get(position).getPosterId());
+                            params.put("contentName", posterVos.get(position).getMainName());
+                            MutableLiveData<SingleCollectBean> singleCollectBean = mCommonViewModel.updateSingleCollectBean(params);
+                            singleCollectBean.observe(getActivity(), new Observer<SingleCollectBean>() {
+                                        @Override
+                                        public void onChanged(@Nullable SingleCollectBean singleCollectBean) {
+
+                                        }
+                                    }
+                            );
                             Bundle bundle1 = new Bundle();
                             bundle1.putString("fatherId", "" + posterVos.get(position).getFatherId());
                             startActivity(DetailActivity.class, bundle1);
@@ -133,8 +158,6 @@ public class ToyFragment extends BaseFragment {
                             bundle.putString("columnId", mColumnId);
                             startActivity(CategoryActivity.class, bundle);
                             break;
-
-
                     }
                 } catch (Exception e) {
                     LogUtils.e(e);
@@ -143,8 +166,6 @@ public class ToyFragment extends BaseFragment {
         });
 
     }
-
-
 }
 
 

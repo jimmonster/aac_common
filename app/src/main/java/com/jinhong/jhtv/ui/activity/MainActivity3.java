@@ -150,7 +150,6 @@ public class MainActivity3 extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void onBackPressed() {
-
         Dialog mDialog = new Dialog(this, R.style.video_style_dialog_progress);
         mDialog.setContentView(R.layout.dialog_common);
         TextView mTvMessage = mDialog.findViewById(R.id.tv_message);
@@ -162,13 +161,11 @@ public class MainActivity3 extends BaseActivity implements View.OnClickListener 
             @Override
             public void onClick(View v) {
                 AppUtils.exitApp();
-
             }
         });
         mBtnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 mDialog.dismiss();
             }
         });
@@ -176,7 +173,6 @@ public class MainActivity3 extends BaseActivity implements View.OnClickListener 
             mDialog.create();
         }
         mDialog.show();
-
     }
 
 }

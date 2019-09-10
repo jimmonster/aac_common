@@ -1,15 +1,18 @@
 package com.jinhong.jhtv.base;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
-import android.view.MotionEvent;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,6 +21,10 @@ import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.jinhong.jhtv.R;
+import com.jinhong.jhtv.model.SingleCollectBean;
+import com.jinhong.jhtv.ui.activity.CategoryActivity;
+import com.jinhong.jhtv.ui.activity.MainActivity3;
+import com.jinhong.jhtv.ui.activity.StartActivity;
 import com.jinhong.jhtv.ui.widgets.LoadingFrame;
 import com.jinhong.jhtv.vm.viewmodel.CommonViewModel;
 import com.owen.focus.FocusBorder;
@@ -31,7 +38,7 @@ import me.jessyan.autosize.AutoSizeCompat;
  * @date :  2019-07-01
  * @description :
  */
-public abstract class BaseActivity extends AppCompatActivity implements BaseFragment.FocusBorderHelper{
+public abstract class BaseActivity extends AppCompatActivity implements BaseFragment.FocusBorderHelper {
     public CommonViewModel mCommonViewModel;
     public String extraBundle = "ExtraBundle";
     @SuppressLint("HandlerLeak")
@@ -56,7 +63,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseFrag
     public Resources getResources() {
         //需要升级到 v1.1.2 及以上版本才能使用 AutoSizeCompat
         AutoSizeCompat.autoConvertDensityOfGlobal((super.getResources()));//如果没有自定义需求用这个方法
-       // AutoSizeCompat.autoConvertDensity((super.getResources(), 667, false);//如果有自定义需求就用这个方法
+        // AutoSizeCompat.autoConvertDensity((super.getResources(), 667, false);//如果有自定义需求就用这个方法
         return super.getResources();
     }
 
@@ -115,7 +122,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseFrag
 //                .build(this);
 
         // 移动框
-        if(null == mFocusBorder) {
+        if (null == mFocusBorder) {
             mFocusBorder = new FocusBorder.Builder()
                     .asColor()
                     .borderColorRes(R.color.common_orange_dark)
@@ -126,12 +133,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseFrag
         }
 
 
-
     }
-
-
-
-
 
 
     /**
@@ -275,52 +277,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseFrag
         super.onBackPressed();
     }
 
-    /**
-     * 监听app 的点击事件
-     *
-     * @param ev
-     * @return
-     */
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                //有按下动作时取消定时
-                //todo 请求上传数据接口，并且上传
-                //单条日志上传接口
-                //{
-                //"clickTime":”20190303101010”,
-                //    "clientIp":"1.1.1.1",
-                //    "productName":"qhz",
-                //"productPage":"category",
-                //"area":”1”,
-                //    "sort":"3",
-                //    "options":"0",
-                //"contentId":"100010",
-                //“contentName”:”小猪佩奇”
-                //
-                //}
-                String nowString = TimeUtils.getNowString();
-                HashMap<String, String> params = new HashMap<>();
-
-                params.put("clickTime", nowString);
-                params.put("clientIp", NetworkUtils.getIPAddress(true));
-                params.put("productName", "qhz");
-                params.put("productPage", "category");
-                params.put("area", "1");
-                params.put("sort", "3");
-                params.put("options", "0");
-                params.put("contentId", "100010");
-                params.put("contentName", "小猪佩奇");
-                mCommonViewModel.updateSingleCollectBean(params);
-                break;
-            default:
-                break;
-
-        }
-        return super.dispatchTouchEvent(ev);
-
-    }
 
 
 }

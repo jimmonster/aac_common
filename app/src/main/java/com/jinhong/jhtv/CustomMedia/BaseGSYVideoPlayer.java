@@ -388,7 +388,7 @@ public class BaseGSYVideoPlayer extends GSYVideoPlayer {
      * 点击触摸显示和隐藏逻辑
      */
     @Override
-    protected void onClickUiToggle() {
+    public void onClickUiToggle() {
         if (mIfCurrentIsFullscreen && mLockCurScreen && mNeedLockFull) {
             setViewShowState(mLockScreen, VISIBLE);
             return;

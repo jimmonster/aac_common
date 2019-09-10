@@ -8,15 +8,19 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.NetworkUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.jinhong.jhtv.R;
 import com.jinhong.jhtv.base.BaseFragment;
 import com.jinhong.jhtv.listener.AbstractOnItemListener;
 import com.jinhong.jhtv.model.ProgrammeBean;
+import com.jinhong.jhtv.model.SingleCollectBean;
 import com.jinhong.jhtv.ui.activity.DetailActivity;
 import com.jinhong.jhtv.ui.adapter.CyRightAdapter;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -75,10 +79,35 @@ public class CyFragment extends BaseFragment {
         mRecyclerView.setOnItemListener(new AbstractOnItemListener() {
             @Override
             public void onItemClick(TvRecyclerView parent, View itemView, int position) {
+                //todo 请求上传数据接口，并且上传
+                //单条日志上传接口
+                String nowString = TimeUtils.getNowString();
+                HashMap<String, String> params = new HashMap<>();
+
+                params.put("clickTime", nowString);
+                params.put("clientIp", NetworkUtils.getIPAddress(true));
+                params.put("productName", mListBeans.get(position).getPosterId());
+                params.put("productPage", "category");
+                params.put("area", String.valueOf(mListBeans.get(position).getFatherId()));
+                params.put("sort", String.valueOf(position));
+                params.put("options", "0");
+                params.put("contentId", mListBeans.get(position).getContentType());
+                params.put("contentName", mListBeans.get(position).getMainName());
+                MutableLiveData<SingleCollectBean> singleCollectBean = mCommonViewModel.updateSingleCollectBean(params);
+                singleCollectBean.observe(getActivity(), new Observer<SingleCollectBean>() {
+                    @Override
+                    public void onChanged(@Nullable SingleCollectBean singleCollectBean) {
+
+                    }
+                });
+
+
                 int fatherId = mListBeans.get(position).getFatherId();
                 Bundle bundle = new Bundle();
                 bundle.putString("fatherId", "" + fatherId);
                 startActivity(DetailActivity.class, bundle);
+
+
             }
         });
 

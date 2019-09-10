@@ -436,11 +436,9 @@ public class VideoActivity1 extends BaseActivity {
             case KeyEvent.KEYCODE_ENTER:     //确定键，暂停播放
             case KeyEvent.KEYCODE_DPAD_CENTER:
                 if (mGsyVideoManager.isPlaying()) {
-                    mGsyVideoManager.pause();
-                    mStart.pause();
+                    mGsyPlayer.onVideoPause();
                 } else {
-                    mGsyVideoManager.start();
-                    mStart.play();
+                    mGsyPlayer.onVideoResume();
                 }
                 break;
 
