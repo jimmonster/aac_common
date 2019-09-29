@@ -107,7 +107,6 @@ public class MainActivity3 extends BaseActivity implements View.OnClickListener 
                     currentPosition = position;
                     mRecyclerviewTabs.setItemActivated(position);
                 }
-
             }
 
             @Override
@@ -121,7 +120,6 @@ public class MainActivity3 extends BaseActivity implements View.OnClickListener 
                 currentPosition = position;
                 mRecyclerviewTabs.setItemActivated(position);
                 FragmentUtils.replace(getSupportFragmentManager(), mFragments.get(position), R.id.frame_layout);
-
             }
         });
 

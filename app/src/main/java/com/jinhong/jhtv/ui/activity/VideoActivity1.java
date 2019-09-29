@@ -49,7 +49,7 @@ public class VideoActivity1 extends BaseActivity {
 //    String url = "http://ivi.bupt.edu.cn/hls/hunantv.m3u8";
     String url = "http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4";
     String url1 = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
-    String url2 = "http://202.99.114.93/88888891/16/20190905/270840647/270840647.ts";
+//    String url1 = "http://202.99.114.93/88888891/16/20190905/270840647/270840647.ts";
     private GSYVideoViewBridge mGsyVideoManager;//视频管理
     private GSYVideoOptionBuilder mGsyVideoOption;//配置工具
     private RelativeLayout mRlVideoTip;

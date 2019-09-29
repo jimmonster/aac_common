@@ -6,6 +6,7 @@ package com.jinhong.jhtv;
  * @description :
  */
 public class MobileConstants {
+    public final static String URL="http://videos.huxin.user.funhotel.cn:10189/c1/2019/08/06/D57AC87EEA8495102E4B514AEF505F5D.ts";
 
     //山东移动
     private final static String MOBILE_MAIN = "http://223.99.141.143:1100";

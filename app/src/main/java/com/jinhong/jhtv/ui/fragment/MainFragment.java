@@ -12,6 +12,7 @@ import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.StaggeredGridLayoutHelper;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.jinhong.jhtv.R;
@@ -85,7 +86,7 @@ public class MainFragment extends BaseFragment {
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                outRect.set(AutoSizeUtils.dp2px(getActivity(),13), AutoSizeUtils.dp2px(getActivity(),14), AutoSizeUtils.dp2px(getActivity(),13), AutoSizeUtils.dp2px(getActivity(),14));
+                outRect.set(AutoSizeUtils.dp2px(getActivity(), 13), AutoSizeUtils.dp2px(getActivity(), 14), AutoSizeUtils.dp2px(getActivity(), 13), AutoSizeUtils.dp2px(getActivity(), 14));
             }
         });
 
@@ -110,11 +111,15 @@ public class MainFragment extends BaseFragment {
     private void setMainAdapter(VirtualLayoutManager layoutManager, MainListBean mainListBean) {
         int size = mainListBean.getData().getPosterVos().size();
         final List<LayoutHelper> helpers = new LinkedList<>();
+        //网格布局
+        final GridLayoutHelper gridLayoutHelper = new GridLayoutHelper(2);
+
+        gridLayoutHelper.setItemCount(2);
 
 //网格布局
         final GridLayoutHelper gridLayoutHelper0 = new GridLayoutHelper(4);
 
-        gridLayoutHelper0.setItemCount(8);
+        gridLayoutHelper0.setItemCount(4);
 
 //网格布局
         final GridLayoutHelper gridLayoutHelper1 = new GridLayoutHelper(6);
@@ -127,9 +132,6 @@ public class MainFragment extends BaseFragment {
 //        linearLayoutHelper.setItemCount(1);
 
 
-//网格布局
-        final GridLayoutHelper gridLayoutHelper2 = new GridLayoutHelper(4);
-        gridLayoutHelper2.setItemCount(4);
 //悬浮布
 //        FixLayoutHelper layoutHelper = new FixLayoutHelper(80, 80);
         //流式布局
@@ -138,16 +140,26 @@ public class MainFragment extends BaseFragment {
         staggeredGridLayoutHelper.setGap(0);
         staggeredGridLayoutHelper.setItemCount(6);
 
+//网格布局
+        final GridLayoutHelper gridLayoutHelper2 = new GridLayoutHelper(4);
+        gridLayoutHelper2.setItemCount(4);
+
 //按照顺序添加类型条目布局
+        helpers.add(gridLayoutHelper);
         helpers.add(gridLayoutHelper0);
         helpers.add(gridLayoutHelper1);
         //  helpers.add(linearLayoutHelper);
         helpers.add(staggeredGridLayoutHelper);
         helpers.add(gridLayoutHelper2);
+
         layoutManager.setLayoutHelpers(helpers);
 
         List<MainListBean.DataBean.PosterVosBean> posterVos = mainListBean.getData().getPosterVos();
-        Collections.sort(posterVos, (o1, o2) -> Integer.parseInt(o1.getPosterId().substring(3)) - Integer.parseInt(o2.getPosterId().substring(3)));
+        try {
+            Collections.sort(posterVos, (o1, o2) -> Integer.parseInt(o1.getPosterId().substring(3)) - Integer.parseInt(o2.getPosterId().substring(3)));
+        } catch (Exception e) {
+            LogUtils.e(e);
+        }
         MainVirtualAdapter mainVirtualAdapter = new MainVirtualAdapter(getContext(), layoutManager, posterVos);
 
         recyclerView.setAdapter(mainVirtualAdapter);
@@ -169,7 +181,7 @@ public class MainFragment extends BaseFragment {
                 params.put("sort", String.valueOf(position));
                 params.put("options", "0");
                 params.put("contentId", posterVosBean.getPosterId());
-                params.put("contentName",posterVosBean.getMainName());
+                params.put("contentName", posterVosBean.getMainName());
                 MutableLiveData<SingleCollectBean> singleCollectBean = mCommonViewModel.updateSingleCollectBean(params);
                 singleCollectBean.observe(getActivity(), new Observer<SingleCollectBean>() {
                     @Override
@@ -187,7 +199,7 @@ public class MainFragment extends BaseFragment {
         });
 
 
-}
+    }
 
 
 }
