@@ -38,6 +38,9 @@ public class CyFragment extends BaseFragment {
     private TextView mTvPageCount;
     private List<ProgrammeBean.DataBean.ListBean> mListBeans;
 
+    public CyFragment() {
+    }
+
     public CyFragment(int data) {
         columnId = data;
     }

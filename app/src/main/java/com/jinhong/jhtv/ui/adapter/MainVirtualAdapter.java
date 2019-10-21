@@ -84,12 +84,12 @@ public class MainVirtualAdapter extends VirtualLayoutAdapter {
                     ImageUtils.load(mPosterVos.get(position).getPosterPath(), (ImageView) holder.itemView);
                     break;
 
+                case 6:
+                case 7:
                 case 8:
                 case 9:
                 case 10:
                 case 11:
-                case 12:
-                case 13:
                     layoutParams = new ViewGroup.LayoutParams(AutoSizeUtils.dp2px(mContext,225), AutoSizeUtils.dp2px(mContext,225));
                     holder.itemView.setLayoutParams(layoutParams);
                     ImageView itemView = (ImageView) holder.itemView;
@@ -105,18 +105,18 @@ public class MainVirtualAdapter extends VirtualLayoutAdapter {
 //                    ImageUtils.load(R.drawable.iv_qinzi_main_biaoti, (ImageView) holder.itemView);
 //                    break;
 
-                case 14:
-                case 17:
+                case 12:
+                case 15:
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                     layoutParams = new ViewGroup.LayoutParams(AutoSizeUtils.dp2px(mContext,440), AutoSizeUtils.dp2px(mContext,520));
                     holder.itemView.setLayoutParams(layoutParams);
                     ImageUtils.load(mPosterVos.get(position).getPosterPath(), (ImageView) holder.itemView);
                     break;
 
-                case 15:
+                case 13:
+                case 14:
                 case 16:
-                case 18:
-                case 19:
+                case 17:
 
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                     layoutParams = new ViewGroup.LayoutParams(AutoSizeUtils.dp2px(mContext,440), AutoSizeUtils.dp2px(mContext,248));

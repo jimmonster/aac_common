@@ -139,8 +139,8 @@ public class SearchActivity extends BaseActivity {
                 if (mainListBean != null) {
                     List<MainListBean.DataBean.PosterVosBean> posterVos = mainListBean.getData().getPosterVos();
                     Collections.sort(posterVos, (o1, o2) -> Integer.parseInt(o1.getPosterId().substring(3)) - Integer.parseInt(o2.getPosterId().substring(3)));
-
-                    for (int i = 8; i <= 13; i++) {
+                    mPosterVosBeans.clear();
+                    for (int i = 6; i <= 11; i++) {
                         if (posterVos.get(i) != null) {
                             mPosterVosBeans.add(posterVos.get(i));
                         }

@@ -6,88 +6,88 @@
               android:background="@drawable/iv_qinzi_main_bg"
               android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginStart="80dp"
+    android:layout_marginEnd="80dp">
 
-        <ImageView
-            android:id="@+id/iv_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/iv_qinzi_main_logo3"/>
-
-
-        <ImageView
-            android:id="@+id/iv_record"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/selector_main_record"
-            android:focusable="true"/>
-
-        <ImageView
-            android:id="@+id/iv_collection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:layout_toLeftOf="@id/iv_record"
-            android:background="@drawable/selector_main_collection"
-            android:focusable="true"/>
-
-        <ImageView
-            android:id="@+id/iv_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="50dp"
-            android:layout_toLeftOf="@id/iv_collection"
-            android:background="@drawable/selector_main_search"
-            android:focusable="true"/>
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/iv_qinzi_main_logo3"/>
 
 
-        <!--<com.jinhong.jhtv.ui.views.AutoHorizontalScrollTextView-->
-        <!--android:id="@+id/astv_notify"-->
-        <!--android:layout_width="423dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_toLeftOf="@id/iv_search"-->
-        <!--android:background="@drawable/iv_qinzi_main_tip"-->
-        <!--android:gravity="center_vertical"-->
-        <!--android:paddingStart="30dp"-->
-        <!--android:paddingEnd="30dp"-->
-        <!--android:singleLine="true"-->
-        <!--android:text="@string/test_info"-->
-        <!--android:textColor="@color/color_blue_074b52"-->
-        <!--android:textSize="24sp"/>-->
+    <ImageView
+        android:id="@+id/iv_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/selector_main_record"
+        android:focusable="true"/>
+
+    <ImageView
+        android:id="@+id/iv_collection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_toLeftOf="@id/iv_record"
+        android:background="@drawable/selector_main_collection"
+        android:focusable="true"/>
+
+    <ImageView
+        android:id="@+id/iv_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="50dp"
+        android:layout_toLeftOf="@id/iv_collection"
+        android:background="@drawable/selector_main_search"
+        android:focusable="true"/>
 
 
-    </RelativeLayout>
-
-    <com.owen.tvrecyclerview.widget.TvRecyclerView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/recyclerview_tabs"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
-        android:orientation="horizontal"
-        android:scrollbars="none"
-        app:spanCount="1"
-        app:tv_horizontalSpacingWithMargins="0dp"
-        app:tv_isMenu="true"
-        app:tv_layoutManager="ListLayoutManager"
-        app:tv_verticalSpacingWithMargins="0dp"/>
+    <!--<com.jinhong.jhtv.ui.views.AutoHorizontalScrollTextView-->
+    <!--android:id="@+id/astv_notify"-->
+    <!--android:layout_width="423dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_toLeftOf="@id/iv_search"-->
+    <!--android:background="@drawable/iv_qinzi_main_tip"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:paddingStart="30dp"-->
+    <!--android:paddingEnd="30dp"-->
+    <!--android:singleLine="true"-->
+    <!--android:text="@string/test_info"-->
+    <!--android:textColor="@color/color_blue_074b52"-->
+    <!--android:textSize="24sp"/>-->
 
 
-    <FrameLayout
-        android:id="@+id/frame_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+</RelativeLayout>
+
+<com.owen.tvrecyclerview.widget.TvRecyclerView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recyclerview_tabs"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_gravity="center_vertical"
+    android:layout_marginStart="80dp"
+    android:layout_marginEnd="80dp"
+    android:orientation="horizontal"
+    android:scrollbars="none"
+    app:spanCount="1"
+    app:tv_horizontalSpacingWithMargins="0dp"
+    app:tv_isMenu="true"
+    app:tv_layoutManager="ListLayoutManager"
+    app:tv_verticalSpacingWithMargins="0dp"/>
+
+
+<FrameLayout
+    android:id="@+id/frame_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
 
 </LinearLayout>

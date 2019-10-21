@@ -8,8 +8,8 @@ android {
         applicationId "com.jinhong.jhtv"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 6//5
-        versionName "1.6"//1.5
+        versionCode 8//5
+        versionName "1.8"//1.5
         ndk {
 
             abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
